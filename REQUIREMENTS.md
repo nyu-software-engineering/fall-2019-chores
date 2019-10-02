@@ -1,7 +1,54 @@
-#Team Chores Requirements Page
+#Team Chores - Project Requirements
 
-#End-User Observations
-	////TO-DO
+##Stakeholder Interviews
+During our stakeholder interviews with Prof. Bloomberg and Karan, we were given advices on how to develop our project, such as:
+-**Using Facebook or Google apis to skip over the user-verification step:**
+Our application will require user login, as each user has different set of household chores assigned. We can achieve this goal by using apis from Facebook or Google and creating a database for keeping track of users.
+
+
+##End-User Observations
+
+#####Nathan Lee
+
+-**Age:** 
+19
+
+-**Occupation:** 
+College student
+
+-**Company:** 
+New York University
+
+-**Goal:**
+Nathan is a freshman at NYU. He is living in a dorm with roommates who he does not feel too close with. He wants to handle household chores with his roommates respectfully and facilitate chores amongst themselves.
+
+-**Challenge:**
+As he is living in a dorm with roommates, who he does not feel too close with, he has a hard time talking to his roommates about upcoming household chores or chores that were undone.
+
+-**How We Help:**
+Chores project can help Nathan fairly distribute chores with his roommates without any direct confrontation. If the chores are getting out of hand, the application can address the issue with a notification feature that allows other roommates to be notified with their assigned chores that needs to be handled. Also, if the work done is unsatisfactory, the rating functionality helps roommates express about how they feel without being rude.
+
+
+#####Sarah D. Burkhardt
+
+-**Age:** 
+42
+
+-**Occupation:** 
+Dentist
+
+-**Company:** 
+NYU Langone Health
+
+-**Goal:**
+Sarah is a working mother. She wants to help her children learn the values of handling their own household chores by themselves at an early age.
+
+-**Challenge:**
+Sarah is too busy working during weekdays, so she has hard time keeping track of her children’s household duties.
+
+-**How We Help:**
+The application helps Sarah assign the household that her children has to do. Doing so, she can easily check which chores needs to be done by whom, by when at a glance. Also, the hierarchical mode allows the user with administrator role in each household group to have access to chores assignment/completion. This will prevent her children from marking the chores as completed by themselves and ultimately allow Sarah to be in control of assigning the household work.
+
 
 
 #Use Cases:
