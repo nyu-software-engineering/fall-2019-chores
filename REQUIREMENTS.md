@@ -96,4 +96,4 @@ _________________
 Scenario: Once completing a chore, a user must tap the circle beside this chore in their list of chores. This indicates that the chore has been completed and the system then removes this chore from the upcoming list.
 
 # Domain Model
-	////TO-DO
+![image] (https://github.com/nyu-software-engineering/fall-2019-chores/blob/master/domain%20model.png)
