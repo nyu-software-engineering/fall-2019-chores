@@ -1,14 +1,13 @@
 # Team Chores - Project Requirements
 
 ## Stakeholder Interviews
-During our stakeholder interviews with Prof. Bloomberg and Karan, we were given advices on how to develop our project, such as:
-- **Using Facebook or Google apis to skip over the user-verification step:**
+During our stakeholder interviews with Prof. Bloomberg and Karan, we were given advices on how to develop our project, such as:ㅇ- **Using Facebook or Google apis to skip over the user-verification step:**
 Our application will require user login, as each user has different set of household chores assigned. We can achieve this goal by using apis from Facebook or Google and creating a database for keeping track of users.
 
 
 ## End-User Observations
 
-##### Nathan Lee
+#### Nathan Lee
 
 - **Age:** 
 19
@@ -29,7 +28,7 @@ As he is living in a dorm with roommates, who he does not feel too close with, h
 Chores project can help Nathan fairly distribute chores with his roommates without any direct confrontation. If the chores are getting out of hand, the application can address the issue with a notification feature that allows other roommates to be notified with their assigned chores that needs to be handled. Also, if the work done is unsatisfactory, the rating functionality helps roommates express about how they feel without being rude.
 
 
-##### Sarah D. Burkhardt
+#### Sarah D. Burkhardt
 
 - **Age:** 
 42
@@ -97,4 +96,4 @@ _________________
 Scenario: Once completing a chore, a user must tap the circle beside this chore in their list of chores. This indicates that the chore has been completed and the system then removes this chore from the upcoming list.
 
 # Domain Model
-![Model](https://github.com/nyu-software-engineering/fall-2019-chores/blob/master/domain%20model.png)
+	////TO-DO
