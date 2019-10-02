@@ -1,7 +1,7 @@
-# Team Chores - Project Requirements
+# HouseKeeper - Project Requirements
 
 ## Stakeholder Interviews
-During our stakeholder interviews with Prof. Bloomberg and Karan, we were given advices on how to develop our project, such as:ㅇ- **Using Facebook or Google apis to skip over the user-verification step:**
+During our stakeholder interviews with Prof. Bloomberg and Karan, we were given advices on how to develop our project, such as:ㅇ- **Using Facebook or Google APIs to skip over the user-verification step:**
 Our application will require user login, as each user has different set of household chores assigned. We can achieve this goal by using apis from Facebook or Google and creating a database for keeping track of users.
 
 
