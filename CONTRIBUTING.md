@@ -7,10 +7,10 @@ Contribution to this project is limited to the core team members.
 ---
 
 ## Git workflow
-1. Create a new branch from the dev branch for each task
-2. If work on the branch is not completed within 24 hours, rebase from the dev branch to stay updated
-3. When the task is completed, rebase from dev branch and fix any incompatibilities
-4. Do a pull request to merge into the dev branch
+1. Create a new branch from the `dev` branch for each task
+2. If work on the branch is not completed within 24 hours, rebase from the `dev` branch to stay updated
+3. When the task is completed, rebase from the `dev` branch and fix any incompatibilities
+4. Do a pull request to merge into the `dev` branch
 5. Have someone review your code for correctness and style
 6. If there are any issues, correct them and go back to step 4
 7. Have the reviewing member accept the pull request
