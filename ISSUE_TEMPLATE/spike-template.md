@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 ## Estimation of work
-- TBD
+- TBD (1, 2, 3, 5, 8, 13, 21)
 
 ## Acceptance criteria
 - [ ] foo
