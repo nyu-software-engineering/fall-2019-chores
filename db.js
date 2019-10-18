@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const URLSlugs = require('mongoose-url-slugs');
 
 const Household = new mongoose.Schema({
+	chores: [Chores],
 	members: [Person],
 	title: {
 		type: String,
@@ -12,32 +13,46 @@ const Household = new mongoose.Schema({
 });
 
 const Person = new mongoose.Schema({
+	assigned: {
+		type: [Chore],
+		required: true
+	},
+	household: {
+		type: Household,
+		required: true
+	},
 	name: {
 		type: String,
 		required: true,
 		minLength: 1,
 		trim: true
 	},
+	phoneNum: {
+		type: String,
+		required: true,
+		minLength: 10
+	},
 	score: {
         type: Number,
         required: true,
 		min: 1,
 		max: 5
-    },
-	chores: [Chore]
+	}
 });
 
 const Chore = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-		minlength: 3,
-		trim: true
-    },
-    conditions: {
+	assignedTo: {
+		type: Person,
+		required: false,
+	},
+	criteria: {
         type: [String],
         required: false,
         min: 1
+	},
+	late: {
+		type: Boolean,
+		required: true
 	},
 	//0: unassigned
 	//1: assigned, incomplete
@@ -48,17 +63,19 @@ const Chore = new mongoose.Schema({
 		min: 0,
 		max: 2,
 	},
-	late: {
-		type: Boolean,
-		required: true
-	}
+    title: {
+        type: String,
+        required: true,
+		minlength: 3,
+		trim: true
+    }
 });
 
 Household.plugin(URLSlugs('title'));
 const houseModel = {
-    Household: mongoose.model('Household', Household),
+	Chore: mongoose.model('Chore', Chore),
 	Person: mongoose.model('Person', Person),
-	Chore: mongoose.model('Chore', Chore)
+    Household: mongoose.model('Household', Household)
 };
 
 mongoose.connect(
