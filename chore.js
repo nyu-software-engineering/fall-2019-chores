@@ -1,6 +1,6 @@
 class Chore {
-  constructor(id, title) {
-    this.id = id;
+  constructor(title) {
+    this.id = null;
     this.title = title;
     this.assignees = [];
     this.household;
@@ -11,12 +11,24 @@ class Chore {
     return this.id;
   }
 
+  setID(id) {
+    this.id = id;
+  }
+
   getTitle() {
     return this.title;
   }
 
+  setTitle(title) {
+    this.title = title;
+  }
+
   getAssignedPerson() {
     return this.assignees;
+  }
+
+  assignPerson(name) {
+    this.assignees.push(name);
   }
 
   isAssigned() {
@@ -28,18 +40,6 @@ class Chore {
 
   getHousehold() {
     return this.household;
-  }
-
-  setID(id) {
-    this.id = id;
-  }
-
-  setTitle(title) {
-    this.title = title;
-  }
-
-  assignPerson(name) {
-    this.assignees.push(name);
   }
 
   setHousehold(household_id) {
@@ -54,18 +54,47 @@ class Chore {
     this.complete = true;
   }
 
-
+  isValid() {
+    if (this.id && this.title && this.household) {
+      return true;
+    }
+  }
 }
 
-function getChoreInfo(chore) {
 
-  var info {
-
-    "Chore ID": this.chore.getID,
-    "Chore": this.chore.getTitle,
-    "Household": this.chore.getHousehold,
-    "Assigned": this.getAssignedPerson,
-    {chore.isComplete ? '"Complete": True' : null},
+class ChoreList() {
+  constructor() {
+    this.chores = new Dict();
   }
+
+  getTotalCompleted() {
+    var done = 0;
+
+    for (let task if this.chores.values()) {
+      if (task.isComplete()) {
+        done += 1;
+      }
+    }
+    return done;
+  }
+
+  addChore(chore) {
+    if (!chore.isValid()) {
+      return;
+    }
+
+    this.chores.push(chore);
+  }
+
+  getChoreInfo(chore) {
+
+    const info = {
+      "ID": this.chore.getID(),
+      "Chore": this.chore.getTitle(),
+      "Household": this.chore.getHousehold(),
+      "Assigned": this.getAssignedPerson(),
+      chore.isComplete() ? "Complete: Yes" : "Complete: No",
+  }
+  return info;
 
 }
