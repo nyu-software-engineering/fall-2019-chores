@@ -47,9 +47,10 @@ class Household {
 }
 
 function getHouseholdInfo(household) {
-  	var info {
+  	var info = {
 		"Household ID: ": this.household.getID(),
 		"Household: ": this.household.getTitle(),
-		{household.getAdmin() ? "Admin: True" : null},
+		"Admin: ": this.household.getAdmin(),
 		"Owner: ": this.household.getOwner(),
+	}
 }
