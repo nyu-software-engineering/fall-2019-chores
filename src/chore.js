@@ -1,13 +1,12 @@
-const { Dict } = require("collections/dict")
+const { Dict } = require("collections/dict");
 
 class Chore {
-
   constructor(title) {
-    this.id = null;
+    this.id;
     this.title = title;
-    this.dateCreated = new Date().now();
-    this.dateDue = new Date();
-    this.dateCompleted = new Date();
+    this.dateCreated = new Date();
+    this.dateDue;
+    this.dateCompleted;
     this.household;
     this.person;
     this.complete = false;
@@ -33,24 +32,17 @@ class Chore {
     return this.dateCreated;
   }
 
-  setDateCreated(date) {
-    this.dateCreated.setDate(date);
-  }
-
   getDateDue() {
     return this.dateDue;
   }
 
   setDateDue(date) {
-    this.dateDue.setDate(date);
+    var due = new Date(date);
+    this.dateDue = due;
   }
 
   getDateCompleted() {
     return this.dateCompleted;
-  }
-
-  setDateCompleted(date) {
-    this.dateCompleted.setDate(date);
   }
 
   getHousehold() {
@@ -75,23 +67,29 @@ class Chore {
 
   markComplete() {
     this.complete = true;
+    this.dateCompleted = new Date();
   }
 
   isValid() {
-    if (this.id && this.title && this.date && this.household && this.person) {
+    if (
+      this.id &&
+      this.title &&
+      this.dateCreated &&
+      this.dateDue &&
+      this.household &&
+      this.person
+    ) {
       return true;
     }
   }
 }
 
 class ChoreList {
-
   constructor() {
     this.chores = new Dict();
   }
 
   addChore(chore) {
-
     if (!chore.isValid()) {
       return;
     }
@@ -99,42 +97,64 @@ class ChoreList {
   }
 
   getChores() {
-    return this.chores.values();
+    return this.chores.store;
   }
 
   getChoreInfo(chore) {
-
     const complete = chore.isComplete() == true ? "Yes" : "No";
     const info = {
-      "ID": chore.getID(),
-      "Chore": chore.getTitle(),
-      "Date": chore.getDate(),
-      "Household": chore.getHousehold(),
-      "Person": chore.getPerson(),
-      "Complete": complete,
-    }
+      ID: chore.getID(),
+      Chore: chore.getTitle(),
+      "Date Created": chore.getDateCreated(),
+      "Date Due": chore.getDateDue(),
+      Household: chore.getHousehold(),
+      Person: chore.getPerson(),
+      Complete: complete
+    };
     return info;
   }
 
   getTotalCompleted() {
-
     var done = 0;
+    var complete = [];
 
     for (let task of this.chores.values()) {
       if (task.isComplete()) {
         done += 1;
+        complete += [task.getTitle(), " " + task.getDateCompleted()];
       }
     }
-    return done;
+    complete += " " + done;
+    return complete;
   }
 
   getOverdueChores() {
-    //Compare due date to today
+    var today = new Date();
+    var overdue = [];
+
+    for (let task of this.chores.values()) {
+      if (task.getDateDue() < today) {
+        overdue += task.getTitle();
+      }
+    }
+    return overdue;
   }
 
-  getChoresByDate() {
-    //get by x number of days old
+  dueNext() {
+    var dueNext;
+    var nearest = -1;
+    var today = new Date();
 
+    for (let task of this.chores.values()) {
+      var daysLeft = task.getDateDue() - today;
+      if (daysLeft > 0) {
+        if (daysLeft < nearest || nearest == -1) {
+          nearest = daysLeft;
+          dueNext = task;
+        }
+      }
+    }
+    return dueNext;
   }
 
   removeChore(chore) {

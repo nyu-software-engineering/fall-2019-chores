@@ -1,3 +1,5 @@
+import Chores from 'chores.js';
+
 class Person {
 
     constructor() {
@@ -10,70 +12,70 @@ class Person {
         this.admin = false;
     }
 
-    setId(id) {
-        this.id = id;
-    }
-
-    getId() {
-        return this.id;
-    }
-
     setName(name) {
-        this.name = name;
+        this.name;
     }
 
     getName() {
         return this.name;
     }
-    
+
     getHousehold() {
         return this.household;
     }
 
+<<<<<<< Updated upstream
     getRating() { 
+<<<<<<< Updated upstream
+        if(ratingCount == 0) return "No ratings yet.";
+=======
+=======
+    getRating() {
+>>>>>>> Stashed changes
         if(this.ratingCount == 0) return "No ratings yet.";
+>>>>>>> Stashed changes
         else {
-            var rating = this.rating / this.ratingCount;
-            return parseFloat(rating * 100).toFixed(2) + "%";
+            rating = this.rating / this.ratingCount;
+            parseFloat(rating).toFixed(2) + "%";
         }
     }
 
-    setRating(result) {
-        if(result) this.rating++;
+    setRating() {
+        this.rating += rating;
         this.ratingCount++;
     }
 
     assignChore(choreTitle) {
-        this.chores.push(choreTitle);
+        this.chores.push(new Chore(choreTitle));
     }
 
     hasChore(choreTitle) {
-        for (var i = 0; i < this.chores.length; i++) {
-            if(this.chores[i] == choreTitle) {
+        for (var i = 0; i < chores.length; i++) {
+            if(chores[i].getTitle() == choreTitle) {
                 return true;
             }
         }
         return false;
     }
-    
+
     getChoreCount() {
-        return this.chores.length;
+        return chores.length;
     }
 
     hasIncompletedChore() {
-        if(0 < this.chores.length) return true;
+        if(0 < chores.length) return true;
         else return false;
     }
 
     removeChore(choreTitle) {
         var index = -1;
-        for (var i = 0; i < this.chores.length; i++) {
-            if(this.chores[i] == choreTitle) {
+        for (var i = 0; i < chores.length; i++) {
+            if(chores[i].getTitle() == choreTitle) {
                 index = i;
             }
         }
         if(index != -1) {
-            this.chores.splice(index, index);
+            chores.splice(index, index);
             return true;
         }
         else {
@@ -85,12 +87,12 @@ class Person {
         this.admin = true;
     }
 
-    getAdminStatus() {
-        return this.admin;
+    getAdmin() {
+        return admin;
     }
 
   }
 
-module.exports = {
+module.exports() = {
     Person
 };
