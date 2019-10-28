@@ -1,50 +1,78 @@
+import Chores from 'chores.js';
+
 class Person {
 
-    constructor(id, name, household) {
-        this.id = id;
-        this.name = name;
-        this.household = household;
+    constructor() {
+        this.id = null;
+        this.name = null;
+        this.household = null;
+        this.ratingCount = 0;
         this.rating = 0;
         this.chores = [];
         this.admin = false;
     }
 
-    getName() {
-        return this.name;
-    }
-
     setName(name) {
         this.name;
+    }
+
+    getName() {
+        return this.name;
     }
     
     getHousehold() {
         return this.household;
     }
 
-    setHousehold(household) {
-        this.household = household;
-    }
-
-    getRating() {
-        return rating;
+    getRating() { 
+        if(ratingCount == 0) return "No ratings yet.";
+        else {
+            rating = this.rating / this.ratingCount;
+            parseFloat(rating).toFixed(2) + "%";
+        }
     }
 
     setRating() {
-        this.rating = rating;
+        this.rating += rating;
+        this.ratingCount++;
     }
 
-    getInfo() {
-        console.log("Name: " + getName());
-        console.log("household: " + getHousehold());
-        console.log("Rating: " + getRating());
+    assignChore(choreTitle) {
+        this.chores.push(new Chore(choreTitle));
     }
 
-    assignChore(chore) {
-        chores.push(chore);
+    hasChore(choreTitle) {
+        for (var i = 0; i < chores.length; i++) {
+            if(chores[i].getTitle() == choreTitle) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    getChoreCount() {
+        return chores.length;
     }
 
-    removeChore(pos) {
-        chores.splice(pos, pos);
+    hasIncompletedChore() {
+        if(0 < chores.length) return true;
+        else return false;
+    }
+
+    removeChore(choreTitle) {
+        var index = -1;
+        for (var i = 0; i < chores.length; i++) {
+            if(chores[i].getTitle() == choreTitle) {
+                index = i;
+            }
+        }
+        if(index != -1) {
+            chores.splice(index, index);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     setAdmin() {
@@ -58,5 +86,5 @@ class Person {
   }
 
 module.exports() = {
-    Cart
+    Person
 };
