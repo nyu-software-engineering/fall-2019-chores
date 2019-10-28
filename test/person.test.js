@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const Person = require("./person");
+const Person = require("../src/person");
 
 describe('Person Tests', function() {
   	var person;
@@ -38,7 +38,6 @@ describe('Person Tests', function() {
 		assert.equal(person.hasChore("Laundary"), true);
 		person.removeChore("Laundary");
 		assert.equal(person.removeChore("Laundary"), true);
-		// assert.equal(person.hasChore("Laundary"), false);
 	});
 
 	// 6
