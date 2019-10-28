@@ -2,7 +2,6 @@ class Chore {
   constructor(title) {
     this.id = null;
     this.title = title;
-    this.assignees = [];
     this.household;
     this.complete = false;
   }
@@ -21,21 +20,6 @@ class Chore {
 
   setTitle(title) {
     this.title = title;
-  }
-
-  getAssignedPerson() {
-    return this.assignees;
-  }
-
-  assignPerson(name) {
-    this.assignees.push(name);
-  }
-
-  isAssigned() {
-    if (len(assignees) > 0) {
-      return true;
-    }
-    return false;
   }
 
   getHousehold() {
@@ -92,9 +76,19 @@ class ChoreList() {
       "ID": this.chore.getID(),
       "Chore": this.chore.getTitle(),
       "Household": this.chore.getHousehold(),
-      "Assigned": this.getAssignedPerson(),
       chore.isComplete() ? "Complete: Yes" : "Complete: No",
+    }
+    return info;
   }
-  return info;
 
+  removeChore(chore) {
+    this.chores.delete(chore.getID());
+  }
+  clearList() {
+    this.items.clear();
+  }
+
+  size() {
+    return this.chores.length;
+  }
 }
