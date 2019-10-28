@@ -1,7 +1,6 @@
 const { Dict } = require("collections/dict");
 
 class Chore {
-
   constructor(title) {
     this.id;
     this.title = title;
@@ -72,20 +71,25 @@ class Chore {
   }
 
   isValid() {
-    if (this.id && this.title && this.dateCreated && this.dateDue && this.household && this.person) {
+    if (
+      this.id &&
+      this.title &&
+      this.dateCreated &&
+      this.dateDue &&
+      this.household &&
+      this.person
+    ) {
       return true;
     }
   }
 }
 
 class ChoreList {
-
   constructor() {
     this.chores = new Dict();
   }
 
   addChore(chore) {
-
     if (!chore.isValid()) {
       return;
     }
@@ -97,22 +101,20 @@ class ChoreList {
   }
 
   getChoreInfo(chore) {
-
     const complete = chore.isComplete() == true ? "Yes" : "No";
     const info = {
-      "ID": chore.getID(),
-      "Chore": chore.getTitle(),
+      ID: chore.getID(),
+      Chore: chore.getTitle(),
       "Date Created": chore.getDateCreated(),
       "Date Due": chore.getDateDue(),
-      "Household": chore.getHousehold(),
-      "Person": chore.getPerson(),
-      "Complete": complete,
-    }
+      Household: chore.getHousehold(),
+      Person: chore.getPerson(),
+      Complete: complete
+    };
     return info;
   }
 
   getTotalCompleted() {
-
     var done = 0;
     var complete = [];
 
@@ -127,7 +129,6 @@ class ChoreList {
   }
 
   getOverdueChores() {
-
     var today = new Date();
     var overdue = [];
 
@@ -140,16 +141,14 @@ class ChoreList {
   }
 
   dueNext() {
-
     var dueNext;
     var nearest = -1;
     var today = new Date();
 
     for (let task of this.chores.values()) {
-
       var daysLeft = task.getDateDue() - today;
       if (daysLeft > 0) {
-        if ( daysLeft < nearest || nearest == -1 ) {
+        if (daysLeft < nearest || nearest == -1) {
           nearest = daysLeft;
           dueNext = task;
         }
@@ -164,7 +163,7 @@ class ChoreList {
 
   clearList() {
     this.chores.clear();
-}
+  }
 
   size() {
     return this.chores.length;
