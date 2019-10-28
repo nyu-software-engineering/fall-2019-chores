@@ -19,13 +19,21 @@ class Person {
     getName() {
         return this.name;
     }
-    
+
     getHousehold() {
         return this.household;
     }
 
+<<<<<<< Updated upstream
     getRating() { 
+<<<<<<< Updated upstream
         if(ratingCount == 0) return "No ratings yet.";
+=======
+=======
+    getRating() {
+>>>>>>> Stashed changes
+        if(this.ratingCount == 0) return "No ratings yet.";
+>>>>>>> Stashed changes
         else {
             rating = this.rating / this.ratingCount;
             parseFloat(rating).toFixed(2) + "%";
@@ -49,7 +57,7 @@ class Person {
         }
         return false;
     }
-    
+
     getChoreCount() {
         return chores.length;
     }

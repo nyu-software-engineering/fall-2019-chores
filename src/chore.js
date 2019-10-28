@@ -1,9 +1,9 @@
-const { Dict } = require("collections/dict")
+const { Dict } = require("collections/dict");
 
 class Chore {
 
   constructor(title) {
-    this.id = null;
+    this.id;
     this.title = title;
     this.dateCreated = new Date();
     this.dateDue;
@@ -33,17 +33,13 @@ class Chore {
     return this.dateCreated;
   }
 
-  setDateCreated(date) {
-    this.dateCreated.setDate(date);
-  }
-
   getDateDue() {
     return this.dateDue;
   }
 
   setDateDue(date) {
-    var dueDate = new Date(date);
-    this.dateDue.setDate(dueDate);
+    var due = new Date(date);
+    this.dateDue = due;
   }
 
   getDateCompleted() {
@@ -72,11 +68,11 @@ class Chore {
 
   markComplete() {
     this.complete = true;
-    this.dateCompleted = new Date().now();
+    this.dateCompleted = new Date();
   }
 
   isValid() {
-    if (this.id && this.title && this.date && this.household && this.person) {
+    if (this.id && this.title && this.dateCreated && this.dateDue && this.household && this.person) {
       return true;
     }
   }
@@ -97,7 +93,7 @@ class ChoreList {
   }
 
   getChores() {
-    return this.chores.values();
+    return this.chores.store;
   }
 
   getChoreInfo(chore) {
@@ -106,7 +102,8 @@ class ChoreList {
     const info = {
       "ID": chore.getID(),
       "Chore": chore.getTitle(),
-      "Date": chore.getDate(),
+      "Date Created": chore.getDateCreated(),
+      "Date Due": chore.getDateDue(),
       "Household": chore.getHousehold(),
       "Person": chore.getPerson(),
       "Complete": complete,
@@ -117,23 +114,26 @@ class ChoreList {
   getTotalCompleted() {
 
     var done = 0;
+    var complete = [];
 
     for (let task of this.chores.values()) {
       if (task.isComplete()) {
         done += 1;
+        complete += [task.getTitle(), " " + task.getDateCompleted()];
       }
     }
-    return done;
+    complete += " " + done;
+    return complete;
   }
 
   getOverdueChores() {
 
-    var today = new Date().now();
-    var overdue = {};
+    var today = new Date();
+    var overdue = [];
 
     for (let task of this.chores.values()) {
       if (task.getDateDue() < today) {
-        overdue.add(task.getTitle());
+        overdue += task.getTitle();
       }
     }
     return overdue;
@@ -143,6 +143,7 @@ class ChoreList {
 
     var dueNext;
     var nearest = -1;
+    var today = new Date();
 
     for (let task of this.chores.values()) {
 
@@ -163,7 +164,7 @@ class ChoreList {
 
   clearList() {
     this.chores.clear();
-  }
+}
 
   size() {
     return this.chores.length;

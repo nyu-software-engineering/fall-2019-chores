@@ -11,12 +11,13 @@ describe('Chore tests', function() {
 
     chore1 = new Chore('Garbage');
     chore1.setID('1');
-    chore1.setDate('')
+    chore1.setDateDue('2019, 11, 1');
     chore1.setHousehold('134');
     chore1.setPerson('5678');
 
     chore2 = new Chore('Clean Toilet');
     chore2.setID('2');
+    chore2.setDateDue('2019, 10, 15');
     chore2.setHousehold('296');
     chore2.setPerson('4581');
 
@@ -39,27 +40,82 @@ describe('Chore tests', function() {
   });
 
   it('test getChores', function() {
-    // const expected = {{'ID': '1', 'Chore': 'Garbage', 'Household': '134',
-    //     'Person': '5678', 'Complete': 'No'}, {'ID': '2', 'Chore': 'Clean Toilet', 'Household': '296',
-    //     'Person': '4581', 'Complete': 'No'}};
+
+    const created = new Date();
+    const due1 = new Date('2019, 11, 1')
+    const due2 = new Date('2019, 10, 15')
+    const expected = {
+      '1': {
+         title: 'Sweep Floor',
+         dateCreated: created,
+         complete: false,
+         id: '1',
+         dateDue: due1,
+         household: '134',
+         person: '5678' },
+      '2': {
+         title: 'Clean Toilet',
+         dateCreated: created,
+         complete: false,
+         id: '2',
+         dateDue: due2,
+         household: '296',
+         person: '4581' } };
+
+    chore1.setTitle('Sweep Floor');
     list.addChore(chore1);
     list.addChore(chore2);
-        console.log(list.getChores());
-    assert.deepEqual(list.getChores(), list);
+    assert.deepEqual(list.getChores(), expected);
   });
 
   it('test getChoreInfo', function() {
-    const expected = {'ID': '2', 'Chore': 'Clean Toilet', 'Date': '', 'Household': '296',
-    'Person': '4581', 'Complete': 'No'};
+
+    const created = new Date();
+    const due = new Date('2019, 10, 15')
+    const expected = {'ID': '2', 'Chore': 'Clean Toilet',
+    'Date Created': created,
+    'Date Due': due,
+    'Household': '296', 'Person': '4581', 'Complete': 'No'};
+
     list.addChore(chore2);
     assert.deepEqual(list.getChoreInfo(chore2), expected);
   });
 
   it('test getTotalCompleted', function() {
+
+    const completed = new Date();
+    const expected = 'Garbage, ' + completed + ' 1';
     chore1.markComplete();
     list.addChore(chore1);
     list.addChore(chore2);
-    assert.equal(list.getTotalCompleted(), 1);
+    assert.equal(list.getTotalCompleted(), expected);
+  });
+
+  it('test getOverdueChores', function() {
+
+    const created = new Date();
+    const due = new Date('2019, 10, 15');
+    const expected = 'Clean Toilet';
+
+    list.addChore(chore1);
+    list.addChore(chore2);
+    assert.deepEqual(list.getOverdueChores(), expected);
+  });
+
+  it('test get chore that is due next', function() {
+
+    const created = new Date();
+    const due = new Date('2019, 11, 4')
+    const expected = {title: 'Garbage', dateCreated:
+    created, complete: false, id: '1', dateDue: due, household: '134',
+    person: '5678' };
+
+    chore1.setDateDue('2019, 11, 4');
+    chore2.setDateDue('2019, 11, 8');
+
+    list.addChore(chore1);
+    list.addChore(chore2);
+    assert.deepEqual(list.dueNext(), expected);
   });
 
   it('test removeChore from list', function() {
