@@ -30,7 +30,6 @@ const Chore = new mongoose.Schema({
 
 const Household = new mongoose.Schema({
   chores: [Chore],
-  members: [Person],
   title: {
     type: String,
     required: true,
