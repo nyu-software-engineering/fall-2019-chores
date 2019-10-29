@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Chores from 'chores.js';
 
 class Person {
@@ -7,23 +8,42 @@ class Person {
         this.name = null;
         this.household = null;
         this.ratingCount = 0;
+=======
+class Person {
+
+    constructor(id, name, household) {
+        this.id = id;
+        this.name = name;
+        this.household = household;
+>>>>>>> Added person js
         this.rating = 0;
         this.chores = [];
         this.admin = false;
     }
 
+<<<<<<< HEAD
     setName(name) {
         this.name;
     }
 
+=======
+>>>>>>> Added person js
     getName() {
         return this.name;
     }
 
+<<<<<<< HEAD
+=======
+    setName(name) {
+        this.name;
+    }
+    
+>>>>>>> Added person js
     getHousehold() {
         return this.household;
     }
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     getRating() { 
 <<<<<<< Updated upstream
@@ -81,6 +101,32 @@ class Person {
         else {
             return false;
         }
+=======
+    setHousehold(household) {
+        this.household = household;
+    }
+
+    getRating() {
+        return rating;
+    }
+
+    setRating() {
+        this.rating = rating;
+    }
+
+    getInfo() {
+        console.log("Name: " + getName());
+        console.log("household: " + getHousehold());
+        console.log("Rating: " + getRating());
+    }
+
+    assignChore(chore) {
+        chores.push(chore);
+    }
+
+    removeChore(pos) {
+        chores.splice(pos, pos);
+>>>>>>> Added person js
     }
 
     setAdmin() {
@@ -94,5 +140,10 @@ class Person {
   }
 
 module.exports() = {
+<<<<<<< HEAD
     Person
 };
+=======
+    Cart
+};
+>>>>>>> Added person js
