@@ -71,7 +71,6 @@ class Household {
 	}
 }
 
-
 var households = [];
 var count = 0;
 
