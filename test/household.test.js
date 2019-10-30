@@ -1,29 +1,25 @@
-var mocha = require("mocha");
-var Household = require("../household.js");
-var Person = require("../src/person.js");
-var Chore = require("../src/chore.js");
-const assert = require("assert");
+var Household = require("../src/household");
+var Person = require("../src/person");
+var Chore = require("../src/chore");
+const assert = require("chai").assert;
 
 describe("Household Tests", function() {
   var household;
   beforeEach(function() {
-    household = new Household({
-      id: 1,
-      title: "sampletitle",
-      admin: false,
-      owner: "sampleowner",
-      members: [],
-      chores: []
-    });
+    household = new Household(1, "sampletitle", false, "sampleowner");
     person = new Person();
     chore = new Chore();
   });
   it("should be invalid if id is zero", function() {
     assert.notEqual(household.id, 0);
   });
+  console.log("HERE2");
+
   it("should be invalid if title is blank", function() {
     assert.notEqual(household.title, "");
   });
+  console.log("HERE3");
+
   it("should be invalid if owner is blank", function() {
     assert.notEqual(household.owner, "");
   });

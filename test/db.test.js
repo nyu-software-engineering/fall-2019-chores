@@ -64,7 +64,7 @@ describe("Schema Validation", () => {
   });
   it("throws an error when saving a Household with incorrect properties", function(done) {
     const household = new Household({
-      title: "TH"
+      title: "T"
       //title too short
     });
     household.save(err => {
@@ -92,10 +92,11 @@ describe("Schema Validation", () => {
   it("saves a Chore with valid properties", function(done) {
     const chore = new Chore({
       status: 0,
-      title: "Do the dishes"
+      title: "Do the laundry"
     });
     chore.save(err => {
       assert.isNull(err, "Chore inputs with valid properties should be saved");
+      Chore.findOneAndDelete({ title: "Do the laundry" });
       done();
     });
   });
@@ -108,6 +109,7 @@ describe("Schema Validation", () => {
         err,
         "Household inputs with valid properties should be saved"
       );
+      Household.findOneAndDelete({ title: "Test Household" });
       done();
     });
   });
@@ -121,6 +123,7 @@ describe("Schema Validation", () => {
         console.log(err);
       }
       assert.isNull(err, "Person inputs with valid properties should be saved");
+      Person.findOneAndDelete({ phoneNum: "0123456789" });
       done();
     });
   });

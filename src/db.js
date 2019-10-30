@@ -33,7 +33,8 @@ const Household = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    minLength: 3,
+    minlength: 3,
+    maxlength: 20,
     trim: true
   }
 });
@@ -77,7 +78,8 @@ const houseModel = {
 };
 
 mongoose.connect("mongodb://localhost/housekeeper", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
 
 module.exports = houseModel;
