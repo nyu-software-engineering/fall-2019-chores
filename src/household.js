@@ -4,6 +4,8 @@ class Household {
     this.title = title;
     this.admin = admin;
     this.owner = owner;
+    this.members = [];
+    this.chores = [];
   }
 
   getID() {
@@ -44,23 +46,23 @@ class Household {
   }
 
   addMember(m) {
-    members.push(m);
+    this.members.push(m);
   }
 
   removeMember(m) {
-    members.pop(m);
+    this.members.pop(m);
   }
 
   addChore(c) {
-    chores.push(c);
+    this.chores.push(c);
   }
 
   removeChore(c) {
-    chores.pop(c);
+    this.chores.pop(c);
   }
 
   isEmpty() {
-    return members.length == 0 ? true : false;
+    return this.members.length == 0 ? true : false;
   }
 
   getHouseholdInfo() {

@@ -1,14 +1,17 @@
-var Household = require("../src/household");
-var Person = require("../src/person");
-var Chore = require("../src/chore");
+const Household = require("../src/household");
+const Person = require("../src/person");
+const Chore = require("../src/chore");
 const assert = require("chai").assert;
 
 describe("Household Tests", function() {
-  var household;
+  let household;
+  let person;
+  let chore;
+
   beforeEach(function() {
-    household = new Household(1, "sampletitle", false, "sampleowner");
-    person = new Person();
-    chore = new Chore();
+    person = new Person.Person();
+    chore = new Chore.Chore();
+    household = new Household.Household(1, "sampletitle", false, "sampleowner");
   });
   it("should be invalid if id is zero", function() {
     assert.notEqual(household.id, 0);
@@ -19,8 +22,8 @@ describe("Household Tests", function() {
   it("should be invalid if owner is blank", function() {
     assert.notEqual(household.owner, "");
   });
-  it("should be invalid if no members", function() {
-    assert.notEqual(household.members.length, 0);
+  it("should be invalid if any members", function() {
+    assert.equal(household.members.length, 0);
   });
   it("should be incorrect if cannot add members", function() {
     household.addMember(person);
@@ -28,21 +31,23 @@ describe("Household Tests", function() {
   });
   it("should be incorrect if cannot remove members", function() {
     var val = household.members.length;
+    household.addMember(person);
     household.removeMember(person);
-    assert.notEqual(household.members.length, val);
+    assert.equal(household.members.length, val);
   });
   it("should be incorrect if cannot add chore", function() {
-    household.addChore(person);
+    household.addChore(chore);
     assert.notEqual(household.chores.length, 0);
   });
   it("should be incorrect if cannot remove chore", function() {
     var val = household.chores.length;
-    household.removeMember(person);
-    assert.notEqual(household.chores.length, val);
+    household.addChore(chore);
+    household.removeChore(chore);
+    assert.equal(household.chores.length, val);
   });
   it("isEmpty should return correct result", function() {
     household.addMember(person);
-    assert.notEqual(household.isEmpty(), false);
+    assert.notEqual(household.isEmpty(), true);
   });
   it("setOwner should change owner", function() {
     var str = household.getOwner();
