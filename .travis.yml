@@ -5,4 +5,4 @@ node_js:
 services: mongodb
 notifications:
   slack: nyuagile:cNYtGLQqOj9wW4ktQiTYFALP
-    if: branch = master
+  if: branch = master
