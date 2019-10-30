@@ -4,8 +4,6 @@ class Household {
     this.title = title;
     this.admin = admin;
     this.owner = owner;
-    this.members = [];
-    this.chores = [];
   }
 
   getID() {

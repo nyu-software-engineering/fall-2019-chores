@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const URLSlugs = require("mongoose-url-slugs");
 
-const Chore = new mongoose.Schema({
+const ChoreSchema = new mongoose.Schema({
   criteria: {
     type: [String],
     required: false,
@@ -28,8 +28,8 @@ const Chore = new mongoose.Schema({
   }
 });
 
-const Household = new mongoose.Schema({
-  chores: [Chore],
+const HouseholdSchema = new mongoose.Schema({
+  chores: [ChoreSchema],
   title: {
     type: String,
     required: true,
@@ -39,14 +39,14 @@ const Household = new mongoose.Schema({
   }
 });
 
-const Person = new mongoose.Schema({
+const PersonSchema = new mongoose.Schema({
   assigned: {
-    type: [Chore],
+    type: [ChoreSchema],
     required: false,
     min: 1
   },
   household: {
-    type: [Household],
+    type: [HouseholdSchema],
     required: false
   },
   name: {
@@ -69,12 +69,12 @@ const Person = new mongoose.Schema({
   }
 });
 
-Household.plugin(URLSlugs("title"));
-Person.plugin(URLSlugs("name"));
+HouseholdSchema.plugin(URLSlugs("title"));
+PersonSchema.plugin(URLSlugs("name"));
 const houseModel = {
-  Chore: mongoose.model("Chore", Chore),
-  Person: mongoose.model("Person", Person),
-  Household: mongoose.model("Household", Household)
+  ChoreSchema: mongoose.model("ChoreSchema", ChoreSchema),
+  PersonSchema: mongoose.model("PersonSchema", PersonSchema),
+  HouseholdSchema: mongoose.model("HouseholdSchema", HouseholdSchema)
 };
 
 mongoose.connect("mongodb://localhost/housekeeper", {
