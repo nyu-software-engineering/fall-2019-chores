@@ -1,82 +1,92 @@
 const assert = require("chai").assert;
-const { Chore, Household, Person } = require("../src/db");
+const { ChoreSchema, HouseholdSchema, PersonSchema } = require("../src/db");
 
-describe("Schema Validation", () => {
-  it("throws an error when saving an empty Chore", function(done) {
-    const chore = new Chore({});
+describe("Schema Validation", function() {
+  it("throws an error when saving an empty ChoreSchema", function(done) {
+    const chore = new ChoreSchema({});
     chore.save(err => {
-      assert.isNotNull(err, "Empty Chore inputs throws an error");
-      done();
+      assert.isNotNull(err, "Empty ChoreSchema inputs should throw an error");
     });
+    done();
   });
-  it("throws an error when saving an empty Household", function(done) {
-    const household = new Household({});
+
+  it("throws an error when saving an empty HouseholdSchema", function(done) {
+    const household = new HouseholdSchema({});
     household.save(err => {
-      assert.isNotNull(err, "Empty Household inputs throws an error");
-      done();
+      assert.isNotNull(
+        err,
+        "Empty HouseholdSchema inputs should throw an error"
+      );
     });
+    done();
   });
-  it("throws an error when saving an empty Person", function(done) {
-    const person = new Person({});
+
+  it("throws an error when saving an empty PersonSchema", function(done) {
+    const person = new PersonSchema({});
     person.save(err => {
-      assert.isNotNull(err, "Empty Person inputs throws an error");
-      done();
+      assert.isNotNull(err, "Empty PersonSchema inputs should throw an error");
     });
+    done();
   });
-  it("throws an error when saving a Chore with missing required properties", function(done) {
-    const chore = new Chore({
+
+  it("throws an error when saving a ChoreSchema with missing required properties", function(done) {
+    const chore = new ChoreSchema({
       status: 0
       //no title
     });
     chore.save(err => {
       assert.isNotNull(
         err,
-        "Chore inputs with missing properties throws an error"
+        "ChoreSchema inputs with missing properties should throw an error"
       );
-      done();
     });
+    done();
   });
-  it("throws an error when saving a Person with missing required properties", function(done) {
-    const person = new Person({
+
+  it("throws an error when saving a PersonSchema with missing required properties", function(done) {
+    const person = new PersonSchema({
       name: "John"
       //no phone number
     });
     person.save(err => {
       assert.isNotNull(
         err,
-        "Person inputs with missing properties throws an error"
+        "PersonSchema inputs with missing properties should throw an error"
       );
-      done();
     });
+    done();
   });
-  it("throws an error when saving a Chore with incorrect properties", function(done) {
-    const chore = new Chore({
+
+  it("throws an error when saving a ChoreSchema with incorrect properties", function(done) {
+    const chore = new ChoreSchema({
       status: 3,
       title: "Do the dishes"
     });
     chore.save(err => {
       assert.isNotNull(
         err,
-        "Chore inputs with incorrect properties throws an error"
+        "ChoreSchema inputs with incorrect properties should throw an error"
       );
-      done();
     });
+    done();
   });
-  it("throws an error when saving a Household with incorrect properties", function(done) {
-    const household = new Household({
-      title: "TH"
+
+  it("throws an error when saving a HouseholdSchema with incorrect properties", function(done) {
+    const household = new HouseholdSchema({
+      title: "T"
       //title too short
     });
     household.save(err => {
       assert.isNotNull(
         err,
-        "Household inputs with incorrect properties throws an error"
+        "HouseholdSchema inputs with incorrect properties should throw an error"
       );
-      done();
     });
+    done();
   });
-  it("throws an error when saving a Person with incorrect properties", function(done) {
-    const person = new Person({
+
+  it("throws an error when saving a PersonSchema with incorrect properties", function(done) {
+    const person = new PersonSchema({
       name: "John",
       phoneNum: "01234567891011"
       //invalid name and phone number
@@ -84,44 +94,53 @@ describe("Schema Validation", () => {
     person.save(err => {
       assert.isNotNull(
         err,
-        "Person inputs with incorrect properties throws an error"
+        "PersonSchema inputs with incorrect properties should throw an error"
       );
-      done();
     });
+    done();
   });
-  it("saves a Chore with valid properties", function(done) {
-    const chore = new Chore({
+
+  it("saves a ChoreSchema with valid properties", function(done) {
+    const chore = new ChoreSchema({
       status: 0,
-      title: "Do the dishes"
+      title: "Do the laundry"
     });
     chore.save(err => {
-      assert.isNull(err, "Chore inputs with valid properties should be saved");
-      done();
+      assert.isNull(
+        err,
+        "ChoreSchema inputs with valid properties should be saved"
+      );
+      ChoreSchema.findOneAndDelete({ title: "Do the laundry" });
     });
+    done();
   });
-  it("saves a Household with valid properties", function(done) {
-    const household = new Household({
-      title: "Test Household"
+
+  it("saves a HouseholdSchema with valid properties", function(done) {
+    const household = new HouseholdSchema({
+      title: "Test HouseholdSchema"
     });
     household.save(err => {
       assert.isNull(
         err,
-        "Household inputs with valid properties should be saved"
+        "HouseholdSchema inputs with valid properties should be saved"
       );
-      done();
+      HouseholdSchema.findOneAndDelete({ title: "Test HouseholdSchema" });
     });
+    done();
   });
-  it("saves a Person with valid properties", function(done) {
-    const person = new Person({
+
+  it("saves a PersonSchema with valid properties", function(done) {
+    const person = new PersonSchema({
       name: "John",
       phoneNum: "0123456789"
     });
     person.save(err => {
-      if (err) {
-        console.log(err);
-      }
-      assert.isNull(err, "Person inputs with valid properties should be saved");
-      done();
+      assert.isNull(
+        err,
+        "PersonSchema inputs with valid properties should be saved"
+      );
+      PersonSchema.findOneAndDelete({ phoneNum: "0123456789" });
     });
+    done();
   });
 });

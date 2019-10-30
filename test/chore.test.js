@@ -62,7 +62,10 @@ describe("Chore tests", function() {
       }
     };
 
+    chore1.dateCreated = created;
+    chore2.dateCreated = created;
     chore1.setTitle("Sweep Floor");
+
     list.addChore(chore1);
     list.addChore(chore2);
     assert.deepEqual(list.getChores(), expected);
