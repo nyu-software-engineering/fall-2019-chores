@@ -13,13 +13,9 @@ describe("Household Tests", function() {
   it("should be invalid if id is zero", function() {
     assert.notEqual(household.id, 0);
   });
-  console.log("HERE2");
-
   it("should be invalid if title is blank", function() {
     assert.notEqual(household.title, "");
   });
-  console.log("HERE3");
-
   it("should be invalid if owner is blank", function() {
     assert.notEqual(household.owner, "");
   });
