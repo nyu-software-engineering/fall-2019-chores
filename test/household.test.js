@@ -11,9 +11,7 @@ describe('Household Tests', function() {
             id:1,
             title:"sampletitle",
             admin:false,
-            owner:"sampleowner",
-            members:[],
-            chores:[],
+            owner:"sampleowner"
         });
         person = new Person();
         chore = new Chore();
