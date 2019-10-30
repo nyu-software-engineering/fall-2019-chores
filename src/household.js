@@ -71,7 +71,6 @@ class Household {
 	}
 }
 
-
 var households = [];
 var count = 0;
 
@@ -80,8 +79,8 @@ function getHouseholdInfo(household) {
 		"Household ID: ": this.household.getID(),
 		"Household: ": this.household.getTitle(),
 		"Admin: ": this.household.getAdmin(),
-		"Owner: ": this.household.getOwner(),
-	}
+		"Owner: ": this.household.getOwner()
+	};
 }
 
 function newHousehold(title, admin, owner) {
