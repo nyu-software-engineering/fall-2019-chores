@@ -1,7 +1,7 @@
 const assert = require("chai").assert;
 const { Chore, Household, Person } = require("../src/db");
 
-describe("Schema Validation", () => {
+describe("Schema Validation", function() {
   it("throws an error when saving an empty Chore", function(done) {
     const chore = new Chore({});
     chore.save(err => {
