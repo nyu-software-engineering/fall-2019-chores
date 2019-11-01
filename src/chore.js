@@ -1,176 +1,98 @@
-const { Dict } = require("collections/dict");
-
-class Chore {
-  constructor(title) {
-    this.id;
-    this.title = title;
-    this.dateCreated = new Date();
-    this.dateDue;
-    this.dateCompleted;
-    this.household;
-    this.person;
-    this.complete = false;
+const mongoose = require('mongoose');
+const Chore = new mongoose.Schema({
+  completedOn: {
+    type: Date,
+    required: false
+  },
+  createdOn: {
+    type: Date,
+    default: Date.now
+  },
+  criteria: {
+    type: [String],
+    required: false,
+    min: 1
+  },
+  dueOn: {
+    type: Date,
+    required: false
+  },
+  late: {
+    type: Boolean,
+    required: false
+  },
+  //0: unassigned
+  //1: assigned, incomplete
+  //2: completed
+  status: {
+    type: Number,
+    required: false,
+    default: 0,
+    min: 0,
+    max: 2
+  },
+  title: {
+    type: String,
+    required: true,
+    minlength: 3,
+    trim: true
   }
+});
 
-  getID() {
-    return this.id;
-  }
+Chore.plugin(URLSlugs("title"));
+module.exports = Chore;
 
-  setID(id) {
-    this.id = id;
-  }
-
-  getTitle() {
-    return this.title;
-  }
-
-  setTitle(title) {
-    this.title = title;
-  }
-
-  getDateCreated() {
-    return this.dateCreated;
-  }
-
-  getDateDue() {
-    return this.dateDue;
-  }
-
-  setDateDue(date) {
-    var due = new Date(date);
-    this.dateDue = due;
-  }
-
-  getDateCompleted() {
-    return this.dateCompleted;
-  }
-
-  getHousehold() {
-    return this.household;
-  }
-
-  setHousehold(household_id) {
-    this.household = household_id;
-  }
-
-  getPerson() {
-    return this.person;
-  }
-
-  setPerson(person_id) {
-    this.person = person_id;
-  }
-
-  isComplete() {
-    return this.complete;
-  }
-
-  markComplete() {
-    this.complete = true;
-    this.dateCompleted = new Date();
-  }
-
-  isValid() {
-    if (
-      this.id &&
-      this.title &&
-      this.dateCreated &&
-      this.dateDue &&
-      this.household &&
-      this.person
-    ) {
-      return true;
-    }
-  }
+export function getTitle() {
+  return this.title;
 }
 
-class ChoreList {
-  constructor() {
-    this.chores = new Dict();
-  }
-
-  addChore(chore) {
-    if (!chore.isValid()) {
-      return;
-    }
-    this.chores.add(chore, chore.getID());
-  }
-
-  getChores() {
-    return this.chores.store;
-  }
-
-  getChoreInfo(chore) {
-    const complete = chore.isComplete() == true ? "Yes" : "No";
-    const info = {
-      ID: chore.getID(),
-      Chore: chore.getTitle(),
-      "Date Created": chore.getDateCreated(),
-      "Date Due": chore.getDateDue(),
-      Household: chore.getHousehold(),
-      Person: chore.getPerson(),
-      Complete: complete
-    };
-    return info;
-  }
-
-  getTotalCompleted() {
-    var done = 0;
-    var complete = [];
-
-    for (let task of this.chores.values()) {
-      if (task.isComplete()) {
-        done += 1;
-        complete += [task.getTitle(), " " + task.getDateCompleted()];
-      }
-    }
-    complete += " " + done;
-    return complete;
-  }
-
-  getOverdueChores() {
-    var today = new Date();
-    var overdue = [];
-
-    for (let task of this.chores.values()) {
-      if (task.getDateDue() < today) {
-        overdue += task.getTitle();
-      }
-    }
-    return overdue;
-  }
-
-  dueNext() {
-    var dueNext;
-    var nearest = -1;
-    var today = new Date();
-
-    for (let task of this.chores.values()) {
-      var daysLeft = task.getDateDue() - today;
-      if (daysLeft > 0) {
-        if (daysLeft < nearest || nearest == -1) {
-          nearest = daysLeft;
-          dueNext = task;
-        }
-      }
-    }
-    return dueNext;
-  }
-
-  removeChore(chore) {
-    this.chores.delete(chore.getID());
-  }
-
-  clearList() {
-    this.chores.clear();
-  }
-
-  size() {
-    return this.chores.length;
-  }
+export function setTitle(title) {
+  if (title instanceof String) this.title = title;
 }
 
-module.exports = {
-  Chore,
-  ChoreList
-};
+export function createdOn() {
+  return this.createdOn;
+}
+
+export function dueOn() {
+  return this.due;
+}
+
+export function setDateDue(date) {
+  if (!date) {
+    this.due = Date.now();
+  } else if (date instanceof Date) this.due = date;
+}
+
+export function completedOn() {
+  return this.completedOn ? this.completedOn : null;
+}
+
+export function getStatus() {
+  return this.status;
+}
+
+export function markUnassigned() {
+  this.status = 0;
+  this.completedOn = null;
+}
+
+export function markAssigned() {
+  this.status = 1;
+  this.completedOn = null;
+}
+
+export function markComplete() {
+  this.status = 2;
+  this.completedOn = Date.now();
+}
+
+export function checkLate() {
+  if (this.late) {
+    return true;
+  } else if (Date.now() > this.due) {
+    this.late = true;
+    return true;
+  }
+  return false;
+}

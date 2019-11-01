@@ -1,85 +1,66 @@
-class Household {
-  constructor(id, title, admin, owner) {
-    this.id = id;
-    this.title = title;
-    this.admin = admin;
-    this.owner = owner;
-    this.members = [];
-    this.chores = [];
+const mongoose = require('mongoose');
+const Household = new mongoose.Schema({
+	admin: {
+	  type: Person,
+	  required: false
+	},
+	chores: [mongoose.Schema.Types.ObjectId],
+	members: [mongoose.Schema.Types.ObjectId],
+	title: {
+	  type: String,
+	  required: true,
+	  minlength: 3,
+	  maxlength: 20,
+	  trim: true
+	}
+  });
+  
+  Household.plugin(URLSlugs("title"));
+  module.exports = Household;
+
+  export function getTitle() {
+	return this.title;
+  }
+  
+  export function setTitle(title) {
+	if (title instanceof String) this.title = title;
   }
 
-  getID() {
-    return this.id;
+  export function getAdmin() {
+    return this.admin ? this.admin: null;
   }
 
-  getTitle() {
-    return this.title;
-  }
-  setTitle(t) {
-    this.title = t;
-  }
-
-  getAdmin() {
-    return this.admin;
-  }
-  setAdmin(a) {
-    this.admin = a;
+  export function setAdmin(person) {
+    if(person instanceof Person) {
+		if(this.members.some(member => member === person._id)) {
+			this.admin = person._id;
+		}
+	}
   }
 
-  getOwner() {
-    return this.owner;
-  }
-  setOwner(o) {
-    this.owner = o;
-  }
-
-  getMembers() {
-    return this.members;
+  export function addMember(person) {
+	  if(person instanceof Person) {
+		  if()
+		this.members.push(person._id);
+	  }
   }
 
-  getMember(i) {
-    return members[i];
-  }
-
-  getNumMembers() {
-    return members.length;
-  }
-
-  addMember(m) {
-    this.members.push(m);
-  }
-
-  removeMember(m) {
+  export function removeMember(person) {
     this.members.pop(m);
   }
 
-  addChore(c) {
+  export function addChore(c) {
     this.chores.push(c);
   }
 
-  removeChore(c) {
+  export function removeChore(c) {
     this.chores.pop(c);
   }
 
-  isEmpty() {
+  export function isEmpty() {
     return this.members.length == 0 ? true : false;
-  }
-
-  getHouseholdInfo() {
-    var info = {
-      "Household ID: ": this.getID(),
-      "Household: ": this.getTitle(),
-      "Admin: ": this.getAdmin(),
-      "Owner: ": this.getOwner()
-    };
-    return info;
   }
 
   addPersontoHousehold(person) {
     this.members.push(person);
   }
-}
-
-module.exports = {
-  Household
-};
