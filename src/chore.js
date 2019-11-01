@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Chore = new mongoose.Schema({
   completedOn: {
     type: Date,
@@ -95,4 +95,20 @@ export function checkLate() {
     return true;
   }
   return false;
+}
+
+export function getCriteria() {
+  return this.criteria;
+}
+
+export function addCriteria(desc) {
+  if (desc instanceof String) {
+    this.criteria.push(desc);
+  }
+}
+
+export function removeCriteria(index) {
+  if (index < 0 && index < this.criteria.length) {
+    this.criteria.splice(index, 1);
+  }
 }
