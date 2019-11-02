@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
-const Chore = new mongoose.Schema({
-	completedOn: {
+const URLSlugs = require('mongoose-url-slugs');
+
+const ChoreSchema = new mongoose.Schema({
+	completed: {
 		type: Date,
 		required: false,
 	},
-	createdOn: {
+	created: {
 		type: Date,
 		default: Date.now,
 	},
@@ -13,7 +15,7 @@ const Chore = new mongoose.Schema({
 		required: false,
 		min: 1,
 	},
-	dueOn: {
+	due: {
 		type: Date,
 		required: false,
 	},
@@ -39,76 +41,75 @@ const Chore = new mongoose.Schema({
 	},
 });
 
-Chore.plugin(URLSlugs('title'));
-module.exports = Chore;
+ChoreSchema.plugin(URLSlugs('title'));
 
-export function getTitle() {
-	return this.title;
-}
+ChoreSchema.methods = {
+	getTitle: function() {
+		return this.title;
+	},
+	setTitle: function(title) {
+		this.title = title;
+	},
 
-export function setTitle(title) {
-	if (title instanceof String) this.title = title;
-}
+	createdOn: function() {
+		return this.created;
+	},
 
-export function createdOn() {
-	return this.createdOn;
-}
+	dueOn: function() {
+		return this.due ? this.due : null;
+	},
 
-export function dueOn() {
-	return this.due;
-}
+	setDueDate: function(date) {
+		this.due = date;
+	},
 
-export function setDateDue(date) {
-	if (!date) {
-		this.due = Date.now();
-	} else if (date instanceof Date) this.due = date;
-}
+	completedOn: function() {
+		return this.completed ? this.completed : null;
+	},
 
-export function completedOn() {
-	return this.completedOn ? this.completedOn : null;
-}
+	getStatus: function() {
+		return this.status;
+	},
 
-export function getStatus() {
-	return this.status;
-}
+	markUnassigned: function() {
+		this.status = 0;
+		this.completed = null;
+	},
 
-export function markUnassigned() {
-	this.status = 0;
-	this.completedOn = null;
-}
+	markAssigned: function() {
+		this.status = 1;
+		this.completed = null;
+	},
 
-export function markAssigned() {
-	this.status = 1;
-	this.completedOn = null;
-}
+	markComplete: function() {
+		this.status = 2;
+		this.completed = Date.now();
+	},
 
-export function markComplete() {
-	this.status = 2;
-	this.completedOn = Date.now();
-}
+	checkLate: function() {
+		if (this.late) {
+			return true;
+		} else if (Date.now() > this.due) {
+			this.late = true;
+			return true;
+		}
+		return false;
+	},
 
-export function checkLate() {
-	if (this.late) {
-		return true;
-	} else if (Date.now() > this.due) {
-		this.late = true;
-		return true;
-	}
-	return false;
-}
+	getCriteria: function() {
+		return this.criteria;
+	},
 
-export function getCriteria() {
-	return this.criteria;
-}
-
-export function addCriteria(desc) {
-	if (desc instanceof String) {
+	addCriteria: function(desc) {
 		this.criteria.push(desc);
-	}
-}
+	},
 
-export function removeCriteria(index) {
-	if (index < 0 && index < this.criteria.length) {
-		this.criteria.splice(index, 1);
-	}
-}
+	removeCriteria: function(index) {
+		if (index < 0 && index < this.criteria.length) {
+			this.criteria.splice(index, 1);
+		}
+	},
+};
+
+const Chore = mongoose.model('Chore', ChoreSchema);
+module.exports = Chore;
