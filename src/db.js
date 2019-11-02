@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 // const Household = require("../src/household").Household;
 const Person = require("../src/person").Person;
 
-mongoose.model("Chore", Chore);
+// mongoose.model("Chore", Chore);
 // mongoose.model("Household", Household);
-// mongoose.model("Person", Person);
+mongoose.model("Person", Person);
 
 mongoose.connect("mongodb://localhost/housekeeper", {
   useNewUrlParser: true,
