@@ -1,30 +1,3 @@
-const mongoose = require("mongoose");
-const Person = new mongoose.Schema({
-  assigned: [mongoose.Schema.Types.ObjectId],
-  household: [mongoose.Schema.Types.ObjectId],
-  name: {
-    type: String,
-    required: true,
-    minLength: 1,
-    trim: true
-  },
-  phoneNum: {
-    type: String,
-    required: true,
-    minlength: 10,
-    maxlength: 10
-  },
-  score: {
-    type: Number,
-    required: false,
-    min: 1,
-    max: 5
-  }
-});
-
-Person.plugin(URLSlugs("name"));
-module.exports = Person;
-
 class Person {
   constructor() {
     this.id = null;
