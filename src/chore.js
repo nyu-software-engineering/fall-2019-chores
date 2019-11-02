@@ -44,48 +44,63 @@ const ChoreSchema = new mongoose.Schema({
 ChoreSchema.plugin(URLSlugs('title'));
 
 ChoreSchema.methods = {
+	//returns title of chore
 	getTitle: function() {
 		return this.title;
 	},
+
+	//assigns string argument as title
 	setTitle: function(title) {
 		this.title = title;
 	},
 
+	//returns date created
 	createdOn: function() {
 		return this.created;
 	},
 
+	//returns due date
 	dueOn: function() {
 		return this.due ? this.due : null;
 	},
 
+	//assigns due date to Date argument provided
 	setDueDate: function(date) {
 		this.due = date;
 	},
 
+	//returns date completed if complete, otherwise null
 	completedOn: function() {
 		return this.completed ? this.completed : null;
 	},
 
+	//returns status as numerical code
+	//0 is unassigned
+	//1 is assigned
+	//2 is completed
 	getStatus: function() {
 		return this.status;
 	},
 
+	//sets status to be unassigned, also unsets completed property
 	markUnassigned: function() {
 		this.status = 0;
 		this.completed = null;
 	},
 
+	//sets status to be assigned, also unsets completed property
 	markAssigned: function() {
 		this.status = 1;
 		this.completed = null;
 	},
 
+	//sets status to be complete, also unsets completed property
 	markComplete: function() {
 		this.status = 2;
 		this.completed = Date.now();
 	},
 
+	//returns true or false depending on if the due date has passed
 	checkLate: function() {
 		if (this.late) {
 			return true;
@@ -96,14 +111,17 @@ ChoreSchema.methods = {
 		return false;
 	},
 
+	//returns array of strings, each containing a bullet point description of the chore
 	getCriteria: function() {
 		return this.criteria;
 	},
 
+	//adds a bullet point to the chore description
 	addCriteria: function(desc) {
 		this.criteria.push(desc);
 	},
 
+	//remvoes a bullet point from the chore description
 	removeCriteria: function(index) {
 		if (index < 0 && index < this.criteria.length) {
 			this.criteria.splice(index, 1);
