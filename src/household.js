@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
-const Household = new mongoose.Schema({
+const URLSlugs = require('mongoose-url-slugs');
+const Person = require('../src/person');
+
+const HouseholdSchema = new mongoose.Schema({
 	admin: {
 		type: Person,
 		required: false,
@@ -19,67 +22,73 @@ const Household = new mongoose.Schema({
 	},
 });
 
-Household.plugin(URLSlugs('title'));
+HouseholdSchema.plugin(URLSlugs('title'));
+
+const mongoose = require('mongoose');
+
+HouseholdSchema.methods = {
+	getTitle: function() {
+		return this.title;
+	},
+
+	setTitle: function(title) {
+		if (title instanceof String) this.title = title;
+	},
+
+	getAdmin: function() {
+		return this.admin ? this.admin : null;
+	},
+
+	setAdmin: function(person) {
+		if (person instanceof Person) {
+			if (this.members.some(member => member === person._id)) {
+				this.admin = person._id;
+			}
+		}
+	},
+
+	addMember: function(person) {
+		if (person instanceof Person) {
+			if (!this.members.indexOf(person._id)) {
+				this.members.push(person._id);
+			}
+		}
+	},
+
+	removeMember: function(person) {
+		const index = this.members.indexOf(person._id);
+		if (index !== -1) {
+			members.splice(index, 1);
+		}
+	},
+
+	addChore: function(chore) {
+		if (chore instanceof Chore) {
+			if (this.chores.indexOf(chore._id) === -1) {
+				this.chores.push(chore._id);
+			}
+		}
+	},
+
+	removeChore: function(chore) {
+		const index = this.chores.indexOf(chore._id);
+		if (index !== -1) {
+			chores.splice(index, 1);
+		}
+	},
+
+	containsChore: function(chore) {
+		return this.chores.indexOf(chore._id) !== -1;
+	},
+
+	containsPerson: function(person) {
+		return this.members.indexOf(person._id) !== -1;
+	},
+
+	getCreated: function() {
+		return this.createdOn;
+	},
+};
+
+const Household = mongoose.model('Household', HouseholdSchema);
 module.exports = Household;
-
-export function getTitle() {
-	return this.title;
-}
-
-export function setTitle(title) {
-	if (title instanceof String) this.title = title;
-}
-
-export function getAdmin() {
-	return this.admin ? this.admin : null;
-}
-
-export function setAdmin(person) {
-	if (person instanceof Person) {
-		if (this.members.some(member => member === person._id)) {
-			this.admin = person._id;
-		}
-	}
-}
-
-export function addMember(person) {
-	if (person instanceof Person) {
-		if (!this.members.indexOf(person._id)) {
-			this.members.push(person._id);
-		}
-	}
-}
-
-export function removeMember(person) {
-	const index = this.members.indexOf(person._id);
-	if (index !== -1) {
-		members.splice(index, 1);
-	}
-}
-
-export function addChore(chore) {
-	if (chore instanceof Chore) {
-		if (this.chores.indexOf(chore._id) === -1) {
-			this.chores.push(chore._id);
-		}
-	}
-}
-
-export function removeChore(chore) {
-	const index = this.chores.indexOf(chore._id);
-	if (index !== -1) {
-		chores.splice(index, 1);
-	}
-}
-
-export function containsChore(chore) {
-	return this.chores.indexOf(chore._id) !== -1;
-}
-
-export function containsPerson(person) {
-	return this.members.indexOf(person._id) !== -1;
-}
-
-export function getCreated() {
-	return this.createdOn;
-}
