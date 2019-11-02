@@ -27,18 +27,22 @@ HouseholdSchema.plugin(URLSlugs('title'));
 const mongoose = require('mongoose');
 
 HouseholdSchema.methods = {
+	//returns String containing household title
 	getTitle: function() {
 		return this.title;
 	},
 
+	//assigns string argument as title
 	setTitle: function(title) {
 		if (title instanceof String) this.title = title;
 	},
 
+	//returns admin (object id) if one exists, or null if not
 	getAdmin: function() {
 		return this.admin ? this.admin : null;
 	},
 
+	//assigns Person as admin
 	setAdmin: function(person) {
 		if (person instanceof Person) {
 			if (this.members.some(member => member === person._id)) {
@@ -47,6 +51,7 @@ HouseholdSchema.methods = {
 		}
 	},
 
+	//adds Person to the Household
 	addMember: function(person) {
 		if (person instanceof Person) {
 			if (!this.members.indexOf(person._id)) {
@@ -55,6 +60,7 @@ HouseholdSchema.methods = {
 		}
 	},
 
+	//removes Person from the Household
 	removeMember: function(person) {
 		const index = this.members.indexOf(person._id);
 		if (index !== -1) {
@@ -62,6 +68,7 @@ HouseholdSchema.methods = {
 		}
 	},
 
+	//adds Chore argument to list of Chores
 	addChore: function(chore) {
 		if (chore instanceof Chore) {
 			if (this.chores.indexOf(chore._id) === -1) {
@@ -70,6 +77,7 @@ HouseholdSchema.methods = {
 		}
 	},
 
+	//removes the Chore provided from the list of Chores
 	removeChore: function(chore) {
 		const index = this.chores.indexOf(chore._id);
 		if (index !== -1) {
@@ -77,14 +85,17 @@ HouseholdSchema.methods = {
 		}
 	},
 
+	//returns whether a given Chore is in the list of Chores
 	containsChore: function(chore) {
 		return this.chores.indexOf(chore._id) !== -1;
 	},
 
+	//returns whether a given Person is in the list of members
 	containsPerson: function(person) {
 		return this.members.indexOf(person._id) !== -1;
 	},
 
+	//returns Date object containing the Household's creation date
 	getCreated: function() {
 		return this.createdOn;
 	},
