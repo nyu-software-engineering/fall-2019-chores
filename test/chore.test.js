@@ -7,17 +7,22 @@ describe('Chore tests', function() {
     var list;
 
     beforeEach(function() {
+        const created = new Date();
+
         chore1 = new Chore('Garbage');
         chore1.setID('1');
-        chore1.setDateDue('2020, 11, 1');
+        chore1.setDateDue('1979, 11, 1');
         chore1.setHousehold('134');
         chore1.setPerson('5678');
 
         chore2 = new Chore('Clean Toilet');
         chore2.setID('2');
-        chore2.setDateDue('2019, 10, 15');
+        chore2.setDateDue('2099, 10, 15');
         chore2.setHousehold('296');
         chore2.setPerson('4581');
+
+        chore1.dateCreated = created;
+        chore2.dateCreated = created;
 
         list = new ChoreList();
     });
@@ -38,13 +43,12 @@ describe('Chore tests', function() {
     });
 
     it('test getChores', function() {
-        const created = new Date();
-        const due1 = new Date('2020, 11, 1');
-        const due2 = new Date('2019, 10, 15');
+        const due1 = new Date('1979, 11, 1');
+        const due2 = new Date('2099, 10, 15');
         const expected = {
             '1': {
                 title: 'Sweep Floor',
-                dateCreated: created,
+                dateCreated: chore1.dateCreated,
                 complete: false,
                 id: '1',
                 dateDue: due1,
@@ -53,7 +57,7 @@ describe('Chore tests', function() {
             },
             '2': {
                 title: 'Clean Toilet',
-                dateCreated: created,
+                dateCreated: chore1.dateCreated,
                 complete: false,
                 id: '2',
                 dateDue: due2,
@@ -62,8 +66,6 @@ describe('Chore tests', function() {
             },
         };
 
-        chore1.dateCreated = created;
-        chore2.dateCreated = created;
         chore1.setTitle('Sweep Floor');
 
         list.addChore(chore1);
@@ -72,13 +74,12 @@ describe('Chore tests', function() {
     });
 
     it('test getChoreInfo', function() {
-        const created = new Date();
-        const due = new Date('2019, 10, 15');
+        const due = new Date('2099, 10, 15');
         const expected = {
             ID: '2',
             Chore: 'Clean Toilet',
-            'Date Created': created,
-            'Date Due': due,
+            dateCreated: chore2.dateCreated,
+            dateDue: due,
             Household: '296',
             Person: '4581',
             Complete: 'No',
@@ -92,15 +93,14 @@ describe('Chore tests', function() {
         const completed = new Date();
         const expected = 'Garbage, ' + completed + ' 1';
         chore1.markComplete();
+
         list.addChore(chore1);
         list.addChore(chore2);
         assert.equal(list.getTotalCompleted(), expected);
     });
 
     it('test getOverdueChores', function() {
-        const created = new Date();
-        const due = new Date('2019, 10, 15');
-        const expected = 'Clean Toilet';
+        const expected = 'Garbage';
 
         list.addChore(chore1);
         list.addChore(chore2);
@@ -109,7 +109,7 @@ describe('Chore tests', function() {
 
     it('test get chore that is due next', function() {
         const created = new Date();
-        const due = new Date('2020, 1, 5');
+        const due = new Date('2019, 11, 4');
         const expected = {
             title: 'Garbage',
             dateCreated: created,
@@ -120,8 +120,8 @@ describe('Chore tests', function() {
             person: '5678',
         };
 
-        chore1.setDateDue('2020, 1, 5');
-        chore2.setDateDue('2020, 11, 8');
+        chore1.setDateDue('2019, 11, 4');
+        chore2.setDateDue('2019, 11, 8');
 
         list.addChore(chore1);
         list.addChore(chore2);
