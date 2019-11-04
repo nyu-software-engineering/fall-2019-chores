@@ -109,7 +109,7 @@ describe('Chore tests', function() {
 
     it('test get chore that is due next', function() {
         const created = new Date();
-        const due = new Date('2019, 11, 4');
+        const due = new Date('2099, 11, 4');
         const expected = {
             title: 'Garbage',
             dateCreated: created,
@@ -120,8 +120,8 @@ describe('Chore tests', function() {
             person: '5678',
         };
 
-        chore1.setDateDue('2019, 11, 4');
-        chore2.setDateDue('2019, 11, 8');
+        chore1.setDateDue('2099, 11, 4');
+        chore2.setDateDue('2018, 11, 8');
 
         list.addChore(chore1);
         list.addChore(chore2);
