@@ -1,85 +1,106 @@
-class Household {
-  constructor(id, title, admin, owner) {
-    this.id = id;
-    this.title = title;
-    this.admin = admin;
-    this.owner = owner;
-    this.members = [];
-    this.chores = [];
-  }
+const mongoose = require('mongoose');
+const URLSlugs = require("mongoose-url-slugs");
+const Chore = require('../src/chore');
+const Person = require("../src/person");
 
-  getID() {
-    return this.id;
-  }
+const HouseholdSchema = new mongoose.Schema({
+  admin: {
+    type: Person,
+    required: false,
+  },
+  chores: [mongoose.Schema.Types.ObjectId],
+  createdOn: {
+    type: Date,
+    default: Date.now(),
+  },
+  members: [mongoose.Schema.Types.ObjectId],
+  title: {
+    type: String,
+    required: true,
+    minlength: 3,
+    maxlength: 20,
+    trim: true,
+  },
+});
 
-  getTitle() {
+HouseholdSchema.plugin(URLSlugs('title'));
+
+// const mongoose = require('mongoose');
+
+HouseholdSchema.methods = {
+  //returns String containing household title
+  getTitle: function() {
     return this.title;
-  }
-  setTitle(t) {
-    this.title = t;
-  }
+  },
 
-  getAdmin() {
-    return this.admin;
-  }
-  setAdmin(a) {
-    this.admin = a;
-  }
+  //assigns string argument as title
+  setTitle: function(title) {
+    if (title instanceof String) this.title = title;
+  },
 
-  getOwner() {
-    return this.owner;
-  }
-  setOwner(o) {
-    this.owner = o;
-  }
+  //returns admin (object id) if one exists, or null if not
+  getAdmin: function() {
+    return this.admin ? this.admin : null;
+  },
 
-  getMembers() {
-    return this.members;
-  }
+  //assigns Person as admin
+  setAdmin: function(person) {
+    if (person instanceof Person) {
+      if (this.members.some(member => member === person._id)) {
+        this.admin = person._id;
+      }
+    }
+  },
 
-  getMember(i) {
-    return members[i];
-  }
+  //adds Person to the Household
+  addMember: function(person) {
+    // if (person instanceof Person) {
+      if (!this.members.indexOf(person._id)) {
+        this.members.push(person._id);
+      }
+    // }
+  },
 
-  getNumMembers() {
-    return members.length;
-  }
+  //removes Person from the Household
+  removeMember: function(person) {
+    const index = this.members.indexOf(person._id);
+    if (index !== -1) {
+      members.splice(index, 1);
+    }
+  },
 
-  addMember(m) {
-    this.members.push(m);
-  }
+  //adds Chore argument to list of Chores
+  addChore: function(chore) {
+    if (chore instanceof Chore) {
+      if (this.chores.indexOf(chore._id) === -1) {
+        this.chores.push(chore._id);
+      }
+    }
+  },
 
-  removeMember(m) {
-    this.members.pop(m);
-  }
+  //removes the Chore provided from the list of Chores
+  removeChore: function(chore) {
+    const index = this.chores.indexOf(chore._id);
+    if (index !== -1) {
+      chores.splice(index, 1);
+    }
+  },
 
-  addChore(c) {
-    this.chores.push(c);
-  }
+  //returns whether a given Chore is in the list of Chores
+  containsChore: function(chore) {
+    return this.chores.indexOf(chore._id) !== -1;
+  },
 
-  removeChore(c) {
-    this.chores.pop(c);
-  }
+  //returns whether a given Person is in the list of members
+  containsPerson: function(person) {
+    return this.members.indexOf(person._id) !== -1;
+  },
 
-  isEmpty() {
-    return this.members.length == 0 ? true : false;
-  }
-
-  getHouseholdInfo() {
-    var info = {
-      "Household ID: ": this.getID(),
-      "Household: ": this.getTitle(),
-      "Admin: ": this.getAdmin(),
-      "Owner: ": this.getOwner()
-    };
-    return info;
-  }
-
-  addPersontoHousehold(person) {
-    this.members.push(person);
-  }
-}
-
-module.exports = {
-  Household
+  //returns Date object containing the Household's creation date
+  getCreated: function() {
+    return this.createdOn;
+  },
 };
+
+const Household = mongoose.model('Household', HouseholdSchema);
+module.exports = Household;
