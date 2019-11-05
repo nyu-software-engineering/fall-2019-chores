@@ -1,93 +1,119 @@
-class Person {
-  constructor() {
-    this.id = null;
-    this.name = null;
-    this.household = null;
-    this.ratingCount = 0;
-    this.rating = 0;
-    this.chores = [];
-    this.admin = false;
-  }
+const mongoose = require('mongoose');
+const Chore = require('../src/chore');
+const Household = require('../src/household');
 
-  setId(id) {
-    this.id = id;
-  }
+const PersonSchema = new mongoose.Schema({
+	assigned: [mongoose.Schema.Types.ObjectId],
+	households: [mongoose.Schema.Types.ObjectId],
+	name: {
+		type: String,
+		required: true,
+		minlength: 1,
+		maxlength: 20,
+		trim: true,
+	},
+	phoneNum: {
+		type: String,
+		required: true,
+		minlength: 10,
+		maxlength: 10,
+	},
+	score: {
+		type: Number,
+		required: false,
+		min: 1,
+		max: 5,
+	},
+	scoreCount: {
+		type: Number,
+		required: false,
+		min: 1,
+	},
+});
 
-  getId() {
-    return this.id;
-  }
+PersonSchema.plugin(URLSlugs('name'));
+PersonSchema.methods = {
+	//returns Chore title
+	getName: function() {
+		return this.name;
+	},
 
-  setName(name) {
-    this.name = name;
-  }
+	//sets Person name to provided argument
+	setName: function(name) {
+		this.name = name;
+	},
 
-  getName() {
-    return this.name;
-  }
+	//returns Person score
+	getScore: function() {
+		if (this.scoreCount == 0) return -1;
+		else {
+			return this.score;
+		}
+	},
 
-  getHousehold() {
-    return this.household;
-  }
+	//adds score to Person by incrementing score count and recalculating overall score
+	addScore: function(newScore) {
+		this.score =
+			(this.scoreCount * this.score + newScore) / ++this.scoreCount;
+	},
 
-  getRating() {
-    if (this.ratingCount == 0) return "No ratings yet.";
-    else {
-      var rating = this.rating / this.ratingCount;
-      return parseFloat(rating * 100).toFixed(2) + "%";
-    }
-  }
+	//assigns Chore in argument to the Person
+	assignChore: function(chore) {
+		if (chore instanceof Chore) {
+			if (this.assigned.indexOf(chore._id) === -1) {
+				this.assigned.push(chore._id);
+			}
+		}
+	},
 
-  setRating(result) {
-    if (result) this.rating++;
-    this.ratingCount++;
-  }
+	//checks if a given Chore argument is assigned
+	isAssigned: function(chore) {
+		return this.assigned.indexOf(chore._id) !== -1 ? true : false;
+	},
 
-  assignChore(choreTitle) {
-    this.chores.push(choreTitle);
-  }
+	//returns an array of all incomplete Chores
+	incomplete: function() {
+		return this.assigned.filter(chore => chore.status < 2);
+	},
 
-  hasChore(choreTitle) {
-    for (var i = 0; i < this.chores.length; i++) {
-      if (this.chores[i] == choreTitle) {
-        return true;
-      }
-    }
-    return false;
-  }
+	//unassigns a Chore from a Person
+	unassign: function(chore) {
+		const index = this.chores.indexOf(chore._id);
+		if (index !== -1) {
+			this.chores[index].status = 0;
+			this.chores.splice(index, 1);
+		}
+	},
 
-  getChoreCount() {
-    return this.chores.length;
-  }
+	//changes phone number to provided argument
+	changeNumber: function(number) {
+		this.phoneNum = number;
+	},
 
-  hasIncompletedChore() {
-    if (0 < this.chores.length) return true;
-    else return false;
-  }
+	//adds Household (object id) in argument to list of Households
+	addHousehold: function(household) {
+		if (household instanceof Household) {
+			const index = this.households.indexOf(household._id);
+			if (index !== -1) {
+				this.households.push(household._id);
+				if (!household.containsPerson(this)) {
+					household.addMember(this);
+				}
+			}
+		}
+	},
 
-  removeChore(choreTitle) {
-    var index = -1;
-    for (var i = 0; i < this.chores.length; i++) {
-      if (this.chores[i] == choreTitle) {
-        index = i;
-      }
-    }
-    if (index != -1) {
-      this.chores.splice(index, index);
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  setAdmin() {
-    this.admin = true;
-  }
-
-  getAdminStatus() {
-    return this.admin;
-  }
-}
-
-module.exports = {
-  Person
+	//adds Household (object id) in argument to list of Households
+	removeHousehold: function(household) {
+		const index = this.households.indexOf(household._id);
+		if (index !== -1) {
+			this.households.splice(index, 1);
+			if (household.containsPerson(this)) {
+				household.removeMember(this);
+			}
+		}
+	},
 };
+
+mongoose.model('Person', PersonSchema);
+module.exports = Person;
