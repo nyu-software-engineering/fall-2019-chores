@@ -44,105 +44,6 @@ describe('Test user creation validity.', () => {
 });
 
 // Tests the functions inside the chore.js file.
-<<<<<<< HEAD
-describe("Chore Tests", () => {
-
-    const validChore = new Chore(chore);
-    validChore.save();
-
-    // 1
-    it("test chore title modification", function(done) {
-      validChore.setTitle("Vacuum");
-      assert.equal(validChore.getTitle(), "Vacuum");
-      done();
-    });
-
-    // 2
-    it("test date creation", function(done) {
-      assert.exists(validChore.createdOn(), "date is null");
-      done();
-    });
-
-    // 3
-    it("test due on (1): when no due date is assigned yet", function(done) {
-      assert.equal(validChore.dueOn(), null);
-      done();
-    });
-
-    // 4
-    it("test due on (2): when due date has been assigned", function(done) {
-      validChore.setDueDate(new Date('November 5, 2019 20:30:00'));
-      assert.equal(validChore.dueOn().toDateString(), new Date('November 5, 2019 20:30:00').toDateString());
-      done();
-    });
-
-    // 5
-    it("test completed on (1): when the chore has not been completed yet", function(done) {
-      assert.equal(validChore.completedOn(), null);
-      done();
-    });
-
-    // 6
-    it("test chore assignment check (1): when the chore has not been assigned yet", function(done) {
-      assert.equal(validChore.getStatus(), 0);
-      assert.equal(validChore.completedOn(), null);
-      done();
-    });
-
-    // 7
-    it("test chore assignment check (2): when the chore has been assigned", function(done) {
-    	validChore.markAssigned();
-      	assert.equal(validChore.getStatus(), 1);
-      	assert.equal(validChore.completedOn(), null);
-      	done();
-    });
-
-    // 8
-    it("test chore assignment check (3): when the chore has been completed", function(done) {
-    	validChore.markComplete();
-      	assert.equal(validChore.getStatus(), 2);
-      	assert.exists(validChore.completedOn(), "date is null");
-      	done();
-    });
-
-    // 8
-    it("test chore lateness check", function(done) {
-    	validChore.setDueDate(new Date('December 5, 2019 20:30:00'));
-    	validChore.markComplete();
-      	assert.equal(validChore.checkLate(), false);
-
-      validChore.setDueDate(new Date('December 5, 2018 20:30:00'));
-    	validChore.markComplete();
-      assert.equal(validChore.checkLate(), true);
-      done();
-     });
-
-
-    // 9
-    it("test criteria check", function(done) {
-      	assert.equal(validChore.getCriteria().length, 0);
-      	done();
-    });
-
-    // 10
-    it("test adding criteria", function(done) {
-    	validChore.addCriteria("Living room");
-    	validChore.addCriteria("Bathroom");
-    	validChore.addCriteria("Bedroom");
-      	assert.equal(validChore.getCriteria().toString(), 'Living room,Bathroom,Bedroom');
-      	done();
-    });
-
-    // // 11
-    // it("test removing criteria", function(done) {
-    // 	validChore.removeCriteria(0);
-    //   assert.equal(validChore.getCriteria().toString(), 'Bathroom,Bedroom');
-    //   done();
-    // });
-
-  
-});
-=======
 describe('Chore Tests', () => {
 	const validChore = new Chore(chore);
 	validChore.save();
@@ -225,17 +126,20 @@ describe('Chore Tests', () => {
 
 	// 10
 	it('test adding criteria', function(done) {
+		validChore.addCriteria('Living room');
 		validChore.addCriteria('Bathroom');
 		validChore.addCriteria('Bedroom');
-		assert.equal(validChore.getCriteria().toString(), 'Bathroom,Bedroom');
+		assert.equal(
+			validChore.getCriteria().toString(),
+			'Living room,Bathroom,Bedroom'
+		);
 		done();
 	});
 
-	// 11
-	it('test removing criteria', function(done) {
-		validChore.removeCriteria(0);
-		assert.equal(validChore.getCriteria().toString(), 'Bedroom');
-		done();
-	});
+	// // 11
+	// it("test removing criteria", function(done) {
+	// 	validChore.removeCriteria(0);
+	//   assert.equal(validChore.getCriteria().toString(), 'Bathroom,Bedroom');
+	//   done();
+	// });
 });
->>>>>>> e78f6aed58da07faf6bef7f07c42fc5e9ddc12c2
