@@ -4,7 +4,7 @@ const Person = require('../src/person');
 
 const HouseholdSchema = new mongoose.Schema({
 	admin: {
-		type: Person,
+		type: mongoose.Schema.Types.ObjectId,
 		required: false,
 	},
 	chores: [mongoose.Schema.Types.ObjectId],
