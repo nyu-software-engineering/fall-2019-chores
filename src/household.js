@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 // const URLSlugs = require('mongoose-url-slugs');
 const Person = require('../src/person');
+const Chore = require('../src/chore');
 
 const HouseholdSchema = new mongoose.Schema({
 	admin: {

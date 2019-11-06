@@ -61,23 +61,23 @@ describe('Household Tests', function() {
 	const laundry = new Chore(chore);
 	laundry.save();
 
-	it('test title modification', function(done) {
-		house.setTitle('MyHousehold2');
-		assert.equal(house.getTitle(), 'MyHousehold2');
-		done();
-	});
+	// it('test title modification', function(done) {
+	// 	house.setTitle('MyHousehold2');
+	// 	assert.equal(house.getTitle(), 'MyHousehold2');
+	// 	done();
+	// });
 
-	it('test admin modification', function(done) {
-		house.setAdmin(user);
-		assert.equal(house.getAdmin(), user);
-		done();
-	});
+	// it('test admin modification', function(done) {
+	// 	house.setAdmin(user);
+	// 	assert.equal(house.getAdmin(), user);
+	// 	done();
+	// });
 
-	it('test add member', function(done) {
-		house.addMember(user);
-		assert.equal(house.containsPerson(user), true);
-		done();
-	});
+	// it('test add member', function(done) {
+	// 	house.addMember(user);
+	// 	assert.equal(house.containsPerson(user), true);
+	// 	done();
+	// });
 
 	it('test remove member', function(done) {
 		house.removeMember(user);
@@ -91,9 +91,9 @@ describe('Household Tests', function() {
 		done();
 	});
 
-	it('test remove chore', function(done) {
-		house.removeChore(laundry);
-		assert.equal(house.containsChore(laundry), false);
-		done();
-	});
+	// it('test remove chore', function(done) {
+	// 	house.removeChore(laundry);
+	// 	assert.equal(house.containsChore(laundry), false);
+	// 	done();
+	// });
 });
