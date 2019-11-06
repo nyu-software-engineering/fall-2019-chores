@@ -1,72 +1,146 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const assert = require("chai").assert;
+const URLSlugs = require("mongoose-url-slugs");
 const Person = require("../src/person");
+const Chore = require('../src/chore');
+const Household = require('../src/household');
 
-describe("Person Tests", function() {
-  var person;
 
-  beforeEach(function() {
-    person = new Person.Person();
-  });
 
-  // 1
-  it("test name modification", function() {
-    person.setName("Ben");
-    assert.equal(person.getName(), "Ben");
-  });
+const person = {
+  firstName: 'Eugene',
+  lastName: 'Choi',
+  phoneNum: '9291112222'
+};
 
-  // 2
-  it("test chore assignment", function() {
-    person.assignChore("Laundary");
-    assert.equal(person.hasChore("Laundary"), true);
-  });
 
-  // 3
-  it("test chore assignment", function() {
-    person.assignChore("Dishes");
-    assert.equal(person.getChoreCount(), 1);
-  });
+// User validity tests.
+describe('Test user creation validity.', () => {
 
-  // 4
-  it("test chore incompletion check", function() {
-    person.assignChore("Dishes");
-    assert.equal(person.hasIncompletedChore(), true);
-  });
+    const user = new Person(person);
 
-  // 5
-  it("test remove chore", function() {
-    person.assignChore("Laundary");
-    assert.equal(person.hasChore("Laundary"), true);
-    person.removeChore("Laundary");
-    assert.equal(person.removeChore("Laundary"), true);
-  });
+    it('Test whether the ID of an object is defined when saved to MongoDB successfully.', function (done) {
+        assert.isDefined(user._id, 'user is not saved to MongoDB');
+        done();
+    });
 
-  // 6
-  it("test get rating: (1) when no rating has been added", function() {
-    assert.equal(person.getRating(), "No ratings yet.");
-  });
+    it('test if the first names match', function (done) {
+        assert.equal(user.firstName, person.firstName, 'first name doesn\'t match');
+        done();
+    });
 
-  // 7
-  it("test get rating: (2) when a rating (positive) has been added", function() {
-    person.setRating(true);
-    assert.equal(person.getRating(), "100.00%");
-  });
+    it('test if the last name match', function (done) {
+        assert.equal(user.lastName, person.lastName, 'last name doesn\'t match');
+        done();
+    });
 
-  // 8
-  it("test get rating: (3) when a rating (negative) has been added", function() {
-    person.setRating(true);
-    person.setRating(false);
-    assert.equal(person.getRating(), "50.00%");
-  });
+    it('phone number should match', function (done) {
+        assert.equal(user.phoneNum, person.phoneNum, 'phone number doesn\'t match');
+        done();
+    });
 
-  // 9
-  it("admin test", function() {
-    person.setAdmin();
-    assert.equal(person.getAdminStatus(), true);
-  });
+    it('user should be defined', (done) => {
+        assert.isDefined(user, 'user is not defined');
+        done();
+    });
 
-  // 10
-  it("ID test", function() {
-    person.setId("foobar");
-    assert.equal(person.getId(), "foobar");
-  });
+    it('user should not be null', (done) => {
+        assert.exists(user, 'user is null');
+        done();
+    });
+});
+
+// Tests the functions inside the person.js file.
+describe("Person Tests", () => {
+
+    const user = new Person(person);
+    user.save();
+
+    // 1
+    it("test first name modification", function(done) {
+      user.setFirstName("Ben");
+      assert.equal(user.getFirstName(), "Ben");
+      done();
+    });
+
+    // 2
+    it("test last name modification", function(done) {
+      user.setLastName("Cho");
+      assert.equal(user.getLastName(), "Cho");
+      done();
+    });
+
+    // 3
+    it("test get rating: (1) when no rating has been added", function(done) {
+      assert.equal(user.getScore(), -1);
+      done();
+    });
+
+    // 4
+    it("test get rating: (2) when a rating (positive) has been added", function(done) {
+      user.addScore(5);
+      assert.equal(user.getScore(), "5");
+      done();
+    });
+
+    // 5
+    it("test get rating: (3) when a rating (negative) has been added", function(done) {
+      user.addScore(4);
+      assert.equal(user.getScore(), "4.5");
+      done();
+    });
+
+
+    const dishes = new Chore({title: "Dishes"})
+    dishes.save();
+
+    // 6
+    it("test chore assignment check", function(done) {
+      user.assignChore(dishes);
+      assert.equal(user.isAssigned(dishes), true);
+      done();
+    });
+
+
+    // 7
+    it("test chore incompletion check", function(done) {
+      user.assignChore(dishes);
+      assert.equal(user.incomplete(), true);
+      done();
+     });
+
+    // 8
+    it("test remove chore", function(done) {
+      user.unassign(dishes);
+      assert.equal(user.isAssigned(dishes), false);
+      done();
+    });
+
+    // 9
+    it("test change number", function(done) {
+      assert.equal(user.getNumber(dishes), '9291112222');
+      user.changeNumber('1234567890');
+      assert.equal(user.getNumber(dishes), '1234567890');
+      done();
+    });
+
+    const house = new Household({title: "HouseKeeper"})
+    house.save();
+
+    // 10
+    it("test household assignment", function(done) {
+      user.addHousehold(house);
+      assert.equal(user.hasHousehold(house), true);
+      done();
+    });
+
+    // 11
+    it("test household removal", function(done) {
+      user.removeHousehold(house);
+      assert.equal(user.hasHousehold(house), false);
+      done();
+    });
+
+  
 });

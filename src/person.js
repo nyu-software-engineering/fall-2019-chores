@@ -61,9 +61,13 @@ PersonSchema.methods = {
 		this.lastName = lastName;
 	},
 
+	//sets Person name to provided argument
+	setLastName: function(lastName) {
+		this.lastName = lastName;
+	},
 	//returns Person score
 	getScore: function() {
-		if (this.scoreCount == undefined) return -1;
+		if (this.score === undefined) return -1;
 		else {
 			return this.score;
 		}
