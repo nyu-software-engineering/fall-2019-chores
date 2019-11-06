@@ -3,7 +3,7 @@
    "version": "1.0.0",
    "description": "- HouserKeeper is a Progressive Web App designed to help roommates respectfully allocate chores amongst themselves. ",
    "main": "index.js",
-   "homepage": "https://github.com/nyu-software-engineering/fall-2019-chores",
+   "homepage": "https://github.com/nyu-software-engineering/fall-2019-chores#readme",
    "directories": {
       "test": "test"
    },
@@ -21,7 +21,6 @@
    "bugs": {
       "url": "https://github.com/nyu-software-engineering/fall-2019-chores/issues"
    },
-   "homepage": "https://github.com/nyu-software-engineering/fall-2019-chores#readme",
    "devDependencies": {
       "chai": "^4.2.0",
       "jest": "^24.9.0",
@@ -30,9 +29,9 @@
    },
    "dependencies": {
       "bootstrap": "^4.3.1",
-      "chartist": "^0.11.4",
       "collections": "^5.1.9",
       "collectionsjs": "^0.3.2",
+      "core-util-is": "^1.0.2",
       "lint": "^0.7.0",
       "mongoose": "^5.7.7",
       "mongoose-url-slugs": "^1.0.2",
@@ -44,7 +43,8 @@
       "react-notification-system": "^0.2.17",
       "react-router": "^5.1.2",
       "react-router-dom": "^5.1.2",
-      "react-scripts": "^3.2.0"
+      "react-scripts": "^3.2.0",
+      "react-toggle": "^4.1.1"
    },
    "browserslist": {
       "production": [
