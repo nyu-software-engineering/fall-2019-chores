@@ -31,7 +31,7 @@ const PersonSchema = new mongoose.Schema({
 	},
 });
 
-PersonSchema.plugin(URLSlugs('name'));
+// PersonSchema.plugin(URLSlugs('name'));
 PersonSchema.methods = {
 	//returns Chore title
 	getName: function() {

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URLSlugs = require('mongoose-url-slugs');
+// const URLSlugs = require('mongoose-url-slugs');
 const Person = require('../src/person');
 
 const HouseholdSchema = new mongoose.Schema({
@@ -22,7 +22,7 @@ const HouseholdSchema = new mongoose.Schema({
 	},
 });
 
-HouseholdSchema.plugin(URLSlugs('title'));
+// HouseholdSchema.plugin(URLSlugs('title'));
 
 HouseholdSchema.methods = {
 	//returns String containing household title

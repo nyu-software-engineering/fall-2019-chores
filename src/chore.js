@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URLSlugs = require('mongoose-url-slugs');
+// const URLSlugs = require('mongoose-url-slugs');
 
 const ChoreSchema = new mongoose.Schema({
 	completed: {
