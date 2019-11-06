@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const URLSlugs = require('mongoose-url-slugs');
-const Chore = require('../src/chore');
+// const URLSlugs = require('mongoose-url-slugs');
 const Person = require('../src/person');
+const Chore = require('../src/chore');
 
 const HouseholdSchema = new mongoose.Schema({
 	admin: {
-		type: Person,
+		type: mongoose.Schema.Types.ObjectId,
 		required: false,
 	},
 	chores: [mongoose.Schema.Types.ObjectId],
@@ -23,9 +23,7 @@ const HouseholdSchema = new mongoose.Schema({
 	},
 });
 
-HouseholdSchema.plugin(URLSlugs('title'));
-
-// const mongoose = require('mongoose');
+// HouseholdSchema.plugin(URLSlugs('title'));
 
 HouseholdSchema.methods = {
 	//returns String containing household title
@@ -45,16 +43,13 @@ HouseholdSchema.methods = {
 
 	//assigns Person as admin
 	setAdmin: function(person) {
-		if (person instanceof Person) {
-			if (this.members.some(member => member === person._id)) {
-				this.admin = person._id;
-			}
+		if (this.members.some(member => member === person._id)) {
+			this.admin = person._id;
 		}
 	},
 
 	//adds Person to the Household
 	addMember: function(person) {
-		// if (person instanceof Person) {
 		if (!this.members.indexOf(person._id)) {
 			this.members.push(person._id);
 		}

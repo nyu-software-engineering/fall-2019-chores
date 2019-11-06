@@ -3,65 +3,97 @@ const Person = require('../src/person');
 const Chore = require('../src/chore');
 const assert = require('chai').assert;
 
-describe('Household Tests', function() {
-	let household;
-	let person;
-	let chore;
+const household = {
+	createdOn: new Date(),
+	title: 'MyHousehold',
+};
 
-	beforeEach(function() {
-		person = new Person.Person();
-		chore = new Chore.Chore();
-		household = new Household.Household(
-			1,
-			'sampletitle',
-			false,
-			'sampleowner'
+describe('Test household creation validity.', () => {
+	const house = new Household(household);
+
+	it('Test whether the ID of an object is defined when saved to MongoDB successfully.', function(done) {
+		assert.isDefined(house._id, 'user is not saved to MongoDB');
+		done();
+	});
+
+	it('test if the title match', function(done) {
+		assert.equal(house.title, household.title, "title doesn't match");
+		done();
+	});
+
+	it('test if the dates match', function(done) {
+		assert.equal(
+			house.createdOn,
+			household.createdOn,
+			"last name doesn't match"
 		);
+		done();
 	});
-	it('should be invalid if id is zero', function() {
-		assert.notEqual(household.id, 0);
+
+	it('house should be defined', done => {
+		assert.isDefined(house, 'house is not defined');
+		done();
 	});
-	it('should be invalid if title is blank', function() {
-		assert.notEqual(household.title, '');
+
+	it('house should not be null', done => {
+		assert.exists(house, 'house is null');
+		done();
 	});
-	it('should be invalid if owner is blank', function() {
-		assert.notEqual(household.owner, '');
+});
+
+describe('Household Tests', function() {
+	const person = {
+		firstName: 'Bella',
+		lastName: 'Steains',
+		phoneNum: '9173489985',
+	};
+
+	const chore = {
+		title: 'Do Laundry',
+	};
+
+	const house = new Household(household);
+	house.save();
+
+	const user = new Person(person);
+	user.save();
+
+	const laundry = new Chore(chore);
+	laundry.save();
+
+	// it('test title modification', function(done) {
+	// 	house.setTitle('MyHousehold2');
+	// 	assert.equal(house.getTitle(), 'MyHousehold2');
+	// 	done();
+	// });
+
+	// it('test admin modification', function(done) {
+	// 	house.setAdmin(user);
+	// 	assert.equal(house.getAdmin(), user);
+	// 	done();
+	// });
+
+	// it('test add member', function(done) {
+	// 	house.addMember(user);
+	// 	assert.equal(house.containsPerson(user), true);
+	// 	done();
+	// });
+
+	it('test remove member', function(done) {
+		house.removeMember(user);
+		assert.equal(house.containsPerson(user), false);
+		done();
 	});
-	it('should be invalid if any members', function() {
-		assert.equal(household.members.length, 0);
+
+	it('test add chore', function(done) {
+		house.addChore(laundry);
+		assert.equal(house.containsChore(laundry), true);
+		done();
 	});
-	it('should be incorrect if cannot add members', function() {
-		household.addMember(person);
-		assert.notEqual(household.members.length, 0);
-	});
-	it('should be incorrect if cannot remove members', function() {
-		var val = household.members.length;
-		household.addMember(person);
-		household.removeMember(person);
-		assert.equal(household.members.length, val);
-	});
-	it('should be incorrect if cannot add chore', function() {
-		household.addChore(chore);
-		assert.notEqual(household.chores.length, 0);
-	});
-	it('should be incorrect if cannot remove chore', function() {
-		var val = household.chores.length;
-		household.addChore(chore);
-		household.removeChore(chore);
-		assert.equal(household.chores.length, val);
-	});
-	it('isEmpty should return correct result', function() {
-		household.addMember(person);
-		assert.notEqual(household.isEmpty(), true);
-	});
-	it('setOwner should change owner', function() {
-		var str = household.getOwner();
-		household.setOwner('Change_Owner');
-		assert.notEqual(household.getOwner(), str);
-	});
-	it('setTitle should change title', function() {
-		var str = household.getTitle();
-		household.setTitle('Change_Title');
-		assert.notEqual(household.getTitle(), str);
-	});
+
+	// it('test remove chore', function(done) {
+	// 	house.removeChore(laundry);
+	// 	assert.equal(house.containsChore(laundry), false);
+	// 	done();
+	// });
 });

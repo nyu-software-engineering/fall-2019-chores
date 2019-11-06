@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
-const URLSlugs = require("mongoose-url-slugs");
+// const URLSlugs = require('mongoose-url-slugs');
 const Chore = require('../src/chore');
 const Household = require('../src/household');
-
 
 const PersonSchema = new mongoose.Schema({
 	assigned: [mongoose.Schema.Types.ObjectId],
@@ -40,7 +39,7 @@ const PersonSchema = new mongoose.Schema({
 	},
 });
 
-PersonSchema.plugin(URLSlugs('firstName'));
+// PersonSchema.plugin(URLSlugs('firstName'));
 PersonSchema.methods = {
 	//returns Chore title
 	getFirstName: function() {
@@ -60,9 +59,14 @@ PersonSchema.methods = {
 	setLastName: function(lastName) {
 		this.lastName = lastName;
 	},
+
+	//sets Person name to provided argument
+	setLastName: function(lastName) {
+		this.lastName = lastName;
+	},
 	//returns Person score
 	getScore: function() {
-		if (this.scoreCount == 0 || this.score == undefined) return -1;
+		if (this.scoreCount == 0) return -1;
 		else {
 			return this.score;
 		}
@@ -70,8 +74,8 @@ PersonSchema.methods = {
 
 	//adds score to Person by incrementing score count and recalculating overall score
 	addScore: function(newScore) {
-		if(this.score == undefined) this.score = 0;
-		if(this.scoreCount == undefined) this.scoreCount = 0;
+		if (this.score == undefined) this.score = 0;
+		if (this.scoreCount == undefined) this.scoreCount = 0;
 		this.score =
 			(this.scoreCount * this.score + newScore) / ++this.scoreCount;
 	},
