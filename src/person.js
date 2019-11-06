@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URLSlugs = require('mongoose-url-slugs');
+// const URLSlugs = require('mongoose-url-slugs');
 const Chore = require('../src/chore');
 const Household = require('../src/household');
 
@@ -40,7 +40,7 @@ const PersonSchema = new mongoose.Schema({
 	},
 });
 
-PersonSchema.plugin(URLSlugs('firstName'));
+// PersonSchema.plugin(URLSlugs('firstName'));
 PersonSchema.methods = {
 	//returns Chore title
 	getFirstName: function() {
