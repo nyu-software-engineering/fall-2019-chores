@@ -41,7 +41,7 @@ const ChoreSchema = new mongoose.Schema({
 	},
 });
 
-ChoreSchema.plugin(URLSlugs('title'));
+// ChoreSchema.plugin(URLSlugs('title'));
 
 ChoreSchema.methods = {
 	//returns title of chore
