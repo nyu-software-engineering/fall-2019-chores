@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const URLSlugs = require('mongoose-url-slugs');
+// const URLSlugs = require('mongoose-url-slugs');
 
 const ChoreSchema = new mongoose.Schema({
 	completed: {
@@ -41,7 +41,7 @@ const ChoreSchema = new mongoose.Schema({
 	},
 });
 
-ChoreSchema.plugin(URLSlugs('title'));
+// ChoreSchema.plugin(URLSlugs('title'));
 
 ChoreSchema.methods = {
 	//returns title of chore
