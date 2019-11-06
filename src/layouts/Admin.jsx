@@ -43,12 +43,7 @@ class Admin extends Component {
       }
       this.state._notificationSystem.addNotification({
          title: <span data-notify="icon" className="pe-7s-gift" />,
-         message: (
-            <div>
-               Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie
-               for every web developer.
-            </div>
-         ),
+         message: <div>Welcome back! Let's get to cleaning.</div>,
          level: level,
          position: position,
          autoDismiss: 15,
@@ -86,14 +81,8 @@ class Admin extends Component {
       }
       return 'Brand';
    };
-   handleImageClick = image => {
-      // this.setState({ image: image });
-   };
    handleColorClick = color => {
       this.setState({ color: color });
-   };
-   handleHasImage = hasImage => {
-      this.setState({ hasImage: hasImage });
    };
    handleFixedClick = () => {
       if (this.state.fixedClasses === 'dropdown') {
@@ -151,6 +140,7 @@ class Admin extends Component {
       }
    }
    render() {
+      console.log('props:', this.props);
       return (
          <div className="wrapper">
             <NotificationSystem ref="notificationSystem" style={style} />

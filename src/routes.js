@@ -1,37 +1,33 @@
-import Dashboard from './views/Dashboard.jsx';
+import HomePage from './views/HomePage.jsx';
 import UserProfile from './views/UserProfile.jsx';
 import TableList from './views/TableList.jsx';
 import Notifications from './views/Notifications.jsx';
 
-const dashboardRoutes = [
+const homeRoutes = [
    {
       path: '/dashboard',
-      name: 'Dashboard',
-      icon: 'pe-7s-graph',
-      component: Dashboard,
+      name: 'Home',
+      component: HomePage,
       layout: '/admin',
    },
    {
       path: '/user',
-      name: 'User Profile',
-      icon: 'pe-7s-user',
+      name: 'My Houses',
       component: UserProfile,
       layout: '/admin',
    },
    {
       path: '/table',
-      name: 'Table List',
-      icon: 'pe-7s-note2',
+      name: 'My Chores',
       component: TableList,
       layout: '/admin',
    },
    {
       path: '/notifications',
       name: 'Notifications',
-      icon: 'pe-7s-bell',
       component: Notifications,
       layout: '/admin',
    },
 ];
 
-export default dashboardRoutes;
+export default homeRoutes;

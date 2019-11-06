@@ -3,7 +3,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import Checkbox from './CustomCheckbox.jsx';
 import Button from './CustomButton.jsx';
 
-export class Tasks extends Component {
+export class Chores extends Component {
    handleCheckbox = event => {
       const target = event.target;
       console.log(event.target);
@@ -12,21 +12,20 @@ export class Tasks extends Component {
       });
    };
    render() {
-      const edit = <Tooltip id="edit_tooltip">Edit Task</Tooltip>;
+      const edit = <Tooltip id="edit_tooltip">Edit Chore</Tooltip>;
       const remove = <Tooltip id="remove_tooltip">Remove</Tooltip>;
-      const tasks_title = [
-         'Sign contract for "What are conference organizers afraid of?"',
-         'Lines From Great Russian Literature? Or E-mails From My Boss?',
-         'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroi',
-         'Create 4 Invisible User Experiences you Never Knew About',
-         'Read "Following makes Medium better"',
-         'Unfollow 5 enemies from twitter',
+      const chore_label = [
+         'Empty all garbages"',
+         'Sweep kitchen floor',
+         'Clean toilet',
+         'Change hallway lightbulbs',
+         'Scrub glass pan',
       ];
-      var tasks = [];
+      var chores = [];
       var number;
-      for (var i = 0; i < tasks_title.length; i++) {
+      for (var i = 0; i < chore_label.length; i++) {
          number = 'checkbox' + i;
-         tasks.push(
+         chores.push(
             <tr key={i}>
                <td>
                   <Checkbox
@@ -34,7 +33,7 @@ export class Tasks extends Component {
                      isChecked={i === 1 || i === 2 ? true : false}
                   />
                </td>
-               <td>{tasks_title[i]}</td>
+               <td>{chore_label[i]}</td>
                <td className="td-actions text-right">
                   <OverlayTrigger placement="top" overlay={edit}>
                      <Button bsStyle="info" simple type="button" bsSize="xs">
@@ -51,8 +50,8 @@ export class Tasks extends Component {
             </tr>
          );
       }
-      return <tbody>{tasks}</tbody>;
+      return <tbody>{chores}</tbody>;
    }
 }
 
-export default Tasks;
+export default Chores;

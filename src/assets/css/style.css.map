@@ -1,6 +1,6 @@
 {
 	"version": 3,
-	"file": "light-bootstrap-dashboard-react.css",
+	"file": "style.css",
 	"sources": [
 		"../sass/light-bootstrap-dashboard-react.scss",
 		"../sass/lbd/_variables.scss",
