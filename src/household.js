@@ -24,8 +24,6 @@ const HouseholdSchema = new mongoose.Schema({
 
 HouseholdSchema.plugin(URLSlugs('title'));
 
-const mongoose = require('mongoose');
-
 HouseholdSchema.methods = {
 	//returns String containing household title
 	getTitle: function() {
