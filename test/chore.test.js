@@ -126,20 +126,16 @@ describe('Chore Tests', () => {
 
 	// 10
 	it('test adding criteria', function(done) {
-		validChore.addCriteria('Living room');
 		validChore.addCriteria('Bathroom');
 		validChore.addCriteria('Bedroom');
-		assert.equal(
-			validChore.getCriteria().toString(),
-			'Living room,Bathroom,Bedroom'
-		);
+		assert.equal(validChore.getCriteria().toString(), 'Bathroom,Bedroom');
 		done();
 	});
 
 	// 11
 	it('test removing criteria', function(done) {
 		validChore.removeCriteria(0);
-		assert.equal(validChore.getCriteria().toString(), 'Bathroom,Bedroom');
+		assert.equal(validChore.getCriteria().toString(), 'Bedroom');
 		done();
 	});
 });
