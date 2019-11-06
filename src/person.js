@@ -67,7 +67,7 @@ PersonSchema.methods = {
 	},
 	//returns Person score
 	getScore: function() {
-		if (!this.hasOwnProperty(score)) return -1;
+		if (!this.hasOwnProperty('score')) return -1;
 		else {
 			return this.score;
 		}
