@@ -26,10 +26,11 @@
     "nyc": "^14.1.1"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
     "collections": "^5.1.9",
     "collectionsjs": "^0.3.2",
     "mongoose": "^5.7.7",
-    "mongoose-url-slugs": "^1.0.2"
+    "mongoose-url-slugs": "^1.0.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0"
   }
 }
