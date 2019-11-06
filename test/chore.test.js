@@ -1,144 +1,143 @@
-const assert = require('chai').assert;
-const { ChoreList, Chore } = require('../src/chore');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const assert = require("chai").assert;
+const URLSlugs = require("mongoose-url-slugs");
+const Person = require("../src/person");
+const Chore = require('../src/chore');
+const Household = require('../src/household');
 
-describe('Chore tests', function() {
-	var chore1;
-	var chore2;
-	var list;
 
-	beforeEach(function() {
-		const created = new Date();
 
-		chore1 = new Chore('Garbage');
-		chore1.setID('1');
-		chore1.setDateDue('1979, 11, 1');
-		chore1.setHousehold('134');
-		chore1.setPerson('5678');
+const chore = {
+  title: 'Dishes',
+};
 
-		chore2 = new Chore('Clean Toilet');
-		chore2.setID('2');
-		chore2.setDateDue('2099, 10, 15');
-		chore2.setHousehold('296');
-		chore2.setPerson('4581');
 
-		chore1.dateCreated = created;
-		chore2.dateCreated = created;
+// User validity tests.
+describe('Test user creation validity.', () => {
 
-		list = new ChoreList();
-	});
+    const validChore = new Chore(chore);
 
-	it('test list is initially empty', function() {
-		assert.equal(list.size(), 0);
-	});
+    // 1
+    it('Test whether the ID of an object is defined when saved to MongoDB successfully.', function (done) {
+        assert.isDefined(validChore._id, 'chore is not saved to MongoDB');
+        done();
+    });
 
-	it('test adding a valid chore to list', function() {
-		chore1.setHousehold(null);
-		list.addChore(chore1);
-		assert.equal(list.size(), 0);
-	});
+    // 2
+    it('test if the chore title match', function (done) {
+        assert.equal(validChore.title, chore.title, 'chore title doesn\'t match');
+        done();
+    });
 
-	it('test adding an invalid chore to list', function() {
-		list.addChore(new Chore());
-		assert.equal(list.size(), 0);
-	});
+    // 3
+    it('chore should be defined', (done) => {
+        assert.isDefined(validChore, 'user is not defined');
+        done();
+    });
 
-	it('test getChores', function() {
-		const due1 = new Date('1979, 11, 1');
-		const due2 = new Date('2099, 10, 15');
-		const expected = {
-			'1': {
-				title: 'Sweep Floor',
-				dateCreated: chore1.dateCreated,
-				complete: false,
-				id: '1',
-				dateDue: due1,
-				household: '134',
-				person: '5678',
-			},
-			'2': {
-				title: 'Clean Toilet',
-				dateCreated: chore1.dateCreated,
-				complete: false,
-				id: '2',
-				dateDue: due2,
-				household: '296',
-				person: '4581',
-			},
-		};
+    // 4
+    it('chore should not be null', (done) => {
+        assert.exists(validChore, 'chore is null');
+        done();
+    });
+});
 
-		chore1.setTitle('Sweep Floor');
+// Tests the functions inside the chore.js file.
+describe("Chore Tests", () => {
 
-		list.addChore(chore1);
-		list.addChore(chore2);
-		assert.deepEqual(list.getChores(), expected);
-	});
+    const validChore = new Chore(chore);
+    validChore.save();
 
-	it('test getChoreInfo', function() {
-		const due = new Date('2099, 10, 15');
-		const expected = {
-			ID: '2',
-			Chore: 'Clean Toilet',
-			dateCreated: chore2.dateCreated,
-			dateDue: due,
-			Household: '296',
-			Person: '4581',
-			Complete: 'No',
-		};
+    // 1
+    it("test chore title modification", function(done) {
+      validChore.setTitle("Vacuum");
+      assert.equal(validChore.getTitle(), "Vacuum");
+      done();
+    });
 
-		list.addChore(chore2);
-		assert.deepEqual(list.getChoreInfo(chore2), expected);
-	});
+    // 2
+    it("test date creation", function(done) {
+      assert.exists(validChore.createdOn(), "date is null");
+      done();
+    });
 
-	it('test getTotalCompleted', function() {
-		const completed = new Date();
-		const expected = 'Garbage, ' + completed + ' 1';
-		chore1.markComplete();
+    // 3
+    it("test due on (1): when no due date is assigned yet", function(done) {
+      assert.equal(validChore.dueOn(), null);
+      done();
+    });
 
-		list.addChore(chore1);
-		list.addChore(chore2);
-		assert.equal(list.getTotalCompleted(), expected);
-	});
+    // 4
+    it("test due on (2): when due date has been assigned", function(done) {
+      validChore.setDueDate(new Date('November 5, 2019 20:30:00'));
+      assert.equal(validChore.dueOn().toDateString(), new Date('November 5, 2019 20:30:00').toDateString());
+      done();
+    });
 
-	it('test getOverdueChores', function() {
-		const expected = 'Garbage';
+    // 5
+    it("test completed on (1): when the chore has not been completed yet", function(done) {
+      assert.equal(validChore.completedOn(), null);
+      done();
+    });
 
-		list.addChore(chore1);
-		list.addChore(chore2);
-		assert.deepEqual(list.getOverdueChores(), expected);
-	});
+    // 6
+    it("test chore assignment check (1): when the chore has not been assigned yet", function(done) {
+      assert.equal(validChore.getStatus(), 0);
+      assert.equal(validChore.completedOn(), null);
+      done();
+    });
 
-	it('test get chore that is due next', function() {
-		const created = new Date();
-		const due = new Date('2019, 11, 4');
-		const expected = {
-			title: 'Garbage',
-			dateCreated: created,
-			complete: false,
-			id: '1',
-			dateDue: due,
-			household: '134',
-			person: '5678',
-		};
+    // 7
+    it("test chore assignment check (2): when the chore has been assigned", function(done) {
+    	validChore.markAssigned();
+      	assert.equal(validChore.getStatus(), 1);
+      	assert.equal(validChore.completedOn(), null);
+      	done();
+    });
 
-		chore1.setDateDue('2019, 11, 4');
-		chore2.setDateDue('2019, 11, 8');
+    // 8
+    it("test chore assignment check (3): when the chore has been completed", function(done) {
+    	validChore.markComplete();
+      	assert.equal(validChore.getStatus(), 2);
+      	assert.exists(validChore.completedOn(), "date is null");
+      	done();
+    });
 
-		list.addChore(chore1);
-		list.addChore(chore2);
-		assert.deepEqual(list.dueNext(), expected);
-	});
+    // 8
+    it("test chore lateness check", function(done) {
+    	validChore.setDueDate(new Date('December 5, 2019 20:30:00'));
+    	validChore.markComplete();
+      	assert.equal(validChore.checkLate(), false);
 
-	it('test removeChore from list', function() {
-		list.addChore(chore1);
-		list.addChore(chore2);
-		list.removeChore(chore1);
-		assert.equal(list.size(), 1);
-	});
+      	validChore.setDueDate(new Date('December 5, 2018 20:30:00'));
+    	validChore.markComplete();
+      	assert.equal(validChore.checkLate(), true);
+      	done();
+     });
 
-	it('test clearList', function() {
-		list.addChore(chore1);
-		list.addChore(chore2);
-		list.clearList();
-		assert.equal(list.size(), 0);
-	});
+
+    // 9
+    it("test criteria check", function(done) {
+      	assert.equal(validChore.getCriteria().length, 0);
+      	done();
+    });
+
+    // 10
+    it("test adding criteria", function(done) {
+    	validChore.addCriteria("Living room");
+    	validChore.addCriteria("Bathroom");
+    	validChore.addCriteria("Bedroom");
+      	assert.equal(validChore.getCriteria().toString(), 'Living room,Bathroom,Bedroom');
+      	done();
+    });
+
+    // 11
+    it("test removing criteria", function(done) {
+    	validChore.removeCriteria(0);
+      	assert.equal(validChore.getCriteria().toString(), 'Bathroom,Bedroom');
+      	done();
+    });
+
+  
 });

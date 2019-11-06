@@ -136,7 +136,7 @@ describe("Person Tests", () => {
     });
 
     // 11
-    it("test household assignment", function(done) {
+    it("test household removal", function(done) {
       user.removeHousehold(house);
       assert.equal(user.hasHousehold(house), false);
       done();
