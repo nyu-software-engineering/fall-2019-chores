@@ -53,7 +53,6 @@ HouseholdSchema.methods = {
 		if (!this.members.indexOf(person._id)) {
 			this.members.push(person._id);
 		}
-		// }
 	},
 
 	//removes Person from the Household
