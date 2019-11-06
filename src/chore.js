@@ -123,7 +123,7 @@ ChoreSchema.methods = {
 
 	//remvoes a bullet point from the chore description
 	removeCriteria: function(index) {
-		if (index < 0 && index < this.criteria.length) {
+		if (0 <= index && index < this.criteria.length) {
 			this.criteria.splice(index, 1);
 		}
 	},

@@ -24,9 +24,6 @@ const HouseholdSchema = new mongoose.Schema({
 });
 
 HouseholdSchema.plugin(URLSlugs('title'));
-
-// const mongoose = require('mongoose');
-
 HouseholdSchema.methods = {
   //returns String containing household title
   getTitle: function() {
@@ -54,11 +51,9 @@ HouseholdSchema.methods = {
 
   //adds Person to the Household
   addMember: function(person) {
-    // if (person instanceof Person) {
       if (!this.members.indexOf(person._id)) {
         this.members.push(person._id);
       }
-    // }
   },
 
   //removes Person from the Household

@@ -3,10 +3,11 @@ const URLSlugs = require("mongoose-url-slugs");
 const Chore = require('../src/chore');
 const Household = require('../src/household');
 
-
 const PersonSchema = new mongoose.Schema({
+
 	assigned: [mongoose.Schema.Types.ObjectId],
 	households: [mongoose.Schema.Types.ObjectId],
+
 	firstName: {
 		type: String,
 		required: true,
@@ -60,9 +61,10 @@ PersonSchema.methods = {
 	setLastName: function(lastName) {
 		this.lastName = lastName;
 	},
+	
 	//returns Person score
 	getScore: function() {
-		if (this.scoreCount == 0 || this.score == undefined) return -1;
+		if (this.scoreCount == undefined) return -1;
 		else {
 			return this.score;
 		}

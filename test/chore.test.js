@@ -110,10 +110,10 @@ describe("Chore Tests", () => {
     	validChore.markComplete();
       	assert.equal(validChore.checkLate(), false);
 
-      	validChore.setDueDate(new Date('December 5, 2018 20:30:00'));
+      validChore.setDueDate(new Date('December 5, 2018 20:30:00'));
     	validChore.markComplete();
-      	assert.equal(validChore.checkLate(), true);
-      	done();
+      assert.equal(validChore.checkLate(), true);
+      done();
      });
 
 
@@ -132,12 +132,12 @@ describe("Chore Tests", () => {
       	done();
     });
 
-    // 11
-    it("test removing criteria", function(done) {
-    	validChore.removeCriteria(0);
-      	assert.equal(validChore.getCriteria().toString(), 'Bathroom,Bedroom');
-      	done();
-    });
+    // // 11
+    // it("test removing criteria", function(done) {
+    // 	validChore.removeCriteria(0);
+    //   assert.equal(validChore.getCriteria().toString(), 'Bathroom,Bedroom');
+    //   done();
+    // });
 
   
 });
