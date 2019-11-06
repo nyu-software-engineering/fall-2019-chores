@@ -42,19 +42,15 @@ HouseholdSchema.methods = {
 
 	//assigns Person as admin
 	setAdmin: function(person) {
-		if (person instanceof Person) {
-			if (this.members.some(member => member === person._id)) {
-				this.admin = person._id;
-			}
+		if (this.members.some(member => member === person._id)) {
+			this.admin = person._id;
 		}
 	},
 
 	//adds Person to the Household
 	addMember: function(person) {
-		if (person instanceof Person) {
-			if (!this.members.indexOf(person._id)) {
-				this.members.push(person._id);
-			}
+		if (!this.members.indexOf(person._id)) {
+			this.members.push(person._id);
 		}
 	},
 
