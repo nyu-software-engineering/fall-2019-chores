@@ -1,6 +1,6 @@
 .card{
     border-radius: $border-radius-base;
-    box-shadow: 0 1px 2px rgba(0,0,0,.05),0 0 0 1px rgba(63,63,68,.1);
+    box-shadow: 0 1px 2px rgb(154,202,40),0 0 0 1px rgb(154,202,40);
     background-color: #FFFFFF;
     margin-bottom: 30px;
 
@@ -20,7 +20,7 @@
     }
     .filter{
         position: absolute;
-        z-index: 2;
+        // z-index: 2;
         background-color: rgba(0,0,0,.68);
         top: 0;
         left: 0;
@@ -126,11 +126,6 @@
         position: absolute;
     }
 
-    .ct-chart{
-        margin: 30px 0 30px;
-        height: 245px;
-    }
-
     .table{
         tbody td:first-child,
         thead th:first-child{
@@ -206,17 +201,20 @@
 .card-stats{
     .icon-big{
         font-size: 3em;
-        min-height: 64px;
+        min-height: 20px;
         i{
             font-weight: bold;
             line-height: 59px;
         }
     }
     .numbers{
-        font-size: 2em;
-        text-align: right;
+        font-size: 1.5em;
+        text-align: left;
+        margin-bottom: 20px;
+        color: #7ea71f;
         p {
            margin: 0;
+           color: #333333;
         }
     }
 }
