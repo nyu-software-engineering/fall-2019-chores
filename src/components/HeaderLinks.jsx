@@ -16,9 +16,9 @@
 
 */
 import React, { Component } from 'react';
-import { NavItem, Nav, NavDropdown, DropdownItem } from 'react-bootstrap';
+import { Nav, NavItem, NavDropdown, Dropdown } from 'react-bootstrap';
 
-class AdminNavbarLinks extends Component {
+class HeaderLinks extends Component {
    render() {
       const notification = (
          <div>
@@ -31,50 +31,49 @@ class AdminNavbarLinks extends Component {
       return (
          <div>
             <Nav>
-               <NavItem eventKey={1} href="#">
+               <Nav.Link eventKey={1} href="#">
                   <i className="fa fa-dashboard" />
                   <p className="hidden-lg hidden-md">Home</p>
-               </NavItem>
+               </Nav.Link>
                <NavDropdown
-                  eventKey={2}
+                  // eventKey={2}
                   title={notification}
-                  noCaret
                   id="basic-nav-dropdown"
                >
-                  <DropdownItem eventKey={2.1}>Notification 1</DropdownItem>
-                  <DropdownItem eventKey={2.2}>Notification 2</DropdownItem>
-                  <DropdownItem eventKey={2.3}>Notification 3</DropdownItem>
-                  <DropdownItem eventKey={2.4}>Notification 4</DropdownItem>
+                  <Dropdown.Item eventKey={2.1}>Notification 1</Dropdown.Item>
+                  <Dropdown.Item eventKey={2.2}>Notification 2</Dropdown.Item>
+                  <Dropdown.Item eventKey={2.3}>Notification 3</Dropdown.Item>
+                  <Dropdown.Item eventKey={2.4}>Notification 4</Dropdown.Item>
                </NavDropdown>
-               <NavItem eventKey={3} href="#">
+               <Nav.Link eventKey={3} href="#">
                   <i className="fa fa-search" />
                   <p className="hidden-lg hidden-md">Search</p>
-               </NavItem>
+               </Nav.Link>
             </Nav>
-            <Nav pullRight>
-               <NavItem eventKey={1} href="#">
+            <Nav className="ml-auto">
+               <Nav.Link eventKey={1} href="#">
                   Account
-               </NavItem>
+               </Nav.Link>
                <NavDropdown
-                  eventKey={2}
+                  // eventKey={2}
                   title="Dropdown"
                   id="basic-nav-dropdown-right"
                >
-                  <DropdownItem eventKey={2.1}>Action</DropdownItem>
-                  <DropdownItem eventKey={2.2}>Another action</DropdownItem>
-                  <DropdownItem eventKey={2.3}>Something</DropdownItem>
-                  <DropdownItem eventKey={2.4}>Another action</DropdownItem>
-                  <DropdownItem eventKey={2.5}>Something</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem eventKey={2.5}>Separated link</DropdownItem>
+                  <Dropdown.Item eventKey={2.1}>Action</Dropdown.Item>
+                  <Dropdown.Item eventKey={2.2}>Another action</Dropdown.Item>
+                  <Dropdown.Item eventKey={2.3}>Something</Dropdown.Item>
+                  <Dropdown.Item eventKey={2.4}>Another action</Dropdown.Item>
+                  <Dropdown.Item eventKey={2.5}>Something</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item eventKey={2.5}>Separated link</Dropdown.Item>
                </NavDropdown>
-               <NavItem eventKey={3} href="#">
+               <Nav.Link eventKey={3} href="#">
                   Log out
-               </NavItem>
+               </Nav.Link>
             </Nav>
          </div>
       );
    }
 }
 
-export default AdminNavbarLinks;
+export default HeaderLinks;

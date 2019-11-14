@@ -36,13 +36,13 @@ export class Chores extends Component {
                <td>{chore_label[i]}</td>
                <td className="td-actions text-right">
                   <OverlayTrigger placement="top" overlay={edit}>
-                     <Button bsStyle="info" simple type="button" bsSize="xs">
+                     <Button variant="info" simple type="button">
                         <i className="fa fa-edit" />
                      </Button>
                   </OverlayTrigger>
 
                   <OverlayTrigger placement="top" overlay={remove}>
-                     <Button bsStyle="danger" simple type="button" bsSize="xs">
+                     <Button variant="danger" simple type="button">
                         <i className="fa fa-times" />
                      </Button>
                   </OverlayTrigger>

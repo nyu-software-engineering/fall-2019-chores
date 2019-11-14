@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import NotificationSystem from 'react-notification-system';
 
-import Header from '../components/AdminNavbar';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
-import FixedPlugin from '../components/FixedPlugin.jsx';
 
 import { style } from '../variables/Variables.jsx';
 
@@ -16,9 +15,6 @@ class Admin extends Component {
       super(props);
       this.state = {
          _notificationSystem: null,
-         // image: image,
-         color: 'black',
-         hasImage: true,
          fixedClasses: 'dropdown show-dropdown open',
       };
    }
@@ -81,9 +77,6 @@ class Admin extends Component {
       }
       return 'Brand';
    };
-   handleColorClick = color => {
-      this.setState({ color: color });
-   };
    handleFixedClick = () => {
       if (this.state.fixedClasses === 'dropdown') {
          this.setState({ fixedClasses: 'dropdown show-dropdown open' });
@@ -140,34 +133,17 @@ class Admin extends Component {
       }
    }
    render() {
-      console.log('props:', this.props);
       return (
          <div className="wrapper">
             <NotificationSystem ref="notificationSystem" style={style} />
-            <Sidebar
-               {...this.props}
-               routes={routes}
-               // image={this.state.image}
-               color={this.state.color}
-               hasImage={this.state.hasImage}
-            />
+            <Sidebar {...this.props} routes={routes} />
             <div id="main-panel" className="main-panel" ref="mainPanel">
-               {/* <Header */}
-               {/*    {...this.props} */}
-               {/*    brandText={this.getBrandText(this.props.location.pathname)} */}
-               {/* /> */}
+               <Header
+                  {...this.props}
+                  // brandText={this.getBrandText(this.props.location.pathname)}
+               />
                <Switch>{this.getRoutes(routes)}</Switch>
                <Footer />
-               <FixedPlugin
-                  handleImageClick={this.handleImageClick}
-                  handleColorClick={this.handleColorClick}
-                  handleHasImage={this.handleHasImage}
-                  bgColor={this.state['color']}
-                  bgImage={this.state['image']}
-                  mini={this.state['mini']}
-                  handleFixedClick={this.handleFixedClick}
-                  fixedClasses={this.state.fixedClasses}
-               />
             </div>
          </div>
       );

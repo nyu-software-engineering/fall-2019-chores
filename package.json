@@ -29,6 +29,7 @@
    },
    "dependencies": {
       "bootstrap": "^4.3.1",
+      "classnames": "^2.2.6",
       "collections": "^5.1.9",
       "collectionsjs": "^0.3.2",
       "core-util-is": "^1.0.2",
@@ -36,6 +37,7 @@
       "mongoose": "^5.7.7",
       "mongoose-url-slugs": "^1.0.2",
       "node-sass": "^4.13.0",
+      "prop-types": "^15.7.2",
       "react": "^16.11.0",
       "react-bootstrap": "^1.0.0-beta.14",
       "react-dom": "^16.11.0",
