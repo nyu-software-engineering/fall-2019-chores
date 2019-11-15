@@ -30,7 +30,7 @@ import { FormInputs } from '../components/FormInputs.jsx';
 import { UserCard } from '../components/UserCard.jsx';
 import Button from '../components/CustomButton.jsx';
 
-class UserProfile extends Component {
+export default class UserAccount extends Component {
    render() {
       return (
          <div className="content">
@@ -183,4 +183,3 @@ class UserProfile extends Component {
    }
 }
 
-export default UserProfile;

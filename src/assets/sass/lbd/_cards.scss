@@ -127,10 +127,10 @@
     }
 
     .table{
-        tbody td:first-child,
-        thead th:first-child{
-            padding-left: 15px;
-        }
+        // tbody td:first-child,
+        // thead th:first-child{
+        //     padding-left: 15px;
+        // }
 
         tbody td:last-child,
         thead th:last-child{
@@ -210,7 +210,7 @@
     .numbers{
         font-size: 1.5em;
         text-align: left;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         color: #7ea71f;
         p {
            margin: 0;

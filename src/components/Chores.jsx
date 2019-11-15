@@ -15,7 +15,7 @@ export class Chores extends Component {
       const edit = <Tooltip id="edit_tooltip">Edit Chore</Tooltip>;
       const remove = <Tooltip id="remove_tooltip">Remove</Tooltip>;
       const chore_label = [
-         'Empty all garbages"',
+         'Take out kitchen trash',
          'Sweep kitchen floor',
          'Clean toilet',
          'Change hallway lightbulbs',

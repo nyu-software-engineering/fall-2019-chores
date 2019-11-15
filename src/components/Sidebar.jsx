@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import HeaderLinks from './HeaderLinks.jsx';
 import logo from '../assets/img/logo.png';
 
-class Sidebar extends Component {
+export default class Sidebar extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -37,7 +36,6 @@ class Sidebar extends Component {
             </div>
             <div className="sidebar-wrapper">
                <ul className="nav">
-                  {this.state.width <= 991 ? <HeaderLinks /> : null}
                   {this.props.routes.map((prop, key) => {
                      if (!prop.redirect)
                         return (
@@ -54,7 +52,6 @@ class Sidebar extends Component {
                                  className="nav-link"
                                  activeClassName="active"
                               >
-                                 <i className={prop.icon} />
                                  <p>{prop.name}</p>
                               </NavLink>
                            </li>
@@ -68,4 +65,3 @@ class Sidebar extends Component {
    }
 }
 
-export default Sidebar;

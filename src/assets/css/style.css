@@ -113,9 +113,9 @@ body,
   background-color: white; }
 
 a {
-  color: #1DC7EA; }
+  color: #87CB16; }
   a:hover, a:focus {
-    color: #42d0ed;
+    color: #87CB16;
     text-decoration: none; }
 
 a:focus, a:active,
@@ -869,9 +869,9 @@ body > .navbar-collapse:before {
   position: relative;
   height: 20px;
   display: block;
-  width: 20px;
-  padding: 0px 0px;
-  margin: 0px 5px;
+  /* width: 20px; */
+  /* padding: 0; */
+  /* margin: 0px 5px; */
   text-align: center; }
   .table .radio .icons,
   .table .checkbox .icons {
@@ -2306,3 +2306,4 @@ body > .navbar-collapse:before {
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     -webkit-overflow-scrolling: touch; } }
+    

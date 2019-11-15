@@ -21,7 +21,7 @@ import { Container, Row, Col, Table } from 'react-bootstrap';
 import Card from '../components/Card.jsx';
 import { thArray, tdArray } from '../variables/Variables.jsx';
 
-class TableList extends Component {
+export default class ChoresList extends Component {
    render() {
       return (
          <div className="content">
@@ -96,4 +96,3 @@ class TableList extends Component {
    }
 }
 
-export default TableList;
