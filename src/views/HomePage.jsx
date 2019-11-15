@@ -1,38 +1,84 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import { Card } from '../components/Card.jsx';
-import { StatsCard } from '../components/StatsCard.jsx';
-import { Chores } from '../components/Chores.jsx';
+import Calendar from '../components/Calendar.jsx';
+import Card from '../components/Card.jsx';
+import StatsCard from '../components/StatsCard.jsx';
+import Chores from '../components/Chores.jsx';
 
-class HomePage extends Component {
+export default class HomePage extends Component {
+   state = {
+      date: new Date(),
+   };
+
+   onChange = date => this.setState({ date });
+
    render() {
       return (
          <div className="content">
             <Container fluid>
                <Row>
-                  <Col lg={3} sm={6}>
-                     <StatsCard statsText="Open Chores" statsValue="5" />
-                  </Col>
-                  <Col lg={3} sm={6}>
-                     <StatsCard statsText="Completed Chores" statsValue="12" />
-                  </Col>
-                  <Col lg={3} sm={6}>
-                     <StatsCard statsText="Total Households" statsValue="3" />
-                  </Col>
-                  <Col lg={3} sm={6}>
-                     <StatsCard
-                        statsText="Next Due Date"
-                        statsValue="11/7/19"
+                  <Col>
+                     <Card
+                        title="Household:"
+                        householdId="1234"
+                        lineBreak
+                        content={
+                           <div>
+                              <Row>
+                                 <Col lg={3} sm={6}>
+                                    <StatsCard
+                                       statsText="Members"
+                                       statsValue="3"
+                                       link=""
+                                       linkText="See All Members"
+                                       footer
+                                    />
+                                 </Col>
+                                 <Col lg={3} sm={6}>
+                                    <StatsCard
+                                       statsText="Open Chores"
+                                       statsValue="12"
+                                       link=""
+                                       linkText="See All Chores"
+                                       footer
+                                    />
+                                 </Col>
+                                 <Col lg={3} sm={6}>
+                                    <StatsCard
+                                       statsText="Completed Chores"
+                                       statsValue="3"
+                                       link=""
+                                       linkText="See All Chores"
+                                       footer
+                                    />
+                                 </Col>
+                              </Row>
+                           </div>
+                        }
                      />
                   </Col>
                </Row>
                <Row>
-                  <Col md={6}>
-                     <Card id="chartHours" title="Calendar" />
+                  <Col md={7}>
+                     <Card
+                        title="Calendar"
+                        lineBreak
+                        content={
+                           <div>
+                              <Calendar
+                                 calendarType="US"
+                                 defaultDate={new Date()}
+                                 defaultView="month"
+                                 onChange={this.onChange}
+                                 value={this.state.date}
+                              />
+                           </div>
+                        }
+                     />
                   </Col>
 
-                  <Col md={6}>
+                  <Col md={5}>
                      <Card
                         title="Chores"
                         content={
@@ -50,5 +96,3 @@ class HomePage extends Component {
       );
    }
 }
-
-export default HomePage;

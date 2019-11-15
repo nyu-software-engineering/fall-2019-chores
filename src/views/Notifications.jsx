@@ -1,26 +1,9 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from 'react';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 
 import Button from '../components/CustomButton.jsx';
 
-class Notifications extends Component {
+export default class Notifications extends Component {
    render() {
       return (
          <div className="content">
@@ -51,10 +34,12 @@ class Notifications extends Component {
                      <Row>
                         <Col md={6}>
                            <h5>Notifications Style</h5>
-                           <Alert bsStyle="info">
+                           <Alert>
+                              {' '}
                               <span>This is a plain notification</span>
                            </Alert>
-                           <Alert bsStyle="info">
+                           <Alert>
+                              {' '}
                               <button
                                  type="button"
                                  aria-hidden="true"
@@ -66,7 +51,7 @@ class Notifications extends Component {
                                  This is a notification with close button.
                               </span>
                            </Alert>
-                           <Alert bsStyle="info" className="alert-with-icon">
+                           <Alert className="alert-with-icon">
                               <button
                                  type="button"
                                  aria-hidden="true"
@@ -80,7 +65,7 @@ class Notifications extends Component {
                                  icon.
                               </span>
                            </Alert>
-                           <Alert bsStyle="info" className="alert-with-icon">
+                           <Alert className="alert-with-icon">
                               <button
                                  type="button"
                                  aria-hidden="true"
@@ -100,7 +85,8 @@ class Notifications extends Component {
                         </Col>
                         <Col md={6}>
                            <h5>Notification states</h5>
-                           <Alert bsStyle="info">
+                           <Alert>
+                              {' '}
                               <button
                                  type="button"
                                  aria-hidden="true"
@@ -110,10 +96,10 @@ class Notifications extends Component {
                               </button>
                               <span>
                                  <b> Info - </b> This is a regular notification
-                                 made with bsStyle="info"
+                                 made with{' '}
                               </span>
                            </Alert>
-                           <Alert bsStyle="success">
+                           <Alert>
                               <button
                                  type="button"
                                  aria-hidden="true"
@@ -123,10 +109,10 @@ class Notifications extends Component {
                               </button>
                               <span>
                                  <b> Success - </b> This is a regular
-                                 notification made with bsStyle="success"
+                                 notification made with
                               </span>
                            </Alert>
-                           <Alert bsStyle="warning">
+                           <Alert>
                               <button
                                  type="button"
                                  aria-hidden="true"
@@ -136,10 +122,10 @@ class Notifications extends Component {
                               </button>
                               <span>
                                  <b> Warning - </b> This is a regular
-                                 notification made with bsStyle="warning"
+                                 notification made with
                               </span>
                            </Alert>
-                           <Alert bsStyle="danger">
+                           <Alert>
                               <button
                                  type="button"
                                  aria-hidden="true"
@@ -149,7 +135,7 @@ class Notifications extends Component {
                               </button>
                               <span>
                                  <b> Danger - </b> This is a regular
-                                 notification made with bsStyle="danger"
+                                 notification made with{' '}
                               </span>
                            </Alert>
                         </Col>
@@ -170,7 +156,6 @@ class Notifications extends Component {
                         <Row>
                            <Col md={2} mdOffset={3}>
                               <Button
-                                 bsStyle="default"
                                  block
                                  onClick={() => this.props.handleClick('tl')}
                               >
@@ -179,7 +164,6 @@ class Notifications extends Component {
                            </Col>
                            <Col md={2}>
                               <Button
-                                 bsStyle="default"
                                  block
                                  onClick={() => this.props.handleClick('tc')}
                               >
@@ -188,7 +172,6 @@ class Notifications extends Component {
                            </Col>
                            <Col md={2}>
                               <Button
-                                 bsStyle="default"
                                  block
                                  onClick={() => this.props.handleClick('tr')}
                               >
@@ -199,7 +182,6 @@ class Notifications extends Component {
                         <Row>
                            <Col md={2} mdOffset={3}>
                               <Button
-                                 bsStyle="default"
                                  block
                                  onClick={() => this.props.handleClick('bl')}
                               >
@@ -208,7 +190,6 @@ class Notifications extends Component {
                            </Col>
                            <Col md={2}>
                               <Button
-                                 bsStyle="default"
                                  block
                                  onClick={() => this.props.handleClick('bc')}
                               >
@@ -217,7 +198,6 @@ class Notifications extends Component {
                            </Col>
                            <Col md={2}>
                               <Button
-                                 bsStyle="default"
                                  block
                                  onClick={() => this.props.handleClick('br')}
                               >
@@ -234,4 +214,3 @@ class Notifications extends Component {
    }
 }
 
-export default Notifications;

@@ -148,7 +148,7 @@
 .sidebar,
 body > .navbar-collapse{
     .logo{
-        padding: 10px 30px;
+        padding: 15px 30px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
         p{
@@ -161,10 +161,8 @@ body > .navbar-collapse{
         }
 
         .simple-text{
-            text-transform: uppercase;
             padding: $padding-small-vertical $padding-zero;
             display: block;
-            font-size: $font-size-large;
             color: $white-color;
             font-weight: $font-weight-normal;
             line-height: 30px;
@@ -200,37 +198,13 @@ body > .navbar-collapse{
 
     &:before{
         opacity: .33;
-        background: #000000;
+        background: #87cb16;
     }
 
     &:after{
-       @include icon-gradient($black-color-top, $black-color-bottom);
+       @include icon-gradient($new-green, $green-color-bottom);
        z-index: 3;
        opacity: 1;
-    }
-
-    &[data-image]:after,
-    &.has-image:after{
-        opacity: .77;
-    }
-
-    &[data-color="blue"]:after{
-        @include icon-gradient($new-dark-blue, $blue-color-bottom);
-    }
-    &[data-color="azure"]:after{
-        @include icon-gradient($new-blue, $azure-color-bottom);
-    }
-    &[data-color="green"]:after{
-        @include icon-gradient($new-green, $green-color-bottom);
-    }
-    &[data-color="orange"]:after{
-        @include icon-gradient($new-orange, $orange-color-bottom);
-    }
-    &[data-color="red"]:after{
-        @include icon-gradient($new-red, $red-color-bottom);
-    }
-    &[data-color="purple"]:after{
-        @include icon-gradient($new-purple, $purple-color-bottom);
     }
 }
 

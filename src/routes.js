@@ -1,7 +1,8 @@
-import HomePage from './views/HomePage.jsx';
-import UserProfile from './views/UserProfile.jsx';
-import TableList from './views/TableList.jsx';
-import Notifications from './views/Notifications.jsx';
+import HomePage from './views/HomePage';
+import HousesList from './views/HousesList';
+import ChoresList from './views/ChoresList';
+import Notifications from './views/Notifications';
+import UserAccount from './views/UserAccount';
 
 const homeRoutes = [
    {
@@ -11,23 +12,30 @@ const homeRoutes = [
       layout: '/admin',
    },
    {
-      path: '/user',
+      path: '/myhouses',
       name: 'My Houses',
-      component: UserProfile,
+      component: HousesList,
       layout: '/admin',
    },
    {
-      path: '/table',
+      path: '/mychores',
       name: 'My Chores',
-      component: TableList,
+      component: ChoresList,
       layout: '/admin',
    },
    {
-      path: '/notifications',
-      name: 'Notifications',
-      component: Notifications,
+      path: '/myaccount',
+      name: 'My Account',
+      component: UserAccount,
+      layout: '/admin',
+   },
+   {
+      path: '/login',
+      name: 'Logout',
+      // component: Login,
       layout: '/admin',
    },
 ];
 
+const choresRoutes = [];
 export default homeRoutes;

@@ -30,7 +30,7 @@ import { FormInputs } from '../components/FormInputs.jsx';
 import { UserCard } from '../components/UserCard.jsx';
 import Button from '../components/CustomButton.jsx';
 
-class UserProfile extends Component {
+export default class HousesList extends Component {
    render() {
       return (
          <div className="content">
@@ -139,12 +139,7 @@ class UserProfile extends Component {
                                     </FormGroup>
                                  </Col>
                               </Row>
-                              <Button
-                                 bsStyle="info"
-                                 pullRight
-                                 fill
-                                 type="submit"
-                              >
+                              <Button pullRight fill type="submit">
                                  Update Profile
                               </Button>
                               <div className="clearfix" />
@@ -187,5 +182,3 @@ class UserProfile extends Component {
       );
    }
 }
-
-export default UserProfile;

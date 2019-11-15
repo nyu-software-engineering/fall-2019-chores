@@ -15,7 +15,7 @@ export class Chores extends Component {
       const edit = <Tooltip id="edit_tooltip">Edit Chore</Tooltip>;
       const remove = <Tooltip id="remove_tooltip">Remove</Tooltip>;
       const chore_label = [
-         'Empty all garbages"',
+         'Take out kitchen trash',
          'Sweep kitchen floor',
          'Clean toilet',
          'Change hallway lightbulbs',
@@ -36,13 +36,13 @@ export class Chores extends Component {
                <td>{chore_label[i]}</td>
                <td className="td-actions text-right">
                   <OverlayTrigger placement="top" overlay={edit}>
-                     <Button bsStyle="info" simple type="button" bsSize="xs">
+                     <Button variant="info" simple type="button">
                         <i className="fa fa-edit" />
                      </Button>
                   </OverlayTrigger>
 
                   <OverlayTrigger placement="top" overlay={remove}>
-                     <Button bsStyle="danger" simple type="button" bsSize="xs">
+                     <Button variant="danger" simple type="button">
                         <i className="fa fa-times" />
                      </Button>
                   </OverlayTrigger>
