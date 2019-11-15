@@ -50,8 +50,6 @@ PersonSchema.methods = {
 	//sets Person name to provided argument
 	setFirstName: function(firstName) {
 		this.firstName = firstName;
-<<<<<<< Updated upstream
-=======
 	},
 
 	getLastName: function() {
@@ -61,7 +59,6 @@ PersonSchema.methods = {
 	//sets Person name to provided argument
 	setLastName: function(lastName) {
 		this.lastName = lastName;
->>>>>>> Stashed changes
 	},
 
 	getLastName: function() {
@@ -79,11 +76,7 @@ PersonSchema.methods = {
 	},
 	//returns Person score
 	getScore: function() {
-<<<<<<< Updated upstream
 		if (this.score === undefined) return -1;
-=======
-		if (this.scoreCount == undefined) return -1;
->>>>>>> Stashed changes
 		else {
 			return this.score;
 		}
