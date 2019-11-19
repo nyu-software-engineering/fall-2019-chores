@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Row, Col, Table } from 'react-bootstrap';
 
-import Card from '../components/Card.jsx';
+import Card from '../components/Card';
+import Chores from '../components/Chores';
 
 export default class ChoresList extends Component {
    render() {
@@ -11,6 +12,8 @@ export default class ChoresList extends Component {
          'Created By',
          'Date Created',
          'Date Due',
+         'Edit',
+         'Remove',
       ];
 
       return (
@@ -21,6 +24,7 @@ export default class ChoresList extends Component {
                   <Col md={12}>
                      <Card
                         title="Household: "
+                        householdId={this.props.householdId}
                         ctTableFullWidth
                         ctTableResponsive
                         content={
