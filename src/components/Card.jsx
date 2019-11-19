@@ -17,7 +17,6 @@ export class Card extends Component {
             <div
                className={
                   'content' +
-                  (this.props.ctAllIcons ? ' all-icons' : '') +
                   (this.props.ctTableFullWidth ? ' table-full-width' : '') +
                   (this.props.ctTableResponsive ? ' table-responsive' : '') +
                   (this.props.ctTableUpgrade ? ' table-upgrade' : '')

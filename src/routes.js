@@ -37,5 +37,4 @@ const homeRoutes = [
    },
 ];
 
-const choresRoutes = [];
 export default homeRoutes;

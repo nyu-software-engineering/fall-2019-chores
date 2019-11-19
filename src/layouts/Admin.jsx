@@ -4,8 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
 
-import { style } from '../variables/Variables.jsx';
-
 import routes from '../routes.js';
 
 export default class Admin extends Component {

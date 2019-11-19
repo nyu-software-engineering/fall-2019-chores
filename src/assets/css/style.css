@@ -113,7 +113,7 @@ body,
   background-color: white; }
 
 a {
-  color: #87CB16; }
+  color: #87CB16 !important;; }
   a:hover, a:focus {
     color: #87CB16;
     text-decoration: none; }

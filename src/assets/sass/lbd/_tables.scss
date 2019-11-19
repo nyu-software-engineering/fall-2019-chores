@@ -22,8 +22,9 @@
     > tfoot > tr > td{
         padding: 12px 8px;
         vertical-align: middle;
+        border-top: none;
+        border-bottom: 1px solid #dee2e6;
     }
-    // MANU : aici este ceva schimbat!!!
     > tbody > tr > td{
         font-size: 14px;
     }

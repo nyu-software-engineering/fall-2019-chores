@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import Calendar from '../components/Calendar.jsx';
 import Card from '../components/Card.jsx';
@@ -81,6 +82,7 @@ export default class HomePage extends Component {
                   <Col md={5}>
                      <Card
                         title="Chores"
+                        lineBreak
                         content={
                            <div className="table-full-width">
                               <table className="table">
