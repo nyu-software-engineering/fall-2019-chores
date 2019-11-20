@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 import Calendar from '../components/Calendar.jsx';
 import Card from '../components/Card.jsx';
@@ -21,7 +22,7 @@ export default class HomePage extends Component {
                   <Col>
                      <Card
                         title="Household:"
-                        householdId="1234"
+                        householdId={this.props.householdId}
                         lineBreak
                         content={
                            <div>
@@ -30,7 +31,7 @@ export default class HomePage extends Component {
                                     <StatsCard
                                        statsText="Members"
                                        statsValue="3"
-                                       link=""
+                                       link="myhouses"
                                        linkText="See All Members"
                                        footer
                                     />
@@ -39,7 +40,7 @@ export default class HomePage extends Component {
                                     <StatsCard
                                        statsText="Open Chores"
                                        statsValue="12"
-                                       link=""
+                                       link="mychores"
                                        linkText="See All Chores"
                                        footer
                                     />
@@ -48,7 +49,7 @@ export default class HomePage extends Component {
                                     <StatsCard
                                        statsText="Completed Chores"
                                        statsValue="3"
-                                       link=""
+                                       link="mychores"
                                        linkText="See All Chores"
                                        footer
                                     />
@@ -81,6 +82,7 @@ export default class HomePage extends Component {
                   <Col md={5}>
                      <Card
                         title="Chores"
+                        lineBreak
                         content={
                            <div className="table-full-width">
                               <table className="table">

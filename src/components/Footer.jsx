@@ -23,10 +23,7 @@ class Footer extends Component {
                   </ul>
                </nav>
                <p className="copyright pull-right">
-                  &copy; {new Date().getFullYear()}{' '}
-                  <a href="http://www.creative-tim.com?ref=lbr-footer">
-                     HouseKeeper Inc.
-                  </a>
+                  &copy; {new Date().getFullYear()} HouseKeeper Inc.
                </p>
             </Container>
          </footer>
