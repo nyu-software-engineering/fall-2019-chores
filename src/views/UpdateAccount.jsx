@@ -72,7 +72,7 @@ export default class UpdateAccount extends Component {
          <div className="content">
             <Container fluid>
                <Row>
-                  <Col md={12}>
+                  <Col md={8}>
                      <Card
                         title="My Account"
                         lineBreak
@@ -87,7 +87,7 @@ export default class UpdateAccount extends Component {
                                        bsPrefix: 'form-control',
                                        placeholder: 'Username',
                                        defaultValue: 'Mert123',
-                                       required: true,
+                                       disabled: true,
                                     },
                                     {
                                        label: 'Email Address',
@@ -195,6 +195,24 @@ export default class UpdateAccount extends Component {
                               <div className="clearfix" />
                            </form>
                         }
+                     />
+                  </Col>
+                  <Col md={4}>
+                     <UserCard
+                        bgImage="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"
+                        // avatar={avatar}
+                        name="Mike Andrew"
+                        userName={this.props.userName}
+                        description={
+                           <span>
+                              "Lamborghini Mercy
+                              <br />
+                              Your chick she so thirsty
+                              <br />
+                              I'm in that two seat Lambo"
+                           </span>
+                        }
+                        rating={<div>{/* <Rating/> */}</div>}
                      />
                   </Col>
                </Row>

@@ -19,8 +19,9 @@ export default class ChoresList extends Component {
       return (
          <div className="content">
             <Container fluid>
+               {/* {this.props.houses.map((prop, key) => { */}
+               {/*    return ( */}
                <Row>
-                  {/* TODO: MAKE CONDITIONAL TO REPEAT FOR EACH HOUSE */}
                   <Col md={12}>
                      <Card
                         title="Household: "
@@ -37,7 +38,7 @@ export default class ChoresList extends Component {
                                  </tr>
                               </thead>
                               <tbody>
-                                 {/* {tdArray.map((prop, key) => { */}
+                                 {/* {this.props.chores.map((prop, key) => { */}
                                  {/*    return ( */}
                                  {/*       <tr key={key}> */}
                                  {/*          {prop.map((prop, key) => { */}
@@ -51,8 +52,9 @@ export default class ChoresList extends Component {
                         }
                      />
                   </Col>
-                  {/* END CONDITONAL HERE */}
                </Row>
+               {/*    ); */}
+               {/* })} */}
             </Container>
          </div>
       );
