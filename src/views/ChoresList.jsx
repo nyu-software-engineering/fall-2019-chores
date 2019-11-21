@@ -25,7 +25,7 @@ export default class ChoresList extends Component {
                   <Col md={12}>
                      <Card
                         title="Household: "
-                        householdId={this.props.householdId}
+                        name={prop.name}
                         ctTableFullWidth
                         ctTableResponsive
                         content={
@@ -38,7 +38,7 @@ export default class ChoresList extends Component {
                                  </tr>
                               </thead>
                               <tbody>
-                                 {/* {this.props.chores.map((prop, key) => { */}
+                                 {/* {prop.chores.map((prop, key) => { */}
                                  {/*    return ( */}
                                  {/*       <tr key={key}> */}
                                  {/*          {prop.map((prop, key) => { */}

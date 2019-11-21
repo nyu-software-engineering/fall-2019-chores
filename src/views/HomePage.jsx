@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import Calendar from '../components/Calendar.jsx';
-import Card from '../components/Card.jsx';
-import StatsCard from '../components/StatsCard.jsx';
-import Chores from '../components/Chores.jsx';
+import Household from '../backend/household';
+
+import Calendar from '../components/Calendar';
+import Card from '../components/Card';
+import Chores from '../components/Chores';
+import StatsCard from '../components/StatsCard';
 
 export default class HomePage extends Component {
-   state = {
-      date: new Date(),
-   };
-
-   onChange = date => this.setState({ date });
+   constructor(props) {
+      super(props);
+      this.state = {
+         date: new Date(),
+      };
+   }
 
    render() {
       return (
@@ -24,7 +27,7 @@ export default class HomePage extends Component {
                   <Col>
                      <Card
                         title="Household:"
-                        householdId={this.props.householdId}
+                        name={prop.title}
                         lineBreak
                         content={
                            <div>
@@ -32,7 +35,7 @@ export default class HomePage extends Component {
                                  <Col lg={3} sm={6}>
                                     <StatsCard
                                        statsText="Members"
-                                       statsValue="3"
+                                       statsValue={prop.members.length}
                                        link="myhouses"
                                        linkText="See All Members"
                                        footer
@@ -41,7 +44,7 @@ export default class HomePage extends Component {
                                  <Col lg={3} sm={6}>
                                     <StatsCard
                                        statsText="Open Chores"
-                                       statsValue="12"
+                                       statsValue={prop.chores.length}
                                        link="mychores"
                                        linkText="See All Chores"
                                        footer
@@ -50,7 +53,7 @@ export default class HomePage extends Component {
                                  <Col lg={3} sm={6}>
                                     <StatsCard
                                        statsText="Completed Chores"
-                                       statsValue="3"
+                                       statsValue={prop.chores.length}
                                        link="mychores"
                                        linkText="See All Chores"
                                        footer
@@ -75,7 +78,7 @@ export default class HomePage extends Component {
                                  calendarType="US"
                                  defaultDate={new Date()}
                                  defaultView="month"
-                                 onChange={this.onChange}
+                                 onChange={date => this.setState({ date })}
                                  value={this.state.date}
                               />
                            </div>

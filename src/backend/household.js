@@ -1,19 +1,21 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 // const URLSlugs = require('mongoose-url-slugs');
-const Person = require('../src/person');
-const Chore = require('../src/chore');
 
-const HouseholdSchema = new mongoose.Schema({
+const Person = require('../src/backend/person');
+const Chore = require('../src/backend/chore');
+
+const householdSchema = new Schema({
 	admin: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: Schema.Types.ObjectId,
 		required: false,
 	},
-	chores: [mongoose.Schema.Types.ObjectId],
+	chores: [Schema.Types.ObjectId],
 	createdOn: {
 		type: Date,
 		default: Date.now(),
 	},
-	members: [mongoose.Schema.Types.ObjectId],
+	members: [Schema.Types.ObjectId],
 	title: {
 		type: String,
 		required: true,
@@ -23,9 +25,9 @@ const HouseholdSchema = new mongoose.Schema({
 	},
 });
 
-// HouseholdSchema.plugin(URLSlugs('title'));
+// householdSchema.plugin(URLSlugs('title'));
 
-HouseholdSchema.methods = {
+householdSchema.methods = {
 	//returns String containing household title
 	getTitle: function() {
 		return this.title;
@@ -96,5 +98,5 @@ HouseholdSchema.methods = {
 	},
 };
 
-const Household = mongoose.model('Household', HouseholdSchema);
+const Household = mongoose.model('Household', householdSchema);
 module.exports = Household;

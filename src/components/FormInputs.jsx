@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormGroup, FormLabel, FormControl, Row } from 'react-bootstrap';
+import { FormControl, FormGroup, FormLabel, Row } from 'react-bootstrap';
 
 function FieldGroup({ label, ...props }) {
    return (
@@ -12,15 +12,15 @@ function FieldGroup({ label, ...props }) {
 
 export class FormInputs extends Component {
    render() {
-      var row = [];
-      for (var i = 0; i < this.props.ncols.length; i++) {
-         row.push(
-            <div key={i} className={this.props.ncols[i]}>
-               <FieldGroup {...this.props.properties[i]} />
-            </div>
+      this.props.cols.map((prop, key) => {
+         return (
+            <Row>
+               <div key={key} className={props.cols[key]}>
+                  <FieldGroup {...props.properties[key]} />
+               </div>
+            </Row>
          );
-      }
-      return <Row>{row}</Row>;
+      });
    }
 }
 

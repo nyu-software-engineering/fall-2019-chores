@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 // const URLSlugs = require('mongoose-url-slugs');
-const Chore = require('../src/chore');
-const Household = require('../src/household');
 
-const PersonSchema = new mongoose.Schema({
-	assigned: [mongoose.Schema.Types.ObjectId],
-	households: [mongoose.Schema.Types.ObjectId],
+const Chore = require('../src/backend/chore');
+const Household = require('../src/backend/household');
 
+const personSchema = new Schema({
+	assigned: [Schema.Types.ObjectId],
 	firstName: {
 		type: String,
 		required: true,
@@ -14,6 +14,7 @@ const PersonSchema = new mongoose.Schema({
 		maxlength: 20,
 		trim: true,
 	},
+	households: [Schema.Types.ObjectId],
 	lastName: {
 		type: String,
 		required: true,
@@ -40,8 +41,8 @@ const PersonSchema = new mongoose.Schema({
 	},
 });
 
-// PersonSchema.plugin(URLSlugs('firstName'));
-PersonSchema.methods = {
+// personSchema.plugin(URLSlugs('firstName'));
+personSchema.methods = {
 	//returns Chore title
 	getFirstName: function() {
 		return this.firstName;
@@ -157,5 +158,5 @@ PersonSchema.methods = {
 	},
 };
 
-const Person = mongoose.model('Person', PersonSchema);
+const Person = mongoose.model('Person', personSchema);
 module.exports = Person;

@@ -16,13 +16,16 @@ export default class Sidebar extends Component {
          ? 'active'
          : '';
    }
+
    updateDimensions() {
       this.setState({ width: window.innerWidth });
    }
+
    componentDidMount() {
       this.updateDimensions();
       window.addEventListener('resize', this.updateDimensions.bind(this));
    }
+
    render() {
       return (
          <div id="sidebar" className="sidebar">
