@@ -18,6 +18,8 @@ export default class HomePage extends Component {
       return (
          <div className="content">
             <Container fluid>
+               {/* {this.props.houses.map((prop, key) => { */}
+               {/*    return ( */}
                <Row>
                   <Col>
                      <Card
@@ -60,6 +62,8 @@ export default class HomePage extends Component {
                      />
                   </Col>
                </Row>
+               {/*    ); */}
+               {/* })} */}
                <Row>
                   <Col md={7}>
                      <Card

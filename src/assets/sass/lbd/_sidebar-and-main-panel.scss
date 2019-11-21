@@ -214,6 +214,7 @@ body > .navbar-collapse{
     position: relative;
     float: right;
     width: #{$sidebar-width};
+    min-height: 100%;
 
     > .content{
         padding: 30px 15px;

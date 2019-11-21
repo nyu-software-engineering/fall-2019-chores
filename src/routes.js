@@ -2,7 +2,7 @@ import HomePage from './views/HomePage';
 import HousesList from './views/HousesList';
 import ChoresList from './views/ChoresList';
 import Notifications from './views/Notifications';
-import UserAccount from './views/UserAccount';
+import UpdateAccount from './views/UpdateAccount';
 
 const homeRoutes = [
    {
@@ -26,7 +26,7 @@ const homeRoutes = [
    {
       path: '/myaccount',
       name: 'My Account',
-      component: UserAccount,
+      component: UpdateAccount,
       layout: '/admin',
    },
    {
