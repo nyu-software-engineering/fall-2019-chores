@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 const express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
-const logger = require('morgan');
-const Data = require('./data');
+
+const Household = require('../src/household');
+const Person = require('../src/person');
+const Chore = require('../src/chore');
 
 const API_PORT = 3001;
 const app = express();
@@ -29,52 +31,95 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// req should include the user's id
-// should find and return all household info as a regular object with objects instead of ids
-router.get('/getHousehold', (req, res) => {
-	Data.find((err, data) => {
-		if (err) return res.json({ success: false, error: err });
-		return res.json({ success: true, data: data });
-	});
+/* get current database data
+   slug should be user id
+   should find and return all household info pertaining to that user as a regular object with objects instead of ids */
+router.get('/household/:id', (req, res) => {
+	Household.findById(req.params.id)
+		.lean()
+		.populate('chores')
+		.populate({
+			path: 'members',
+			populate: [
+				{
+					path: 'assigned',
+					model: 'Chore',
+				},
+				{
+					path: 'households',
+					model: 'Household',
+				},
+			],
+		})
+		.then(household => res.json({ household }))
+		.catch(error => res.json({ error: error.message }));
 });
 
-// req should include object containing necessary chore info
-// res should return whether it was added successfully
-router.post('/addChore', (req, res) => {
-	const { id, update } = req.body;
-	Data.findByIdAndUpdate(id, update, err => {
-		if (err) return res.json({ success: false, error: err });
-		return res.json({ success: true });
-	});
-});
-
-// req should include chore object id
-// res should return whether removal was successful
-router.post('/removeChore', (req, res) => {
-	const { id, update } = req.body;
-	Data.findByIdAndUpdate(id, update, err => {
-		if (err) return res.json({ success: false, error: err });
-		return res.json({ success: true });
-	});
-});
-
-// req should include relevant chore with all its info
-// res should include whether it was updated
-router.post('/updateChore', (req, res) => {
-	const { id, update } = req.body;
-	Data.findByIdAndUpdate(id, update, err => {
+/* new chore
+   req should include object containing necessary chore info
+   res should return whether it was added successfully */
+router.post('/chore', (req, res) => {
+	const chore = new Chore(req.body.chore);
+	chore.save(err => {
 		if (err) return res.json({ success: false, error: err });
 		return res.json({ success: true });
 	});
 });
 
-// req should contain Person object with updated changes
-// res should return whether the corresponding database entry was updated
-router.post('/updatePerson', (req, res) => {
-	const { id } = req.body;
-	Data.findByIdAndRemove(id, err => {
-		if (err) return res.send(err);
-		return res.json({ success: true });
+/* update chore
+   req should include relevant chore with all its info
+   res should include whether it was updated */
+router.post('/chore/:id', (req, res) => {
+	const chore = new Chore(req.body.chore);
+
+	Chore.findByIdAndReplace(req.params.id, chore, err => {
+		if (err) return res.json({ success: false, error: err });
+		res.json({ success: true });
+	});
+});
+
+/* delete chore
+   req should include chore object id
+   res should return whether removal was successful */
+router.delete('/chore/:id', (req, res) => {
+	const id = req.body.id;
+	Chore.findByIdAndRemove(id, err => {
+		if (err) return res.json({ success: false, error: err });
+		res.json({ success: true });
+	});
+});
+
+/* new person
+   req should include object containing necessary person info
+   res should return whether it was added successfully */
+router.post('/person', (req, res) => {
+	const person = new Person(req.body.person);
+	person.save(err => {
+		if (err) return res.json({ success: false, error: err });
+		res.json({ success: true });
+	});
+});
+
+/* update person
+   req should include relevant chore with all its info
+   res should include whether it was updated */
+router.post('/person/:id', (req, res) => {
+	const person = new Person(req.body.person);
+
+	Person.findByIdAndReplace(req.params.id, person, err => {
+		if (err) return res.json({ success: false, error: err });
+		res.json({ success: true });
+	});
+});
+
+/* delete person
+   req should include person object id
+   res should return whether removal was successful */
+router.delete('/person/:id', (req, res) => {
+	const id = req.body.id;
+	Person.findByIdAndRemove(id, err => {
+		if (err) return res.json({ success: false, error: err });
+		res.json({ success: true });
 	});
 });
 
