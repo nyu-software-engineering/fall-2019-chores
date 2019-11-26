@@ -8,12 +8,12 @@ const HouseholdSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		required: false,
 	},
-	chores: [mongoose.Schema.Types.ObjectId],
+	chores: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chore' }],
 	createdOn: {
 		type: Date,
 		default: Date.now(),
 	},
-	members: [mongoose.Schema.Types.ObjectId],
+	members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Person' }],
 	title: {
 		type: String,
 		required: true,

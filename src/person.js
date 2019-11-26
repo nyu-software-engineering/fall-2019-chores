@@ -4,8 +4,8 @@ const Chore = require('../src/chore');
 const Household = require('../src/household');
 
 const PersonSchema = new mongoose.Schema({
-	assigned: [mongoose.Schema.Types.ObjectId],
-	households: [mongoose.Schema.Types.ObjectId],
+	assigned: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chore' }],
+	households: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Household' }],
 
 	firstName: {
 		type: String,
