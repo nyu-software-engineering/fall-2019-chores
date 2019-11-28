@@ -5,6 +5,7 @@ import Notifications from './views/Notifications';
 import UpdateAccount from './views/UpdateAccount';
 import Login from './views/Login';
 import Admin from './layouts/Admin';
+import Signup from './views/Signup';
 
 const homeRoutes = [
    {
@@ -35,6 +36,12 @@ const homeRoutes = [
       path: '/login',
       name: 'Login',
       component: Login,
+      layout: '/admin',
+   },
+   {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup,
       layout: '/admin',
    },
 ];

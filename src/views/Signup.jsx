@@ -57,18 +57,33 @@ export default class Login extends Component {
             <form action="action_page.php">
             <div align="center">
             <br />
-            <h1 style={h1style}>Login</h1>
-            <p style={{color: '#0F6C25', fontSize:'24px'}}>Please enter your account details</p>
+            <h1 style={h1style}>Sign-up</h1>
+            <p style={{color: '#0F6C25', fontSize:'24px'}}>Please fill in this form to create an account.</p>
         
             <label for="email"><b></b></label>
             <input style={inputstyle} type="text" placeholder="Enter Email" name="email" required />
             <br /><br />
+            <label for="household"><b></b></label>
+            <input style={inputstyle} type="text" placeholder="Enter Household Name" name="household" required />
+            <br /><br />
+                
             <label for="psw"><b></b></label>
             <input style={inputstyle} type="password" placeholder="Enter Password" name="psw" required />
             <br /><br />
+            <label for="psw-repeat"><b></b></label>
+            <input style={inputstyle} type="password" placeholder="Repeat Password" name="psw-repeat" required />
+            <br /><br />
+
+            <label>Admin
+                <input type="checkbox" checked="checked" name="remember" style={{marginBottom: "15px", marginRight: "10px", marginLeft: "5px"}} value="Admin" />
+            </label>
+            <label style={{marginLeft: "30px"}}>No Admin
+                <input type="checkbox" name="remember" style={{marginBottom: "15px",  marginRight: "10px", marginLeft: "5px"}} value="No Admin" />
+            </label>
+            <br /><br />
             <div class="clearfix">
-                <button class="button" style={buttonstyle}>Signup</button>
-                <button type="submit" class="button" style={buttonstyle}>Login</button>
+                <button class="button" style={buttonstyle}>Cancel</button>
+                <button type="submit" class="button" style={buttonstyle}>Sign Up</button>
             <br /><br />
             </div>
             </div>
