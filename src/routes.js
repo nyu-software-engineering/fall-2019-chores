@@ -3,6 +3,8 @@ import HousesList from './views/HousesList';
 import ChoresList from './views/ChoresList';
 import Notifications from './views/Notifications';
 import UpdateAccount from './views/UpdateAccount';
+import Login from './views/Login';
+import Admin from './layouts/Admin';
 
 const homeRoutes = [
    {
@@ -31,8 +33,8 @@ const homeRoutes = [
    },
    {
       path: '/login',
-      name: 'Logout',
-      // component: Login,
+      name: 'Login',
+      component: Login,
       layout: '/admin',
    },
 ];
