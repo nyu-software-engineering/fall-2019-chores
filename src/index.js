@@ -6,7 +6,8 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/sass/style.scss?v=1.3.0';
 
-import App from './layouts/App';
+import App from './layouts/App.jsx';
+import Login from './views/Login.jsx';
 
 ReactDOM.render(
    <BrowserRouter>
