@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import {
-   Container,
-   Row,
    Col,
+   Container,
+   FormControl,
    FormGroup,
    FormLabel,
-   FormControl,
+   Row,
 } from 'react-bootstrap';
 
-import { Card } from '../components/Card.jsx';
-import { FormInputs } from '../components/FormInputs.jsx';
-import { UserCard } from '../components/UserCard.jsx';
-import Button from '../components/CustomButton.jsx';
+import Button from '../components/CustomButton';
+import Card from '../components/Card';
+import FormInputs from '../components/FormInputs';
+import UserCard from '../components/UserCard';
 
 export default class UpdateAccount extends Component {
    render() {
@@ -79,7 +79,7 @@ export default class UpdateAccount extends Component {
                         content={
                            <form>
                               <FormInputs
-                                 ncols={['col-md-4', 'col-md-8']}
+                                 cols={['col-md-4', 'col-md-8']}
                                  properties={[
                                     {
                                        label: 'Username',
@@ -99,7 +99,7 @@ export default class UpdateAccount extends Component {
                                  ]}
                               />
                               <FormInputs
-                                 ncols={['col-md-6', 'col-md-6']}
+                                 cols={['col-md-6', 'col-md-6']}
                                  properties={[
                                     {
                                        label: 'First Name',
@@ -120,7 +120,7 @@ export default class UpdateAccount extends Component {
                                  ]}
                               />
                               <FormInputs
-                                 ncols={['col-md-12']}
+                                 cols={['col-md-12']}
                                  properties={[
                                     {
                                        label: 'Street Address',
@@ -134,7 +134,7 @@ export default class UpdateAccount extends Component {
                                  ]}
                               />
                               <FormInputs
-                                 ncols={[
+                                 cols={[
                                     'col-md-4',
                                     'col-md-2',
                                     'col-md-3',

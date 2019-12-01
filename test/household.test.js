@@ -1,6 +1,6 @@
-const Household = require('../src/household');
-const Person = require('../src/person');
-const Chore = require('../src/chore');
+const Household = require('../src/backend/household');
+const Person = require('../src/backend/person');
+const Chore = require('../src/backend/chore');
 const assert = require('chai').assert;
 
 const household = {

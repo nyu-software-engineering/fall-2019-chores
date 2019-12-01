@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 
+import Household from '../household';
+
 import Button from '../components/CustomButton';
 import Card from '../components/Card';
 import DropdownTable from '../components/DropdownTable';
@@ -37,7 +39,7 @@ export default class HousesList extends Component {
                   <Col>
                      <Card
                         title="Household:"
-                        id={this.props.householdId}
+                        name={prop.name}
                         lineBreak
                         content={
                            <div>
@@ -46,7 +48,7 @@ export default class HousesList extends Component {
                                     <DropdownTable
                                        title="Members"
                                        categories={memberCategories}
-                                       total={this.props.members}
+                                       total={prop.members.length}
                                     />
                                  </Col>
                               </Row>
@@ -55,7 +57,7 @@ export default class HousesList extends Component {
                                     <DropdownTable
                                        title="Open Chores"
                                        categories={openCategories}
-                                       total={this.props.chores}
+                                       total={prop.chores.length}
                                     />
                                  </Col>
                               </Row>
@@ -64,7 +66,7 @@ export default class HousesList extends Component {
                                     <DropdownTable
                                        title="Completed Chores"
                                        categories={closedCategories}
-                                       total={this.props.chores}
+                                       total={prop.chores.length}
                                     />
                                  </Col>
                               </Row>

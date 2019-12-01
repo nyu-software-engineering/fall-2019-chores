@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 export class Card extends Component {
+   constructor(props) {
+      super(props);
+      this.state = {};
+   }
+
    render() {
       return (
          <div className={'card' + (this.props.plain ? ' card-plain' : '')}>
@@ -9,7 +14,7 @@ export class Card extends Component {
             >
                <h4 className="title">{this.props.title}</h4>
                {this.props.title == 'Household:' ? (
-                  <span>{this.props.householdID}</span>
+                  <span>{this.props.name}</span>
                ) : null}
                {this.props.lineBreak ? <hr /> : null}
                <p className="category">{this.props.category}</p>

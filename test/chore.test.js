@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const assert = require('chai').assert;
 const URLSlugs = require('mongoose-url-slugs');
-const Person = require('../src/person');
-const Chore = require('../src/chore');
-const Household = require('../src/household');
+const Person = require('../src/backend/person');
+const Chore = require('../src/backend/chore');
+const Household = require('../src/backend/household');
 
 const chore = {
 	title: 'Dishes',
@@ -22,11 +22,7 @@ describe('Test user creation validity.', () => {
 
 	// 2
 	it('test if the chore title match', function(done) {
-		assert.equal(
-			validChore.title,
-			chore.title,
-			"chore title doesn't match"
-		);
+		assert.equal(validChore.title, chore.title, "chore title doesn't match");
 		done();
 	});
 

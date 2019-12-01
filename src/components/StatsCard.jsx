@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-export class StatsCard extends Component {
+export default class StatsCard extends Component {
    render() {
       const linkStyle = {
-         color: '#80c81e',
+         color: '#80C81E',
          fontSize: '14px',
          listStyleType: 'none',
       };
+
       return (
          <div className="card card-stats">
             <div className="content">
@@ -40,5 +41,3 @@ export class StatsCard extends Component {
       );
    }
 }
-
-export default StatsCard;

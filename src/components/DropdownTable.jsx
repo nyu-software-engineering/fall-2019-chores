@@ -46,6 +46,11 @@ const CustomMenu = React.forwardRef(
 );
 
 export default class DropdownTable extends Component {
+   constructor(props) {
+      super(props);
+      this.state = {};
+   }
+
    render() {
       return (
          <Dropdown>

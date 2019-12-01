@@ -1,39 +1,44 @@
+import ChoresList from './views/ChoresList';
 import HomePage from './views/HomePage';
 import HousesList from './views/HousesList';
-import ChoresList from './views/ChoresList';
-import Notifications from './views/Notifications';
 import UpdateAccount from './views/UpdateAccount';
 
 const homeRoutes = [
    {
-      path: '/dashboard',
+      path: '/home',
       name: 'Home',
       component: HomePage,
-      layout: '/admin',
+      layout: '/app',
    },
    {
       path: '/myhouses',
       name: 'My Houses',
       component: HousesList,
-      layout: '/admin',
+      layout: '/app',
    },
    {
       path: '/mychores',
       name: 'My Chores',
       component: ChoresList,
-      layout: '/admin',
+      layout: '/app',
    },
    {
       path: '/myaccount',
       name: 'My Account',
       component: UpdateAccount,
-      layout: '/admin',
+      layout: '/app',
+   },
+   {
+      path: '/settings',
+      name: 'Settings',
+      // component: Settings,
+      layout: '/app',
    },
    {
       path: '/login',
       name: 'Logout',
       // component: Login,
-      layout: '/admin',
+      layout: '/app',
    },
 ];
 
