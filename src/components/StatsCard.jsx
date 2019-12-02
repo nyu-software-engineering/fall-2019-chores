@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+import { linkStyle } from '../helpers';
+
 export default class StatsCard extends Component {
    render() {
-      const linkStyle = {
-         color: '#80C81E',
-         fontSize: '14px',
-         listStyleType: 'none',
-      };
-
       return (
          <div className="card card-stats">
             <div className="content">
@@ -28,11 +24,9 @@ export default class StatsCard extends Component {
                   <div className="footer">
                      <hr />
                      <div className="stats">
-                        <li>
-                           <Link to={this.props.link} style={linkStyle}>
-                              {this.props.linkText}
-                           </Link>
-                        </li>
+                        <Link to={this.props.link} style={linkStyle}>
+                           {this.props.linkText}
+                        </Link>
                      </div>
                   </div>
                ) : null}

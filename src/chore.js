@@ -129,5 +129,5 @@ choreSchema.methods = {
 	},
 };
 
-const Chore = mongoose.model('Chore', choreSchema);
-module.exports = Chore;
+const chore = mongoose.model('Chore', choreSchema);
+module.exports = chore;

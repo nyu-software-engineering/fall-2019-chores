@@ -8,6 +8,8 @@ import {
    Row,
 } from 'react-bootstrap';
 
+import { states } from '../helpers';
+
 import Button from '../components/CustomButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
@@ -15,59 +17,6 @@ import UserCard from '../components/UserCard';
 
 export default class UpdateAccount extends Component {
    render() {
-      const states = [
-         'AL',
-         'AK',
-         'AZ',
-         'AR',
-         'CA',
-         'CO',
-         'CT',
-         'DE',
-         'DC',
-         'FL',
-         'GA',
-         'HI',
-         'ID',
-         'IL',
-         'IN',
-         'IA',
-         'KS',
-         'KY',
-         'LA',
-         'ME',
-         'MD',
-         'MA',
-         'MI',
-         'MN',
-         'MS',
-         'MO',
-         'MT',
-         'NE',
-         'NV',
-         'NH',
-         'NJ',
-         'NM',
-         'NY',
-         'NC',
-         'ND',
-         'OH',
-         'OK',
-         'OR',
-         'PA',
-         'RI',
-         'SC',
-         'SD',
-         'TN',
-         'TX',
-         'UT',
-         'VT',
-         'VA',
-         'WA',
-         'WV',
-         'WI',
-         'WY',
-      ];
       return (
          <div className="content">
             <Container fluid>

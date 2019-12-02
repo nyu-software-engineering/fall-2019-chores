@@ -29,13 +29,13 @@ export class Chores extends Component {
       var chores = [];
 
       {
-         this.props.houses.chores.map((prop, key) => {
+         this.props.households.chores.map((prop, key) => {
             return chores.push(
-               <tr key={i}>
+               <tr key={key}>
                   <td>
                      <Checkbox
                         number={key}
-                        isChecked={i === 1 || i === 2 ? true : false}
+                        isChecked={key === 1 || key === 2 ? true : false}
                      />
                   </td>
                   <td>{prop.title}</td>

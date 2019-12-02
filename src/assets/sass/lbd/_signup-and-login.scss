@@ -1,0 +1,45 @@
+.signup, .login{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    padding-top: 10%;
+    display: block;
+    z-index: 1;
+    font-weight: 200;
+    background-size: cover;
+    background-position: center center;
+    @include icon-gradient($new-green, $green-color-bottom);
+
+    .card {
+        padding: 10px;
+    }
+
+    h2 {
+        text-align: center;
+        
+    }
+
+    .title {
+        font-size: 25px;
+    }
+   
+}
+
+.signup {
+    padding-left: 5%;
+}
+.login {
+    padding-right: 10%;
+}
+
+.signup,
+.login{
+    -webkit-transition-property: top,bottom;
+    transition-property: top,bottom;
+    -webkit-transition-duration: .2s,.2s;
+    transition-duration: .2s,.2s;
+    -webkit-transition-timing-function: linear,linear;
+    transition-timing-function: linear,linear;
+    -webkit-overflow-scrolling: touch;
+}

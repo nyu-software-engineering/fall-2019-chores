@@ -133,7 +133,7 @@ personSchema.methods = {
 			const index = this.households.indexOf(household._id);
 			if (index === -1) {
 				this.households.push(household._id);
-				if (!household.containsPerson(this) && this instanceof Person) {
+				if (!household.containsPerson(this) && this instanceof person) {
 					household.addMember(this);
 				}
 			}
@@ -157,5 +157,5 @@ personSchema.methods = {
 	},
 };
 
-const Person = mongoose.model('Person', personSchema);
-module.exports = Person;
+const person = mongoose.model('Person', personSchema);
+module.exports = person;

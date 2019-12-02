@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import Household from '../household';
+import household from '../household';
 
 import Calendar from '../components/Calendar';
 import Card from '../components/Card';
@@ -18,55 +18,56 @@ export default class HomePage extends Component {
    }
 
    render() {
+      console.log('Homepage props:', this.props);
       return (
          <div className="content">
             <Container fluid>
-               {/* {this.props.houses.map((prop, key) => { */}
-               {/*    return ( */}
-               <Row>
-                  <Col>
-                     <Card
-                        title="Household:"
-                        name={prop.title}
-                        lineBreak
-                        content={
-                           <div>
-                              <Row>
-                                 <Col lg={3} sm={6}>
-                                    <StatsCard
-                                       statsText="Members"
-                                       statsValue={prop.members.length}
-                                       link="myhouses"
-                                       linkText="See All Members"
-                                       footer
-                                    />
-                                 </Col>
-                                 <Col lg={3} sm={6}>
-                                    <StatsCard
-                                       statsText="Open Chores"
-                                       statsValue={prop.chores.length}
-                                       link="mychores"
-                                       linkText="See All Chores"
-                                       footer
-                                    />
-                                 </Col>
-                                 <Col lg={3} sm={6}>
-                                    <StatsCard
-                                       statsText="Completed Chores"
-                                       statsValue={prop.chores.length}
-                                       link="mychores"
-                                       linkText="See All Chores"
-                                       footer
-                                    />
-                                 </Col>
-                              </Row>
-                           </div>
-                        }
-                     />
-                  </Col>
-               </Row>
-               {/*    ); */}
-               {/* })} */}
+               {this.props.household.map((prop, key) => {
+                  return (
+                     <Row>
+                        <Col>
+                           <Card
+                              title="Household:"
+                              name={prop.title}
+                              lineBreak
+                              content={
+                                 <div>
+                                    <Row>
+                                       <Col lg={3} sm={6}>
+                                          <StatsCard
+                                             statsText="Members"
+                                             statsValue={prop.members.length}
+                                             link="myhouses"
+                                             linkText="See All Members"
+                                             footer
+                                          />
+                                       </Col>
+                                       <Col lg={3} sm={6}>
+                                          <StatsCard
+                                             statsText="Open Chores"
+                                             statsValue={prop.chores.length}
+                                             link="mychores"
+                                             linkText="See All Chores"
+                                             footer
+                                          />
+                                       </Col>
+                                       <Col lg={3} sm={6}>
+                                          <StatsCard
+                                             statsText="Completed Chores"
+                                             statsValue={prop.chores.length}
+                                             link="mychores"
+                                             linkText="See All Chores"
+                                             footer
+                                          />
+                                       </Col>
+                                    </Row>
+                                 </div>
+                              }
+                           />
+                        </Col>
+                     </Row>
+                  );
+               })}
                <Row>
                   <Col md={7}>
                      <Card

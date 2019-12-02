@@ -12,15 +12,15 @@ function FieldGroup({ label, ...props }) {
 
 export class FormInputs extends Component {
    render() {
-      this.props.cols.map((prop, key) => {
-         return (
-            <Row>
-               <div key={key} className={props.cols[key]}>
-                  <FieldGroup {...props.properties[key]} />
-               </div>
-            </Row>
+      var row = [];
+      for (var i = 0; i < this.props.cols.length; i++) {
+         row.push(
+            <div key={i} className={this.props.cols[i]}>
+               <FieldGroup {...this.props.properties[i]} />
+            </div>
          );
-      });
+      }
+      return <Row>{row}</Row>;
    }
 }
 

@@ -97,5 +97,5 @@ householdSchema.methods = {
 	},
 };
 
-const Household = mongoose.model('Household', householdSchema);
-module.exports = Household;
+const household = mongoose.model('Household', householdSchema);
+module.exports = household;

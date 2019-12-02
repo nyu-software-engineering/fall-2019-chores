@@ -1,94 +1,146 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import {
+   Col,
+   Container,
+   FormControl,
+   FormGroup,
+   FormLabel,
+   Row,
+} from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 
-const divstyle = {
-    backgroundColor: '#898C8B',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    webkitFontSmoothing: 'antialiased',
-    fontFamily: '"Roboto","Helvetica Neue",Arial,sans-serif',
-    fontWeight: '400',
-    width: '100%',
-    height: '100%'
-};
-const h1style = {
-    color: 'black',
-    align: 'center',
-    fontWeight: '300',
-    margin: '30px 0 15px',
-    fontSize: '52px'
-};
-const buttonstyle = {
-    backgroundColor: '#12C13D',
-    border: 'none',
-    color: 'white',
-    padding: '15px 32px',
-    textAlign: 'center',
-    display: 'inline-block',
-    fontSize: '16px',
-    marginRight: '15px',
-    marginLeft: '15px'
-};
-const inputstyle = {
-    width: '60%',
-    padding: '15px',
-    margin: '5px 0 22px 0',
-    display: 'inline-block',
-    border: 'none',
-    background: '#f1f1f1'
-};
-const focusstyle = {
-    backgroundColor: '#ddd',
-    outline: 'none'
-};
+import { states } from '../helpers';
+import person from '../person';
 
+import Button from '../components/CustomButton';
+import Card from '../components/Card';
+import FormInputs from '../components/FormInputs';
+import HomePage from '../views/HomePage';
+import UserCard from '../components/UserCard';
 
-export default class Login extends Component {
-   state = {
-      date: new Date(),
-   };
+class Signup extends Component {
+   constructor(props) {
+      super(props);
+      this.state = {
+         date: new Date(),
+         email: '',
+         password: '',
+         firstName: '',
+         lastName: '',
+         // person: new person(),
+      };
+      this.routeChange = this.routeChange.bind(this);
+   }
+
+   routeChange() {
+      let path = `/home`;
+      this.props.history.push(path);
+   }
+
+   validateForm() {
+      return this.state.email.length > 0 && this.state.password.length > 0;
+   }
 
    onChange = date => this.setState({ date });
 
    render() {
       return (
-        <div className="content" style={divstyle}>
-            <form action="action_page.php">
-            <div align="center">
-            <br />
-            <h1 style={h1style}>Sign-up</h1>
-            <p style={{color: '#0F6C25', fontSize:'24px'}}>Please fill in this form to create an account.</p>
-        
-            <label for="email"><b></b></label>
-            <input style={inputstyle} type="text" placeholder="Enter Email" name="email" required />
-            <br /><br />
-            <label for="household"><b></b></label>
-            <input style={inputstyle} type="text" placeholder="Enter Household Name" name="household" required />
-            <br /><br />
-                
-            <label for="psw"><b></b></label>
-            <input style={inputstyle} type="password" placeholder="Enter Password" name="psw" required />
-            <br /><br />
-            <label for="psw-repeat"><b></b></label>
-            <input style={inputstyle} type="password" placeholder="Repeat Password" name="psw-repeat" required />
-            <br /><br />
-
-            <label>Admin
-                <input type="checkbox" checked="checked" name="remember" style={{marginBottom: "15px", marginRight: "10px", marginLeft: "5px"}} value="Admin" />
-            </label>
-            <label style={{marginLeft: "30px"}}>No Admin
-                <input type="checkbox" name="remember" style={{marginBottom: "15px",  marginRight: "10px", marginLeft: "5px"}} value="No Admin" />
-            </label>
-            <br /><br />
-            <div class="clearfix">
-                <button class="button" style={buttonstyle}>Cancel</button>
-                <button type="submit" class="button" style={buttonstyle}>Sign Up</button>
-            <br /><br />
+         <div id="signup" className="signup">
+            <div className="header">
+               <h4>HouseKeeper</h4>
             </div>
+            <div className="content">
+               <Container fluid>
+                  <Row>
+                     <Col md={{ span: 5, offset: 3 }}>
+                        <Card
+                           title="Sign Up"
+                           lineBreak
+                           content={
+                              <form>
+                                 <FormInputs
+                                    cols={['col-md-6', 'col-md-6']}
+                                    properties={[
+                                       {
+                                          as: 'input',
+                                          bsPrefix: 'form-control',
+                                          label: 'First Name',
+                                          placeholder: 'First Name',
+                                          required: true,
+                                          size: 'sm',
+                                          type: 'text',
+                                          // value: { state.firstName },
+                                          // onChange: {(e) => this.handleChange(e)}
+                                       },
+                                       {
+                                          as: 'input',
+                                          bsPrefix: 'form-control',
+                                          label: 'Last Name',
+                                          placeholder: 'Last Name',
+                                          required: true,
+                                          size: 'sm',
+                                          type: 'text',
+                                       },
+                                    ]}
+                                 />
+                                 <FormInputs
+                                    cols={['col-md-12']}
+                                    properties={[
+                                       {
+                                          as: 'input',
+                                          bsPrefix: 'form-control',
+                                          label: 'Email Address',
+                                          placeholder: 'Email',
+                                          required: true,
+                                          size: 'sm',
+                                          type: 'email',
+                                       },
+                                    ]}
+                                 />
+                                 <FormInputs
+                                    cols={['col-md-6', 'col-md-6']}
+                                    properties={[
+                                       {
+                                          as: 'input',
+                                          bsPrefix: 'form-control',
+                                          label: 'Password',
+                                          placeholder: 'Password',
+                                          required: true,
+                                          size: 'sm',
+                                          type: 'password',
+                                       },
+                                       {
+                                          as: 'input',
+                                          bsPrefix: 'form-control',
+                                          label: 'Confirm Password',
+                                          placeholder: 'Confirm Password',
+                                          required: true,
+                                          size: 'sm',
+                                          type: 'password',
+                                       },
+                                    ]}
+                                 />
+                                 <Button
+                                    block
+                                    onClick={this.routeChange}
+                                    size="md"
+                                    type="submit"
+                                    // disabled={!this.validateForm()}
+                                    variant="success"
+                                 >
+                                    Sign Up
+                                 </Button>
+                                 <div className="clearfix" />
+                              </form>
+                           }
+                        />
+                     </Col>
+                  </Row>
+               </Container>
             </div>
-            </form>
-        </div>
+         </div>
       );
    }
 }
+
+export default withRouter(Signup);

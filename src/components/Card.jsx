@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+import { linkStyle } from '../helpers';
 
 export class Card extends Component {
    constructor(props) {
@@ -13,7 +16,7 @@ export class Card extends Component {
                className={'header' + (this.props.hCenter ? ' text-center' : '')}
             >
                <h4 className="title">{this.props.title}</h4>
-               {this.props.title == 'Household:' ? (
+               {this.props.title === 'Household:' ? (
                   <span>{this.props.name}</span>
                ) : null}
                {this.props.lineBreak ? <hr /> : null}
@@ -29,6 +32,16 @@ export class Card extends Component {
             >
                {this.props.content}
             </div>
+            {this.props.footer ? (
+               <div className="footer">
+                  <hr />
+                  <div className="stats">
+                     <Link to={this.props.link} style={linkStyle}>
+                        {this.props.linkText}
+                     </Link>
+                  </div>
+               </div>
+            ) : null}
          </div>
       );
    }

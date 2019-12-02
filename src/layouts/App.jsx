@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import routes from '../routes.js';
+import Households from '../household.js';
 
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
@@ -138,7 +139,6 @@ export default class App extends Component {
    };
 
    render() {
-      const { households } = this.state;
       console.log('props:', this.props);
 
       return (
