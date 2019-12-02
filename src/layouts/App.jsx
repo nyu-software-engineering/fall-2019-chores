@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
-import routes from '../routes.js';
-import Households from '../household.js';
+import routes from '../routes';
+import households from '../household';
 
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
@@ -29,12 +29,7 @@ export default class App extends Component {
             return (
                <Route
                   path={prop.layout + prop.path}
-                  render={props => (
-                     <prop.component
-                        {...props}
-                        handleClick={this.handleNotificationClick}
-                     />
-                  )}
+                  render={props => <prop.component {...props} />}
                   key={key}
                />
             );

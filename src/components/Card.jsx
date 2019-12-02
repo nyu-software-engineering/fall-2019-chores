@@ -36,6 +36,7 @@ export class Card extends Component {
                <div className="footer">
                   <hr />
                   <div className="stats">
+                     {this.props.preText}
                      <Link to={this.props.link} style={linkStyle}>
                         {this.props.linkText}
                      </Link>
