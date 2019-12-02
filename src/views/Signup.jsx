@@ -29,9 +29,14 @@ class Signup extends Component {
 			title: ''
 		};
 
+		this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
 		this.routeChange = this.routeChange.bind(this);
 		this.sendData = this.sendData.bind(this);
 	}
+
+	// handleFirstNameChange(event) {
+	// 	this.setState({ firstName: event.target.value });
+	// }
 
 	async sendData() {
 		await fetch('/api/household/', {
@@ -110,8 +115,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'text',
-														// value: { state.firstName },
-														// onChange: {(e) => this.handleChange(e)}
+														// value: { this.state.firstName },
+														// onChange: {this.handleFirstNameChange}
 													},
 													{
 														as: 'input',
