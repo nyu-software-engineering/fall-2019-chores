@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 // const URLSlugs = require('mongoose-url-slugs');
+
 const Chore = require('../src/chore');
 const Household = require('../src/household');
 
-const PersonSchema = new mongoose.Schema({
+const personSchema = new mongoose.Schema({
 	assigned: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chore' }],
-	households: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Household' }],
-
 	firstName: {
 		type: String,
 		required: true,
@@ -14,6 +13,7 @@ const PersonSchema = new mongoose.Schema({
 		maxlength: 20,
 		trim: true,
 	},
+	households: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Household' }],
 	lastName: {
 		type: String,
 		required: true,
@@ -40,8 +40,8 @@ const PersonSchema = new mongoose.Schema({
 	},
 });
 
-// PersonSchema.plugin(URLSlugs('firstName'));
-PersonSchema.methods = {
+// personSchema.plugin(URLSlugs('firstName'));
+personSchema.methods = {
 	//returns Chore title
 	getFirstName: function() {
 		return this.firstName;
@@ -133,7 +133,7 @@ PersonSchema.methods = {
 			const index = this.households.indexOf(household._id);
 			if (index === -1) {
 				this.households.push(household._id);
-				if (!household.containsPerson(this) && this instanceof Person) {
+				if (!household.containsPerson(this) && this instanceof person) {
 					household.addMember(this);
 				}
 			}
@@ -157,5 +157,5 @@ PersonSchema.methods = {
 	},
 };
 
-const Person = mongoose.model('Person', PersonSchema);
-module.exports = Person;
+const person = mongoose.model('Person', personSchema);
+module.exports = person;

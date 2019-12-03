@@ -84,7 +84,7 @@
    font-weight: $font-weight-normal;
 }
 .btn-sm{
-    @include btn-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $border-radius-small);    
+    @include btn-size($padding-small-vertical, $padding-small-horizontal, .875rem, $border-radius-small);    
 }
 .btn-xs {
     @include btn-size($padding-xs-vertical, $padding-xs-horizontal, $font-size-small, $border-radius-small);

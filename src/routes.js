@@ -1,48 +1,61 @@
+import ChoresList from './views/ChoresList';
 import HomePage from './views/HomePage';
 import HousesList from './views/HousesList';
-import ChoresList from './views/ChoresList';
-import Notifications from './views/Notifications';
-import UpdateAccount from './views/UpdateAccount';
 import Login from './views/Login';
-import Admin from './layouts/Admin';
 import Signup from './views/Signup';
+import UpdateAccount from './views/UpdateAccount';
+
+import household from './household.js';
 
 const homeRoutes = [
    {
-      path: '/dashboard',
+      path: '/home',
       name: 'Home',
       component: HomePage,
-      layout: '/admin',
+      layout: '/app',
+      props: { household },
    },
    {
       path: '/myhouses',
       name: 'My Houses',
       component: HousesList,
-      layout: '/admin',
+      layout: '/app',
+      props: { household },
    },
    {
       path: '/mychores',
       name: 'My Chores',
       component: ChoresList,
-      layout: '/admin',
+      layout: '/app',
+      props: { household },
    },
    {
       path: '/myaccount',
       name: 'My Account',
       component: UpdateAccount,
-      layout: '/admin',
+      layout: '/app',
+      props: { household },
+   },
+   {
+      path: '/settings',
+      name: 'Settings',
+      // component: Settings,
+      layout: '/app',
+      props: { household },
    },
    {
       path: '/login',
-      name: 'Login',
-      component: Login,
-      layout: '/admin',
+      name: 'Logout',
+      // component: Login,
+      layout: '/app',
+      props: { household },
    },
    {
       path: '/signup',
-      name: 'Signup',
+      name: 'Sign Up',
       component: Signup,
-      layout: '/admin',
+      layout: '/app',
+      props: { household },
    },
 ];
 

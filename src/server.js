@@ -64,10 +64,19 @@ router.get('/household/:id', (req, res) => {
    req should include object containing necessary household info
    res should return whether it was added successfully */
 router.post('/household', (req, res) => {
-	const household = new Household(req.body);
-	household.save(err => {
-		if (err) return res.json({ success: false, error: err });
-		return res.json({ success: true });
+	const newHousehold = new Household(req.body);
+	newHousehold.save((err, household) => {
+		if (err) {
+			res.json({
+				success: false,
+				error: err,
+			});
+		} else {
+			res.json({
+				success: true,
+				id: household._id,
+			});
+		}
 	});
 });
 
@@ -75,10 +84,19 @@ router.post('/household', (req, res) => {
    req should include object containing necessary chore info
    res should return whether it was added successfully */
 router.post('/chore', (req, res) => {
-	const chore = new Chore(req.body);
-	chore.save(err => {
-		if (err) return res.json({ success: false, error: err });
-		return res.json({ success: true });
+	const newChore = new Chore(req.body);
+	newChore.save((err, chore) => {
+		if (err) {
+			res.json({
+				success: false,
+				error: err,
+			});
+		} else {
+			res.json({
+				success: true,
+				id: chore._id,
+			});
+		}
 	});
 });
 
@@ -89,8 +107,16 @@ router.post('/chore/:id', (req, res) => {
 	const chore = new Chore(req.body);
 
 	Chore.findByIdAndReplace(req.params.id, chore, err => {
-		if (err) return res.json({ success: false, error: err });
-		res.json({ success: true });
+		if (err) {
+			res.json({
+				success: false,
+				error: err,
+			});
+		} else {
+			res.json({
+				success: true,
+			});
+		}
 	});
 });
 
@@ -99,8 +125,16 @@ router.post('/chore/:id', (req, res) => {
    res should return whether removal was successful */
 router.delete('/chore/:id', (req, res) => {
 	Chore.findByIdAndRemove(req.params.id, err => {
-		if (err) return res.json({ success: false, error: err });
-		res.json({ success: true });
+		if (err) {
+			res.json({
+				success: false,
+				error: err,
+			});
+		} else {
+			res.json({
+				success: true,
+			});
+		}
 	});
 });
 
@@ -108,10 +142,20 @@ router.delete('/chore/:id', (req, res) => {
    req should include object containing necessary person info
    res should return whether it was added successfully */
 router.post('/person', (req, res) => {
-	const person = new Person(req.body);
-	person.save(err => {
-		if (err) return res.json({ success: false, error: err });
-		res.json({ success: true });
+	const newPerson = new Person(req.body[0]);
+	newPerson.save((err, person) => {
+		if (err) {
+			res.json({
+				success: false,
+				error: err,
+			});
+		} else {
+			person.addHousehold(req.body[1].id);
+			res.json({
+				success: true,
+				id: person._id,
+			});
+		}
 	});
 });
 

@@ -15,46 +15,47 @@ export default class ChoresList extends Component {
          'Edit',
          'Remove',
       ];
+      console.log('ChoresList props:', this.props);
 
       return (
          <div className="content">
             <Container fluid>
-               {/* {this.props.houses.map((prop, key) => { */}
-               {/*    return ( */}
-               <Row>
-                  <Col md={12}>
-                     <Card
-                        title="Household: "
-                        householdId={this.props.householdId}
-                        ctTableFullWidth
-                        ctTableResponsive
-                        content={
-                           <Table striped hover>
-                              <thead>
-                                 <tr>
-                                    {categories.map((prop, key) => {
-                                       return <th key={key}>{prop}</th>;
-                                    })}
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 {/* {this.props.chores.map((prop, key) => { */}
-                                 {/*    return ( */}
-                                 {/*       <tr key={key}> */}
-                                 {/*          {prop.map((prop, key) => { */}
-                                 {/*             return <td key={key}>{prop}</td>; */}
-                                 {/*          })} */}
-                                 {/*       </tr> */}
-                                 {/*    ); */}
-                                 {/* })} */}
-                              </tbody>
-                           </Table>
-                        }
-                     />
-                  </Col>
-               </Row>
-               {/*    ); */}
-               {/* })} */}
+               {this.props.households.map((prop, key) => {
+                  return (
+                     <Row>
+                        <Col md={12}>
+                           <Card
+                              title="Household: "
+                              name={prop.name}
+                              ctTableFullWidth
+                              ctTableResponsive
+                              content={
+                                 <Table striped hover>
+                                    <thead>
+                                       <tr>
+                                          {categories.map((prop, key) => {
+                                             return <th key={key}>{prop}</th>;
+                                          })}
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       {/* {prop.chores.map((prop, key) => { */}
+                                       {/*    return ( */}
+                                       {/*       <tr key={key}> */}
+                                       {/*          {prop.map((prop, key) => { */}
+                                       {/*             return <td key={key}>{prop}</td>; */}
+                                       {/*          })} */}
+                                       {/*       </tr> */}
+                                       {/*    ); */}
+                                       {/* })} */}
+                                    </tbody>
+                                 </Table>
+                              }
+                           />
+                        </Col>
+                     </Row>
+                  );
+               })}
             </Container>
          </div>
       );

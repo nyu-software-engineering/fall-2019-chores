@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const URLSlugs = require('mongoose-url-slugs');
 
-const ChoreSchema = new mongoose.Schema({
+const choreSchema = new mongoose.Schema({
 	completed: {
 		type: Date,
 		required: false,
@@ -41,9 +41,9 @@ const ChoreSchema = new mongoose.Schema({
 	},
 });
 
-// ChoreSchema.plugin(URLSlugs('title'));
+// choreSchema.plugin(URLSlugs('title'));
 
-ChoreSchema.methods = {
+choreSchema.methods = {
 	//returns title of chore
 	getTitle: function() {
 		return this.title;
@@ -129,5 +129,5 @@ ChoreSchema.methods = {
 	},
 };
 
-const Chore = mongoose.model('Chore', ChoreSchema);
-module.exports = Chore;
+const chore = mongoose.model('Chore', choreSchema);
+module.exports = chore;

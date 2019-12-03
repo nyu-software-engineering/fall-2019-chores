@@ -1,69 +1,72 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
-import Calendar from '../components/Calendar.jsx';
-import Card from '../components/Card.jsx';
-import StatsCard from '../components/StatsCard.jsx';
-import Chores from '../components/Chores.jsx';
+import household from '../household';
+
+import Calendar from '../components/Calendar';
+import Card from '../components/Card';
+import Chores from '../components/Chores';
+import StatsCard from '../components/StatsCard';
 
 export default class HomePage extends Component {
-   state = {
-      date: new Date(),
-   };
-
-   onChange = date => this.setState({ date });
+   constructor(props) {
+      super(props);
+      this.state = {
+         date: new Date(),
+      };
+   }
 
    render() {
+      console.log('Homepage props:', this.props);
       return (
          <div className="content">
             <Container fluid>
-               {/* {this.props.houses.map((prop, key) => { */}
-               {/*    return ( */}
-               <Row>
-                  <Col>
-                     <Card
-                        title="Household:"
-                        householdId={this.props.householdId}
-                        lineBreak
-                        content={
-                           <div>
-                              <Row>
-                                 <Col lg={3} sm={6}>
-                                    <StatsCard
-                                       statsText="Members"
-                                       statsValue="3"
-                                       link="myhouses"
-                                       linkText="See All Members"
-                                       footer
-                                    />
-                                 </Col>
-                                 <Col lg={3} sm={6}>
-                                    <StatsCard
-                                       statsText="Open Chores"
-                                       statsValue="12"
-                                       link="mychores"
-                                       linkText="See All Chores"
-                                       footer
-                                    />
-                                 </Col>
-                                 <Col lg={3} sm={6}>
-                                    <StatsCard
-                                       statsText="Completed Chores"
-                                       statsValue="3"
-                                       link="mychores"
-                                       linkText="See All Chores"
-                                       footer
-                                    />
-                                 </Col>
-                              </Row>
-                           </div>
-                        }
-                     />
-                  </Col>
-               </Row>
-               {/*    ); */}
-               {/* })} */}
+               {this.props.household.map((prop, key) => {
+                  return (
+                     <Row>
+                        <Col>
+                           <Card
+                              title="Household:"
+                              name={prop.title}
+                              lineBreak
+                              content={
+                                 <div>
+                                    <Row>
+                                       <Col lg={3} sm={6}>
+                                          <StatsCard
+                                             statsText="Members"
+                                             statsValue={prop.members.length}
+                                             link="myhouses"
+                                             linkText="See All Members"
+                                             footer
+                                          />
+                                       </Col>
+                                       <Col lg={3} sm={6}>
+                                          <StatsCard
+                                             statsText="Open Chores"
+                                             statsValue={prop.chores.length}
+                                             link="mychores"
+                                             linkText="See All Chores"
+                                             footer
+                                          />
+                                       </Col>
+                                       <Col lg={3} sm={6}>
+                                          <StatsCard
+                                             statsText="Completed Chores"
+                                             statsValue={prop.chores.length}
+                                             link="mychores"
+                                             linkText="See All Chores"
+                                             footer
+                                          />
+                                       </Col>
+                                    </Row>
+                                 </div>
+                              }
+                           />
+                        </Col>
+                     </Row>
+                  );
+               })}
                <Row>
                   <Col md={7}>
                      <Card
@@ -75,7 +78,7 @@ export default class HomePage extends Component {
                                  calendarType="US"
                                  defaultDate={new Date()}
                                  defaultView="month"
-                                 onChange={this.onChange}
+                                 onChange={date => this.setState({ date })}
                                  value={this.state.date}
                               />
                            </div>

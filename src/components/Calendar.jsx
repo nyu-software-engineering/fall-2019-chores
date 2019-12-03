@@ -4,25 +4,31 @@ import { range } from 'moment-range';
 // import './calendar.css';
 
 class Calendar extends Component {
+   constructor(props) {
+      super(props);
+      this.state = {
+         allmonths: moment.months(),
+         dateObject: moment(),
+         selectedDay: null,
+         showCalendarTable: true,
+         showMonthTable: false,
+         showYearNav: false,
+      };
+   }
    weekdayshort = moment.weekdaysShort();
 
-   state = {
-      showCalendarTable: true,
-      showMonthTable: false,
-      dateObject: moment(),
-      allmonths: moment.months(),
-      showYearNav: false,
-      selectedDay: null,
-   };
-   daysInMonth = () => {
-      return this.state.dateObject.daysInMonth();
-   };
-   year = () => {
-      return this.state.dateObject.format('Y');
-   };
    currentDay = () => {
       return this.state.dateObject.format('D');
    };
+
+   month = () => {
+      return this.state.dateObject.format('MMMM');
+   };
+
+   daysInMonth = () => {
+      return this.state.dateObject.daysInMonth();
+   };
+
    firstDayOfMonth = () => {
       let dateObject = this.state.dateObject;
       let firstDay = moment(dateObject)
@@ -30,15 +36,14 @@ class Calendar extends Component {
          .format('d'); // Day of week 0...1..5...6
       return firstDay;
    };
-   month = () => {
-      return this.state.dateObject.format('MMMM');
-   };
+
    showMonth = (e, month) => {
       this.setState({
          showMonthTable: !this.state.showMonthTable,
          showCalendarTable: !this.state.showCalendarTable,
       });
    };
+
    setMonth = month => {
       let monthNo = this.state.allmonths.indexOf(month);
       let dateObject = Object.assign({}, this.state.dateObject);
@@ -49,6 +54,7 @@ class Calendar extends Component {
          showCalendarTable: !this.state.showCalendarTable,
       });
    };
+
    MonthList = props => {
       let months = [];
       props.data.map(data => {
@@ -92,12 +98,6 @@ class Calendar extends Component {
          </table>
       );
    };
-   showYearEditor = () => {
-      this.setState({
-         showYearNav: true,
-         showCalendarTable: !this.state.showCalendarTable,
-      });
-   };
 
    onPrev = () => {
       let curr = '';
@@ -110,6 +110,7 @@ class Calendar extends Component {
          dateObject: this.state.dateObject.subtract(1, curr),
       });
    };
+
    onNext = () => {
       let curr = '';
       if (this.state.showMonthTable == true) {
@@ -121,6 +122,7 @@ class Calendar extends Component {
          dateObject: this.state.dateObject.add(1, curr),
       });
    };
+
    setYear = year => {
       // alert(year)
       let dateObject = Object.assign({}, this.state.dateObject);
@@ -132,19 +134,22 @@ class Calendar extends Component {
          showMonthTable: !this.state.showMonthTable,
       });
    };
+
    onYearChange = e => {
       this.setYear(e.target.value);
    };
-   getDates(startDate, stopDate) {
-      var dateArray = [];
-      var currentDate = moment(startDate);
-      var stopDate = moment(stopDate);
-      while (currentDate <= stopDate) {
-         dateArray.push(moment(currentDate).format('YYYY'));
-         currentDate = moment(currentDate).add(1, 'year');
-      }
-      return dateArray;
-   }
+
+   showYearEditor = () => {
+      this.setState({
+         showYearNav: true,
+         showCalendarTable: !this.state.showCalendarTable,
+      });
+   };
+
+   year = () => {
+      return this.state.dateObject.format('Y');
+   };
+
    YearTable = props => {
       let months = [];
       let nextten = moment()
@@ -195,6 +200,7 @@ class Calendar extends Component {
          </table>
       );
    };
+
    onDayClick = (e, d) => {
       this.setState(
          {
@@ -205,6 +211,18 @@ class Calendar extends Component {
          }
       );
    };
+
+   getDates(startDate, stopDate) {
+      var dateArray = [];
+      var currentDate = moment(startDate);
+      var stopDate = moment(stopDate);
+      while (currentDate <= stopDate) {
+         dateArray.push(moment(currentDate).format('YYYY'));
+         currentDate = moment(currentDate).add(1, 'year');
+      }
+      return dateArray;
+   }
+
    render() {
       let weekdayshortname = this.weekdayshort.map(day => {
          return <th key={day}>{day}</th>;

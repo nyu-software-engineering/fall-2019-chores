@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-export class StatsCard extends Component {
+import { linkStyle } from '../helpers';
+
+export default class StatsCard extends Component {
    render() {
-      const linkStyle = {
-         color: '#80c81e',
-         fontSize: '14px',
-         listStyleType: 'none',
-      };
       return (
          <div className="card card-stats">
             <div className="content">
@@ -27,11 +24,10 @@ export class StatsCard extends Component {
                   <div className="footer">
                      <hr />
                      <div className="stats">
-                        <li>
-                           <Link to={this.props.link} style={linkStyle}>
-                              {this.props.linkText}
-                           </Link>
-                        </li>
+                        {this.props.preText}
+                        <Link to={this.props.link} style={linkStyle}>
+                           {this.props.linkText}
+                        </Link>
                      </div>
                   </div>
                ) : null}
@@ -40,5 +36,3 @@ export class StatsCard extends Component {
       );
    }
 }
-
-export default StatsCard;

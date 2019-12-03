@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class Footer extends Component {
    render() {
@@ -9,16 +10,17 @@ class Footer extends Component {
                <nav className="pull-left">
                   <ul>
                      <li>
-                        <a href="#">Home</a>
+                        <Link to="/home">Home</Link>
+                     </li>
+
+                     <li>
+                        <Link to="/myaccount">Home</Link>
                      </li>
                      <li>
-                        <a href="#">Our Team</a>
+                        <Link to="/settings">Settings</Link>
                      </li>
                      <li>
-                        <a href="#">Support</a>
-                     </li>
-                     <li>
-                        <a href="#">Careers</a>
+                        <Link to="/login">Logout</Link>
                      </li>
                   </ul>
                </nav>

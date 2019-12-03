@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 // const URLSlugs = require('mongoose-url-slugs');
-const Person = require('../src/person');
-const Chore = require('../src/chore');
 
-const HouseholdSchema = new mongoose.Schema({
+const Chore = require('../src/chore');
+const Person = require('../src/person');
+
+const householdSchema = new mongoose.Schema({
 	admin: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: false,
@@ -23,9 +24,9 @@ const HouseholdSchema = new mongoose.Schema({
 	},
 });
 
-// HouseholdSchema.plugin(URLSlugs('title'));
+// householdSchema.plugin(URLSlugs('title'));
 
-HouseholdSchema.methods = {
+householdSchema.methods = {
 	//returns String containing household title
 	getTitle: function() {
 		return this.title;
@@ -59,7 +60,7 @@ HouseholdSchema.methods = {
 	removeMember: function(person) {
 		const index = this.members.indexOf(person._id);
 		if (index !== -1) {
-			members.splice(index, 1);
+			this.members.splice(index, 1);
 		}
 	},
 
@@ -76,7 +77,7 @@ HouseholdSchema.methods = {
 	removeChore: function(chore) {
 		const index = this.chores.indexOf(chore._id);
 		if (index !== -1) {
-			chores.splice(index, 1);
+			this.chores.splice(index, 1);
 		}
 	},
 
@@ -96,5 +97,5 @@ HouseholdSchema.methods = {
 	},
 };
 
-const Household = mongoose.model('Household', HouseholdSchema);
-module.exports = Household;
+const household = mongoose.model('Household', householdSchema);
+module.exports = household;
