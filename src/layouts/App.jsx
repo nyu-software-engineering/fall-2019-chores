@@ -80,7 +80,7 @@ export default class App extends Component {
    }
 
    getDataFromDB = () => {
-      fetch('http://localhost:3000/api/household')
+      fetch('http://localhost:3001/api/household')
          .then(data => data.json())
          .then(res => this.setState({ households: res.data }));
    };
@@ -94,7 +94,7 @@ export default class App extends Component {
          ++idToBeAdded;
       }
 
-      axios.post('http://localhost:3000/api/household', {
+      axios.post('http://localhost:3001/api/household', {
          id: idToBeAdded,
       });
    };
@@ -110,7 +110,7 @@ export default class App extends Component {
          }
       });
 
-      axios.delete('http://localhost:3000/api/household', {
+      axios.delete('http://localhost:3001/api/household', {
          households: {
             id: objIdToDelete,
          },
@@ -129,7 +129,7 @@ export default class App extends Component {
          }
       });
 
-      axios.post('http://localhost:3000/api/household', {
+      axios.post('http://localhost:3001/api/household', {
          id: objIdToUpdate,
          update: { message: updateToApply },
       });
