@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
-import routes from '../routes';
+import homeRoutes from '../routes';
 import households from '../household';
 
 import Footer from '../components/Footer';
@@ -25,10 +25,12 @@ export default class App extends Component {
 
    getRoutes = routes => {
       return routes.map((prop, key) => {
+         console.log(prop);
+         console.log(key);
          if (prop.layout === '/app') {
             return (
                <Route
-                  path={prop.layout + prop.path}
+                  path={prop.path}
                   render={props => <prop.component {...props} />}
                   key={key}
                />
@@ -138,9 +140,9 @@ export default class App extends Component {
 
       return (
          <div className="wrapper">
-            <Sidebar {...this.props} routes={routes} />
+            <Sidebar {...this.props} routes={homeRoutes} />
             <div id="main-panel" className="main-panel" ref="mainPanel">
-               <Switch>{this.getRoutes(routes)}</Switch>
+               <Switch>{this.getRoutes(homeRoutes)}</Switch>
                <Footer />
             </div>
          </div>

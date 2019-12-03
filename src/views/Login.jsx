@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+import logo from '../assets/img/logo.png';
 
 import Button from '../components/CustomButton';
 import Card from '../components/Card';
@@ -9,22 +12,35 @@ export default class Login extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         date: new Date(),
+         username: '',
+         password: '',
       };
+
+      this.handleSubmit = this.handleSubmit.bind(this);
+      // this.sendData = this.sendData.bind(this);
    }
 
-   onChange = date => this.setState({ date });
+   handleSubmit(event) {
+      event.preventDefault();
+      const data = new FormData(event.target);
+
+      fetch('/api/household', {
+         method: 'POST',
+         body: JSON.stringify(),
+      });
+   }
 
    render() {
       return (
          <div id="login" className="login">
-            <div className="header">
+            <div className="logo">
+               <img src={logo} alt="logo" />
                <h2>HouseKeeper</h2>
             </div>
             <div className="content">
                <Container fluid>
                   <Row>
-                     <Col xs={6} md={{ span: 4, offset: 5 }}>
+                     <Col md={{ span: 5, offset: 4 }}>
                         <Card
                            title="Login"
                            lineBreak
@@ -58,23 +74,24 @@ export default class Login extends Component {
                                        },
                                     ]}
                                  />
-                                 <Button
-                                    block
-                                    // onClick={this.routeChange}
-                                    size="sm"
-                                    type="submit"
-                                    // disabled={!this.validateForm()}
-                                    variant="success"
-                                 >
-                                    Login
-                                 </Button>
+                                 <Link to="/home">
+                                    <Button
+                                       block
+                                       size="sm"
+                                       type="submit"
+                                       to="/home"
+                                       variant="success"
+                                    >
+                                       Login
+                                    </Button>
+                                 </Link>
                                  <div className="clearfix" />
                               </form>
                            }
                            footer
                            preText="New to HouseKeeper? "
                            link="signup"
-                           lineText="Create an Account"
+                           linkText="Create an Account"
                            // path="/app/home"
                            // name="Create an Account"
                         />
