@@ -27,7 +27,10 @@ class Signup extends Component {
          lastName: '',
          phoneNum: '',
          password: '',
-         title: '',
+		 title: '',
+		 user_id: '', //use to establish who user is once logged in
+		 household_id: '' //use to know which household to pull from
+		 // ^ the above two should be sent to the home page's props (idk how to do this)
       };
 
       // this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -53,6 +56,7 @@ class Signup extends Component {
             if (status.success === false) {
                //show failure page
             } else {
+				household_id = status.id;
                fetch('/api/person', {
                   method: 'post',
                   body: JSON.stringify([
@@ -62,7 +66,7 @@ class Signup extends Component {
                         lastName: this.lastName,
                      },
                      {
-                        id: status.id,
+                        id: household_id,
                      },
                   ]),
                   headers: {
@@ -74,12 +78,15 @@ class Signup extends Component {
                      if (status.success === false) {
                         //show failure page
                      } else {
+						 user_id = status.id;
                         //show success page
                      }
                   });
             }
          });
    }
+
+   loadData()
 
    validateForm() {
       return this.state.email.length > 0 && this.state.password.length > 0;
