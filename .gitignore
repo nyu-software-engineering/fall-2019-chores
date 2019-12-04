@@ -62,3 +62,5 @@ typings/
 
 # next.js build output
 .DS_Store
+
+cluster_address.txt

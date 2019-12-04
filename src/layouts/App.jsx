@@ -13,7 +13,7 @@ export default class App extends Component {
 		super(props);
 		this.state = {
 			fixedClasses: 'dropdown show-dropdown open',
-			household: {},
+			households: [],
 			id: 0,
 			message: null,
 			intervalIsSet: false,
@@ -80,12 +80,11 @@ export default class App extends Component {
 	}
 
 	getDataFromDB = () => {
-		fetch('http://localhost:3001/api/household/' + this.props.household_id)
+		fetch('http://localhost:3001/api/household')
 			.then(data => data.json())
-			.then(res => this.setState({ household: res.data }));
+			.then(res => this.setState({ households: res.data }));
 	};
 
-	/*TODO: rework this section in line with how the server expects and handles data
 	// onChange={e => this.setState({ message: e.target.value })}
 	// onClick={() => this.putDataToDB(this.state.message)}
 	putDataToDB = message => {
@@ -135,7 +134,6 @@ export default class App extends Component {
 			update: { message: updateToApply },
 		});
 	};
-	*/
 
 	render() {
 		console.log('props:', this.props);
