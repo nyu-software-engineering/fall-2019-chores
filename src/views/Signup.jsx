@@ -28,6 +28,13 @@ class Signup extends Component {
 			phoneNum: '',
 			password: '',
 			title: '',
+			formErrors: {Name: 'A', Phone: 'B', Password: 'C', Title: 'D'},
+			fnameValid: false,
+			lnameValid: false,
+			numValid: false,
+			passwordValid: false,
+			titleValid: false,
+			formValid: false,
 		};
 
 		// this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -81,9 +88,66 @@ class Signup extends Component {
 			});
 	}
 
-	validateForm() {
-		return this.state.email.length > 0 && this.state.password.length > 0;
+	handleUserInput = (e) => {
+		console.log("handling user input here");
+		const name = e.target.name;
+		const value = e.target.value;
+		this.setState({[name]: value},
+					  () => { this.validateField(name, value) });
 	}
+	
+	validateField(fieldName, value) {
+		let fieldValidationErrors = this.state.formErrors;
+		let titleValid = this.state.titleValid;
+		let passwordValid = this.state.passwordValid;
+		let numValid = this.state.numValid;
+		let fnameValid = this.state.fnameValid;
+		let lnameValid = this.state.lnameValid;
+	
+		switch(fieldName) {
+		  	case 'title':
+				titleValid = value.length >= 8;
+				fieldValidationErrors.Title = titleValid ? '' : ' is invalid';
+				break;
+		  	case 'password':
+				passwordValid = value.length >= 6;
+				fieldValidationErrors.Password = passwordValid ? '': ' is too short';
+				break;
+		  	case 'number':
+				numValid = value.length == 10 && value.charAt(0) != '0' && value.match(/^[2-9]\d{2}-\d{3}-\d{4}$/);
+				fieldValidationErrors.Phone = numValid ? '': ' is invalid';
+				break;
+		  	case 'fname':
+				fnameValid = value.length >= 3;
+				fieldValidationErrors.Name = fnameValid ? '': ' is too short';
+				break;
+			case 'lname':
+				lnameValid = value.length >= 3;
+				fieldValidationErrors.Name = lnameValid ? '': ' is too short';
+				break;
+		  	default:
+				break;
+		}
+		this.setState({formErrors: fieldValidationErrors,
+						numValid: numValid,
+						passwordValid: passwordValid,
+						fnameValid: fnameValid,
+						lnameValid: lnameValid,
+						titleValid: titleValid
+					  }, this.validateForm);
+	}
+	
+	validateForm() {
+		this.setState({formValid: this.state.numValid && this.state.passwordValid && this.state.nameValid && this.state.titleValid});
+	}
+	
+	errorClass(error) {
+		return(error.length === 0 ? '' : 'has-error');
+	}
+
+	//validateForm() {
+	//	return this.state.email.length > 0 && this.state.password.length > 0;
+	//}
 
 	render() {
 		return (
@@ -94,6 +158,25 @@ class Signup extends Component {
 				<div className="content">
 					<Container fluid>
 						<Row>
+						<Col md={{ span: 5, offset: 3 }}>
+								<Card
+									title=""
+									lineBreak
+									content={
+										<div className='formErrors'>
+											{Object.keys(this.state.formErrors).map((fieldName, i) => {
+											if(this.state.formErrors[fieldName].length > 0){
+												return (
+												<p style={{fontSize:'sm'}, {color:'red'}} key={i}>{fieldName}: {this.state.formErrors[fieldName]}</p>
+												)        
+											} else {
+												return '';
+											}
+											})}
+										</div>
+									}
+								/>
+							</Col>
 							<Col md={{ span: 5, offset: 3 }}>
 								<Card
 									title="Sign Up"
@@ -111,8 +194,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'text',
-														// value: { this.state.firstName },
-														// onChange: {this.handleFirstNameChange}
+														//value: '{ this.state.firstName }',
+														onChange: <this.handleUserInput/>,
 													},
 													{
 														as: 'input',
@@ -122,6 +205,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'text',
+														//value: {state.lastName },
+														onChange: <this.handleUserInput/>,
 													},
 												]}
 											/>
@@ -141,7 +226,7 @@ class Signup extends Component {
 														as: 'input',
 														bsPrefix: 'form-control',
 														label: 'Phone Number',
-														placeholder: '(XXX) XXX-XXX',
+														placeholder: 'XXX-XXX-XXX',
 														required: true,
 														size: 'sm',
 														type: 'phoneNum',
@@ -176,7 +261,8 @@ class Signup extends Component {
 													block
 													size="md"
 													type="submit"
-													// disabled={!this.validateForm()}
+													disabled={!this.state.formValid}
+													//disabled={!this.validateForm()}
 													variant="success"
 												>
 													Sign Up
