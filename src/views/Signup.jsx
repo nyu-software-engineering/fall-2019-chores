@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 
 import { states } from '../helpers';
 import person from '../person';
+import logo from '../assets/img/logo.png';
 
 import Button from '../components/CustomButton';
 import Card from '../components/Card';
@@ -23,64 +24,71 @@ class Signup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			confirmPass: '',
 			firstName: '',
 			lastName: '',
-			phoneNum: '',
 			password: '',
-			title: '',
-			householdID: {},
 			personID: {},
+			phoneNum: '',
+			title: '',
+			username: '',
 		};
 
-		// this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-		this.sendData = this.sendData.bind(this);
+		this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+		this.handleLastNameChange = this.handleLastNameChange.bind(this);
+		this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this);
+		this.handlePasswordChange = this.handlePasswordChange.bind(this);
+		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(
+			this
+		);
+		this.handleUsernameChange = this.handleUsernameChange.bind(this);
+		this.createUser = this.createUser.bind(this);
 	}
 
-	// handleFirstNameChange(event) {
-	//    this.setState({ firstName: event.target.value });
-	// }
+	handleFirstNameChange(event) {
+		this.setState({ firstName: event.target.value });
+	}
+	handleLastNameChange(event) {
+		this.setState({ lastName: event.target.value });
+	}
+	handlePhoneNumChange(event) {
+		this.setState({ phoneNum: event.target.value });
+	}
+	handlePasswordChange(event) {
+		this.setState({ password: event.target.value });
+	}
+	handleConfirmPasswordChange(event) {
+		this.setState({ confirmPass: event.target.value });
+	}
+	handleUsernameChange(event) {
+		this.setState({ username: event.target.value });
+	}
 
-	async sendData() {
-		fetch('/api/household/', {
+	createUser() {
+		console.log('RUNNNNNNNNNNNNNN');
+		fetch('http://localhost:3001/api/person', {
 			method: 'post',
-			body: JSON.stringify({
-				title: this.title,
-			}),
+			body: JSON.stringify([
+				{
+					phoneNum: this.state.phoneNum,
+					firstName: this.state.firstName,
+					lastName: this.state.lastName,
+				},
+			]),
 			headers: {
 				'Content-Type': 'application/json',
+				Origin: 'http://localhost:3001',
 			},
 		})
 			.then(res => res.json())
 			.then(status => {
 				if (status.success === false) {
-					//show failure page
+					console.log('MISSION FAILED');
+					console.log(status.error);
 				} else {
-					this.setState({ householdID: status.id });
-					fetch('/api/person', {
-						method: 'post',
-						body: JSON.stringify([
-							{
-								phoneNum: this.phoneNum,
-								firstName: this.firstName,
-								lastName: this.lastName,
-							},
-							{
-								id: status.id,
-							},
-						]),
-						headers: {
-							'Content-Type': 'application/json',
-						},
-					})
-						.then(res => res.json())
-						.then(status => {
-							if (status.success === false) {
-								//show failure page
-							} else {
-								//show success page
-								this.setState({ personID: status.id });
-							}
-						});
+					console.log('MISSION SUCCESS');
+
+					this.setState({ personID: status.id });
 				}
 			});
 	}
@@ -92,8 +100,13 @@ class Signup extends Component {
 	render() {
 		return (
 			<div id="signup" className="signup">
-				<div className="header">
-					<h4>HouseKeeper</h4>
+				<div className="logo">
+					<div className="simple-text logo-mini">
+						<div className="logo-img">
+							<img src={logo} alt="logo_image" />
+						</div>
+					</div>
+					<h2 className="simple-text logo-normal">HouseKeeper</h2>
 				</div>
 				<div className="content">
 					<Container fluid>
@@ -115,8 +128,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'text',
-														// value: { this.state.firstName },
-														// onChange: {this.handleFirstNameChange}
+														value: this.state.firstName,
+														onChange: this.handleFirstNameChange,
 													},
 													{
 														as: 'input',
@@ -126,6 +139,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'text',
+														value: this.state.lastName,
+														onChange: this.handleLastNameChange,
 													},
 												]}
 											/>
@@ -140,6 +155,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'username',
+														value: this.state.username,
+														onChange: this.handleUsernameChange,
 													},
 													{
 														as: 'input',
@@ -149,6 +166,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'phoneNum',
+														value: this.state.phoneNum,
+														onChange: this.handlePhoneNumChange,
 													},
 												]}
 											/>
@@ -163,6 +182,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'password',
+														value: this.state.password,
+														onChange: this.handlePasswordChange,
 													},
 													{
 														as: 'input',
@@ -172,12 +193,16 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'password',
+														value: this.state.confirmPass,
+														onChange: this
+															.handleConfirmPasswordChange,
 													},
 												]}
 											/>
+
 											<Link
 												to={{
-													pathname: '/home',
+													pathname: '/newHousehold',
 													household: this.state,
 												}}
 											>
@@ -185,16 +210,31 @@ class Signup extends Component {
 													block
 													size="md"
 													type="submit"
-													// disabled={!this.validateForm()}
+													variant="success"
+													onClick={this.createUser}
+												>
+													Create New Household
+												</Button>
+											</Link>
+											<div className="clearfix"> or </div>
+											<Link
+												to={{
+													pathname: '/join',
+													household: this.state,
+												}}
+											>
+												<Button
+													block
+													size="md"
+													type="submit"
 													variant="success"
 												>
-													Sign Up
+													Join Existing Household
 												</Button>
 											</Link>
 											<div className="clearfix" />
 										</form>
 									}
-									//ADD ADMIN BUTTON
 								/>
 							</Col>
 						</Row>

@@ -1,33 +1,67 @@
 .signup, .login{
-    position: relative;
+    position: fixed;
     top: 0;
     bottom: 0;
     width: 100%;
+    height: 100%;
     padding-top: 1%;
     display: block;
     z-index: 1;
     font-weight: 200;
     background-size: cover;
     background-position: center center;
+    overflow: auto;
     @include icon-gradient($new-green, $green-color-bottom);
 
     .card {
         padding: 10px;
     }
 
-    .logo {
-        
-        h2 {
+    
+    .logo{
+        padding-left: 33%;
+        margin: 50px 0;
+        position: relative;
+        align-content: center;
+        text-align: center;
+        display: flex;
+
+        .logo-mini{
+            float: left;
             text-align: center;
+            width: 30px;
+            margin-right: 15px;
+
+            img{
+                margin-top: 2px;
+                display: inline-block;
+                vertical-align: center;
+                float: none;
+                margin: auto;
+                width: 60px;
+                height: 60px;
+            }
         }
 
-        img{
+        .logo-normal{
+            padding-left: 20px;
+            line-height: 35px;
+            display: block;
+            font-size: 40px;
+            margin: 10px;
+            color: $white-color;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        .logo-img{
+            width: 34px;
             display: inline-block;
-            vertical-align: middle;
-            float: none;
-            margin: auto;
-            width: 60px;
-            height: 60px;        
+            height: 34px;
+            margin-left: -2px;
+            margin-top: -2px;
+            margin-right: 10px;
+            border-radius: 30px;
+            text-align: center;
         }
     }
     
@@ -35,6 +69,10 @@
         font-size: 25px;
     }
    
+    *:before,
+    *:after {
+    box-sizing: border-box;
+    }
 }
 
 .signup {
