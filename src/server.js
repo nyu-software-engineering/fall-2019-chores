@@ -150,7 +150,9 @@ router.post('/person', (req, res) => {
 				error: err,
 			});
 		} else {
-			person.addHousehold(req.body[1].id);
+			if (req.body[1]) {
+				person.addHousehold(req.body[1].id);
+			}
 			res.json({
 				success: true,
 				id: person._id,
