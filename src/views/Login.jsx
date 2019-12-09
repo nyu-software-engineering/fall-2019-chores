@@ -78,7 +78,12 @@ export default class Login extends Component {
                                        },
                                     ]}
                                  />
-                                 <Link to="/home">
+                                 <Link
+                                    to={{
+                                       pathname: '/home',
+                                       household: this.state,
+                                    }}
+                                 >
                                     <Button
                                        block
                                        size="sm"
@@ -96,8 +101,6 @@ export default class Login extends Component {
                            preText="New to HouseKeeper? "
                            link="signup"
                            linkText="Create an Account"
-                           // path="/app/home"
-                           // name="Create an Account"
                         />
                      </Col>
                   </Row>

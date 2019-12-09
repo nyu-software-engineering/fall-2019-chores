@@ -24,21 +24,45 @@ class Signup extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         confirmPass: '',
          firstName: '',
-         lastName: '',
-         phoneNum: '',
-         password: '',
-         title: '',
          householdID: {},
+         lastName: '',
+         password: '',
          personID: {},
+         phoneNum: '',
+         title: '',
+         username: '',
       };
 
-      // this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+      this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+      this.handleLastNameChange = this.handleLastNameChange.bind(this);
+      this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this);
+      this.handlePasswordChange = this.handlePasswordChange.bind(this);
+      this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(
+         this
+      );
+      this.handleUsernameChange = this.handleUsernameChange.bind(this);
       this.sendData = this.sendData.bind(this);
    }
 
    handleFirstNameChange(event) {
       this.setState({ firstName: event.target.value });
+   }
+   handleLastNameChange(event) {
+      this.setState({ lastName: event.target.value });
+   }
+   handlePhoneNumChange(event) {
+      this.setState({ phoneNum: event.target.value });
+   }
+   handlePasswordChange(event) {
+      this.setState({ password: event.target.value });
+   }
+   handleConfirmPasswordChange(event) {
+      this.setState({ confirmPass: event.target.value });
+   }
+   handleUsernameChange(event) {
+      this.setState({ username: event.target.value });
    }
 
    async sendData() {
@@ -91,6 +115,8 @@ class Signup extends Component {
    }
 
    render() {
+      console.log('household:', this.state);
+
       return (
          <div id="signup" className="signup">
             <div className="logo">
@@ -132,6 +158,8 @@ class Signup extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'text',
+                                          value: this.state.lastName,
+                                          onChange: this.handleLastNameChange,
                                        },
                                     ]}
                                  />
@@ -146,6 +174,8 @@ class Signup extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'username',
+                                          value: this.state.username,
+                                          onChange: this.handleUsernameChange,
                                        },
                                        {
                                           as: 'input',
@@ -155,6 +185,8 @@ class Signup extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'phoneNum',
+                                          value: this.state.phoneNum,
+                                          onChange: this.handlePhoneNumChange,
                                        },
                                     ]}
                                  />
@@ -169,6 +201,8 @@ class Signup extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'password',
+                                          value: this.state.password,
+                                          onChange: this.handlePasswordChange,
                                        },
                                        {
                                           as: 'input',
@@ -178,6 +212,9 @@ class Signup extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'password',
+                                          value: this.state.confirmPass,
+                                          onChange: this
+                                             .handleConfirmPasswordChange,
                                        },
                                     ]}
                                  />
@@ -191,7 +228,6 @@ class Signup extends Component {
                                        block
                                        size="md"
                                        type="submit"
-                                       // disabled={!this.validateForm()}
                                        variant="success"
                                     >
                                        Create New Household
@@ -208,7 +244,6 @@ class Signup extends Component {
                                        block
                                        size="md"
                                        type="submit"
-                                       // disabled={!this.validateForm()}
                                        variant="success"
                                     >
                                        Join Existing Household

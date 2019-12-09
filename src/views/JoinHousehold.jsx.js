@@ -24,20 +24,17 @@ class JoinHousehold extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         firstName: '',
-         lastName: '',
-         phoneNum: '',
-         password: '',
+         householdID: {},
          title: '',
       };
 
-      // this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+      this.handleTitleChange = this.handleTitleChange.bind(this);
       this.sendData = this.sendData.bind(this);
    }
 
-   // handleFirstNameChange(event) {
-   //    this.setState({ firstName: event.target.value });
-   // }
+   handleTitleChange(event) {
+      this.setState({ title: event.target.value });
+   }
 
    async sendData() {
       fetch('/api/household/', {
@@ -117,17 +114,21 @@ class JoinHousehold extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'text',
-                                          // value: { this.state.firstName },
-                                          // onChange: {this.handleFirstNameChange}
+                                          value: this.state.title,
+                                          onChange: this.handleTitleChange,
                                        },
                                     ]}
                                  />
-                                 <Link to="/home">
+                                 <Link
+                                    to={{
+                                       pathname: '/home',
+                                       household: this.state,
+                                    }}
+                                 >
                                     <Button
                                        block
                                        size="md"
                                        type="submit"
-                                       // disabled={!this.validateForm()}
                                        variant="success"
                                     >
                                        Join Household
@@ -136,7 +137,6 @@ class JoinHousehold extends Component {
                                  <div className="clearfix" />
                               </form>
                            }
-                           //ADD ADMIN BUTTON
                         />
                      </Col>
                   </Row>
