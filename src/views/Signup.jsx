@@ -28,6 +28,8 @@ class Signup extends Component {
 			phoneNum: '',
 			password: '',
 			title: '',
+			householdID: {},
+			personID: {},
 		};
 
 		// this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -53,6 +55,7 @@ class Signup extends Component {
 				if (status.success === false) {
 					//show failure page
 				} else {
+					this.setState({ householdID: status.id });
 					fetch('/api/person', {
 						method: 'post',
 						body: JSON.stringify([
@@ -75,6 +78,7 @@ class Signup extends Component {
 								//show failure page
 							} else {
 								//show success page
+								this.setState({ personID: status.id });
 							}
 						});
 				}
@@ -171,7 +175,12 @@ class Signup extends Component {
 													},
 												]}
 											/>
-											<Link to="/home">
+											<Link
+												to={{
+													pathname: '/home',
+													household: this.state,
+												}}
+											>
 												<Button
 													block
 													size="md"

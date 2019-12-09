@@ -5,58 +5,49 @@ import Login from './views/Login';
 import Signup from './views/Signup';
 import UpdateAccount from './views/UpdateAccount';
 
-import household from './household.js';
-
 const homeRoutes = [
-   {
-      path: '/home',
-      name: 'Home',
-      component: HomePage,
-      layout: '/app',
-      props: { household },
-   },
-   {
-      path: '/myhouses',
-      name: 'My Houses',
-      component: HousesList,
-      layout: '/app',
-      props: { household },
-   },
-   {
-      path: '/mychores',
-      name: 'My Chores',
-      component: ChoresList,
-      layout: '/app',
-      props: { household },
-   },
-   {
-      path: '/myaccount',
-      name: 'My Account',
-      component: UpdateAccount,
-      layout: '/app',
-      props: { household },
-   },
-   {
-      path: '/settings',
-      name: 'Settings',
-      // component: Settings,
-      layout: '/app',
-      props: { household },
-   },
-   {
-      path: '/login',
-      name: 'Logout',
-      // component: Login,
-      layout: '/app',
-      props: { household },
-   },
-   {
-      path: '/signup',
-      name: 'Sign Up',
-      component: Signup,
-      layout: '/app',
-      props: { household },
-   },
+	{
+		path: '/home',
+		name: 'Home',
+		component: HomePage,
+		layout: '/app',
+	},
+	{
+		path: '/myhouses',
+		name: 'My Houses',
+		component: HousesList,
+		layout: '/app',
+	},
+	{
+		path: '/mychores',
+		name: 'My Chores',
+		component: ChoresList,
+		layout: '/app',
+	},
+	{
+		path: '/myaccount',
+		name: 'My Account',
+		component: UpdateAccount,
+		layout: '/app',
+	},
+	{
+		path: '/settings',
+		name: 'Settings',
+		// component: Settings,
+		layout: '/app',
+	},
+	{
+		path: '/login',
+		name: 'Logout',
+		// component: Login,
+		layout: '/app',
+	},
+	{
+		path: '/signup',
+		name: 'Sign Up',
+		component: Signup,
+		layout: '/app',
+	},
 ];
 
 export default homeRoutes;
