@@ -104,7 +104,6 @@ class Signup extends Component {
                         //show failure page
                      } else {
                         //show success page
-
                         this.setState({ personID: status.id });
                      }
                   });

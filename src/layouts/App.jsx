@@ -134,6 +134,10 @@ export default class App extends Component {
    };
 
    render() {
+      this.props = {
+         props: this.props,
+         household: this.props.location.household,
+      };
       return (
          <div className="wrapper">
             <Sidebar {...this.props} routes={homeRoutes} />

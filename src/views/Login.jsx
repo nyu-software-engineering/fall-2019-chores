@@ -30,6 +30,13 @@ export default class Login extends Component {
       });
    }
 
+   handlePasswordChange(event) {
+      this.setState({ password: event.target.value });
+   }
+   handleUsernameChange(event) {
+      this.setState({ username: event.target.value });
+   }
+
    render() {
       return (
          <div id="signup" className="signup">
@@ -61,6 +68,8 @@ export default class Login extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'text',
+                                          value: this.state.username,
+                                          onChange: this.handleUsernameChange,
                                        },
                                     ]}
                                  />
@@ -75,6 +84,8 @@ export default class Login extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'password',
+                                          value: this.state.password,
+                                          onChange: this.handlePasswordChange,
                                        },
                                     ]}
                                  />
