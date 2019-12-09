@@ -84,7 +84,8 @@ class CreateHousehold extends Component {
    }
 
    render() {
-      console.log('create house:', this.props.household);
+      console.log('create house:', this.props.location.household);
+
       return (
          <div id="signup" className="signup">
             <div className="logo">

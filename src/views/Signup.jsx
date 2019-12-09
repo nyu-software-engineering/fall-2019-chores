@@ -81,6 +81,7 @@ class Signup extends Component {
                //show failure page
             } else {
                this.setState({ householdID: status.id });
+
                fetch('/api/person', {
                   method: 'post',
                   body: JSON.stringify([
@@ -103,6 +104,7 @@ class Signup extends Component {
                         //show failure page
                      } else {
                         //show success page
+
                         this.setState({ personID: status.id });
                      }
                   });
@@ -116,7 +118,6 @@ class Signup extends Component {
 
    render() {
       console.log('household:', this.state);
-
       return (
          <div id="signup" className="signup">
             <div className="logo">
