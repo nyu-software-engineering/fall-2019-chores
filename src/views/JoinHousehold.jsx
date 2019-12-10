@@ -25,6 +25,7 @@ class JoinHousehold extends Component {
       super(props);
       this.state = {
          householdID: {},
+         personID: {},
          title: '',
       };
 
@@ -84,6 +85,8 @@ class JoinHousehold extends Component {
    }
 
    render() {
+      const household = { ...this.props.location.household, ...this.state };
+
       return (
          <div id="signup" className="signup">
             <div className="logo">

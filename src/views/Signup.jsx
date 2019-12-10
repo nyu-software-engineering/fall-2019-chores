@@ -65,7 +65,6 @@ class Signup extends Component {
 	}
 
 	createUser() {
-		console.log('RUNNNNNNNNNNNNNN');
 		fetch('http://localhost:3001/api/person', {
 			method: 'post',
 			body: JSON.stringify([
@@ -216,7 +215,9 @@ class Signup extends Component {
 													Create New Household
 												</Button>
 											</Link>
-											<div className="clearfix"> or </div>
+											<div className="clearfix">
+												<div className="btw_buttons"> or </div>
+											</div>
 											<Link
 												to={{
 													pathname: '/join',

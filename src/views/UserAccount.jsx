@@ -15,6 +15,8 @@ import UserCard from '../components/UserCard';
 
 export default class UpdateAccount extends Component {
    render() {
+      const household = this.props.location.household;
+
       const states = [
          'AL',
          'AK',

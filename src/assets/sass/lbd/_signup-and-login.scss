@@ -17,7 +17,6 @@
         padding: 10px;
     }
 
-    
     .logo{
         padding-left: 33%;
         margin: 50px 0;
@@ -69,6 +68,15 @@
         font-size: 25px;
     }
    
+    .btw_buttons {
+        color: #9a9a9a;
+        font-size: 12px;
+        margin: 5px;
+        text-transform: uppercase;
+        font-weight: 400;
+        text-align: center;
+    }
+
     *:before,
     *:after {
     box-sizing: border-box;

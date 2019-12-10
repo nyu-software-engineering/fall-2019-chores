@@ -29,54 +29,54 @@ const closedCategories = [
 
 export default class HousesList extends Component {
    render() {
-      console.log('HouseholdList props:', this.props);
+      const household = this.props.location.household;
       return (
          <div className="content">
             <Container fluid>
-               {this.props.households.map((prop, key) => {
-                  return (
-                     <Row>
-                        <Col>
-                           <Card
-                              title="Household:"
-                              name={prop.name}
-                              lineBreak
-                              content={
-                                 <div>
-                                    <Row>
-                                       <Col>
-                                          <DropdownTable
-                                             title="Members"
-                                             categories={memberCategories}
-                                             total={prop.members.length}
-                                          />
-                                       </Col>
-                                    </Row>
-                                    <Row>
-                                       <Col>
-                                          <DropdownTable
-                                             title="Open Chores"
-                                             categories={openCategories}
-                                             total={prop.chores.length}
-                                          />
-                                       </Col>
-                                    </Row>
-                                    <Row>
-                                       <Col>
-                                          <DropdownTable
-                                             title="Completed Chores"
-                                             categories={closedCategories}
-                                             total={prop.chores.length}
-                                          />
-                                       </Col>
-                                    </Row>
-                                 </div>
-                              }
-                           />
-                        </Col>
-                     </Row>
-                  );
-               })}
+               {/* {household.map((prop, key) => { */}
+               {/*    return ( */}
+               <Row>
+                  <Col>
+                     <Card
+                        title="Household:"
+                        name={household.title}
+                        lineBreak
+                        content={
+                           <div>
+                              <Row>
+                                 <Col>
+                                    <DropdownTable
+                                       title="Members"
+                                       categories={memberCategories}
+                                       total={household.members.length}
+                                    />
+                                 </Col>
+                              </Row>
+                              <Row>
+                                 <Col>
+                                    <DropdownTable
+                                       title="Open Chores"
+                                       categories={openCategories}
+                                       // total={household.chores.length}
+                                    />
+                                 </Col>
+                              </Row>
+                              <Row>
+                                 <Col>
+                                    <DropdownTable
+                                       title="Completed Chores"
+                                       categories={closedCategories}
+                                       // total={household.chores.length}
+                                    />
+                                 </Col>
+                              </Row>
+                           </div>
+                        }
+                     />
+                  </Col>
+               </Row>
+               {/*    ); */}
+               {/* })} */}
             </Container>
          </div>
       );
