@@ -64,9 +64,9 @@ class Signup extends Component {
 		this.setState({ username: event.target.value });
 	}
 
-	createUser() {
+	async createUser() {
 		console.log('RUNNNNNNNNNNNNNN');
-		fetch('http://localhost:3001/api/person', {
+		await fetch('http://localhost:3001/api/person', {
 			method: 'post',
 			body: JSON.stringify([
 				{
@@ -87,8 +87,7 @@ class Signup extends Component {
 					console.log(status.error);
 				} else {
 					console.log('MISSION SUCCESS');
-
-					this.setState({ personID: status.id });
+					this.state.personID = status.id;
 				}
 			});
 	}
@@ -220,7 +219,7 @@ class Signup extends Component {
 											<Link
 												to={{
 													pathname: '/join',
-													household: this.state,
+													personID: this.state.personID,
 												}}
 											>
 												<Button

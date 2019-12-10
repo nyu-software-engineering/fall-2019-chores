@@ -30,15 +30,15 @@ class CreateHousehold extends Component {
 		};
 
 		this.handleTitleChange = this.handleTitleChange.bind(this);
-		this.sendData = this.sendData.bind(this);
+		this.createHousehold = this.createHousehold.bind(this);
 	}
 
 	handleTitleChange(event) {
 		this.setState({ title: event.target.value });
 	}
 
-	async sendData() {
-		fetch('http://localhost:3001/api/household/', {
+	async createHousehold() {
+		await fetch('http://localhost:3001/api/household/', {
 			method: 'post',
 			body: JSON.stringify({
 				title: this.title,
@@ -53,7 +53,7 @@ class CreateHousehold extends Component {
 				if (status.success === false) {
 					//show failure page
 				} else {
-					this.setState({ householdID: status.id });
+					this.state.householdID = status.id;
 					fetch('/api/person', {
 						method: 'put',
 						body: JSON.stringify([
@@ -71,9 +71,11 @@ class CreateHousehold extends Component {
 						.then(res => res.json())
 						.then(status => {
 							if (status.success === false) {
-								//show failure page
+								console.log('MISSION FAILED');
+								console.log(status.error);
 							} else {
-								//show success page
+								console.log('MISSION SUCCESS');
+								this.state.personID = status.id;
 							}
 						});
 				}
@@ -85,7 +87,7 @@ class CreateHousehold extends Component {
 	}
 
 	render() {
-		console.log('create house:', this.props.location.household);
+		console.log('person ID:', this.props.location.personID);
 
 		return (
 			<div id="signup" className="signup">
@@ -121,7 +123,8 @@ class CreateHousehold extends Component {
 											<Link
 												to={{
 													pathname: '/home',
-													household: this.state,
+													householdID: this.state.householdID,
+													personID: this.state.personID,
 												}}
 											>
 												<Button
@@ -129,6 +132,7 @@ class CreateHousehold extends Component {
 													size="md"
 													type="submit"
 													variant="success"
+													onClick={this.createHousehold}
 												>
 													Create Household
 												</Button>
