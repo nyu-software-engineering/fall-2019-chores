@@ -61,8 +61,6 @@ householdSchema.methods = {
 	removeMember: function(person) {
 		const index = this.members.indexOf(person._id);
 		if (index !== -1) {
-			for (member in this.members) {
-			}
 			this.members.splice(index, 1);
 		}
 	},

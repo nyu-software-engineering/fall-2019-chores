@@ -202,7 +202,7 @@ class Signup extends Component {
 											<Link
 												to={{
 													pathname: '/newHousehold',
-													household: this.state,
+													personID: this.state.personID,
 												}}
 											>
 												<Button
