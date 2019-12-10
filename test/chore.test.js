@@ -104,7 +104,7 @@ describe('Chore Tests', () => {
 
 	// 8
 	it('test chore lateness check', function(done) {
-		validChore.setDueDate(new Date('December 5, 2019 20:30:00'));
+		validChore.setDueDate(new Date('December 5, 2030 20:30:00'));
 		validChore.markComplete();
 		assert.equal(validChore.checkLate(), false);
 
