@@ -51,7 +51,7 @@ export default class Login extends Component {
             <div className="content">
                <Container fluid>
                   <Row>
-                     <Col md={{ span: 5, offset: 4 }}>
+                     <Col md={{ span: 5, offset: 3 }}>
                         <Card
                            title="Login"
                            lineBreak
