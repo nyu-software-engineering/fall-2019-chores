@@ -15,8 +15,9 @@ class Login extends Component {
       this.state = {
          username: '',
          password: '',
-         numValid: false,
-         formValid: false,
+         numValid: true,
+         formValid: true,
+         buttonValid: false,
          formErrors: { Phone: '' },
       };
 
@@ -38,6 +39,7 @@ class Login extends Component {
 
    handlePasswordChange(event) {
       this.setState({ password: event.target.value });
+      this.validateForm();
    }
    handleUsernameChange(event) {
       this.setState({ username: event.target.value });
@@ -50,12 +52,11 @@ class Login extends Component {
 
       switch (fieldName) {
          case 'number':
-            numValid = value.match(
-               /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
-            );
-            fieldValidationErrors.Phone = numValid
-               ? ''
-               : 'Phone number is invalid';
+            if (value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)) {
+					numValid = true;
+				}
+				else {numValid = false;}
+				fieldValidationErrors.Phone = numValid ? '' : ' Phone number is invalid';
             break;
          default:
             break;
@@ -68,6 +69,7 @@ class Login extends Component {
 
    validateForm() {
       this.setState({ formValid: this.state.numValid });
+      this.setState({ buttonValid: this.state.numValid && this.state.username.length > 0 && this.state.password.length > 0});
    }
 
    render() {
@@ -85,7 +87,7 @@ class Login extends Component {
                <Container fluid>
                   <Row>
                      <Col md={{ span: 5, offset: 3 }}>
-                        {this.state.formValid !== false ? (
+                        {this.state.formValid == false ? (
                            <Card
                               title="Errors"
                               lineBreak
@@ -162,6 +164,7 @@ class Login extends Component {
                                        type="submit"
                                        to="/home"
                                        variant="success"
+                                       disabled={!this.state.buttonValid}
                                     >
                                        Login
                                     </Button>
