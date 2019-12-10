@@ -11,11 +11,9 @@ export default class Sidebar extends Component {
       };
    }
 
-   activeRoute(routeName) {
-      return this.props.location.pathname.indexOf(routeName) > -1
-         ? 'active'
-         : '';
-   }
+   // activeRoute(routeName) {
+   //    return this.props.routes.pathname.indexOf(routeName) > -1 ? 'active' : '';
+   // }
 
    updateDimensions() {
       this.setState({ width: window.innerWidth });
@@ -27,16 +25,16 @@ export default class Sidebar extends Component {
    }
 
    render() {
-      console.log('props:', this.props);
+      console.log('sidebar props:', this.props);
       return (
          <div id="sidebar" className="sidebar">
             <div className="logo">
-               <a className="simple-text logo-mini">
+               <div className="simple-text logo-mini">
                   <div className="logo-img">
                      <img src={logo} alt="logo_image" />
                   </div>
-               </a>
-               <a className="simple-text logo-normal">HouseKeeper</a>
+               </div>
+               <div className="simple-text logo-normal">HouseKeeper</div>
             </div>
             <div className="sidebar-wrapper">
                <ul className="nav">
@@ -44,15 +42,12 @@ export default class Sidebar extends Component {
                      if (!prop.redirect)
                         return (
                            <li
-                              className={
-                                 prop.upgrade
-                                    ? 'active active-pro'
-                                    : this.activeRoute(prop.layout + prop.path)
-                              }
+                              // className={this.activeRoute(prop.path)}
+                              className={prop.pathname}
                               key={key}
                            >
                               <NavLink
-                                 to={prop.layout + prop.path}
+                                 to={prop.path}
                                  className="nav-link"
                                  activeClassName="active"
                               >

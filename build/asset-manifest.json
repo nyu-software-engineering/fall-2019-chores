@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/nyu-software-engineering/fall-2019-chores/static/css/main.9b205e1b.chunk.css",
+    "main.js": "/nyu-software-engineering/fall-2019-chores/static/js/main.db6045f2.chunk.js",
+    "main.js.map": "/nyu-software-engineering/fall-2019-chores/static/js/main.db6045f2.chunk.js.map",
+    "runtime-main.js": "/nyu-software-engineering/fall-2019-chores/static/js/runtime-main.556737c4.js",
+    "runtime-main.js.map": "/nyu-software-engineering/fall-2019-chores/static/js/runtime-main.556737c4.js.map",
+    "static/css/2.cbce4f24.chunk.css": "/nyu-software-engineering/fall-2019-chores/static/css/2.cbce4f24.chunk.css",
+    "static/js/2.86a23b2d.chunk.js": "/nyu-software-engineering/fall-2019-chores/static/js/2.86a23b2d.chunk.js",
+    "static/js/2.86a23b2d.chunk.js.map": "/nyu-software-engineering/fall-2019-chores/static/js/2.86a23b2d.chunk.js.map",
+    "index.html": "/nyu-software-engineering/fall-2019-chores/index.html",
+    "precache-manifest.5c98e887701852e23aefbe38a5b89545.js": "/nyu-software-engineering/fall-2019-chores/precache-manifest.5c98e887701852e23aefbe38a5b89545.js",
+    "service-worker.js": "/nyu-software-engineering/fall-2019-chores/service-worker.js",
+    "static/css/2.cbce4f24.chunk.css.map": "/nyu-software-engineering/fall-2019-chores/static/css/2.cbce4f24.chunk.css.map",
+    "static/css/main.9b205e1b.chunk.css.map": "/nyu-software-engineering/fall-2019-chores/static/css/main.9b205e1b.chunk.css.map",
+    "static/media/logo.png": "/nyu-software-engineering/fall-2019-chores/static/media/logo.c59efc97.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.556737c4.js",
+    "static/css/2.cbce4f24.chunk.css",
+    "static/js/2.86a23b2d.chunk.js",
+    "static/css/main.9b205e1b.chunk.css",
+    "static/js/main.db6045f2.chunk.js"
+  ]
+}

@@ -30,17 +30,28 @@ export default class Login extends Component {
       });
    }
 
+   handlePasswordChange(event) {
+      this.setState({ password: event.target.value });
+   }
+   handleUsernameChange(event) {
+      this.setState({ username: event.target.value });
+   }
+
    render() {
       return (
-         <div id="login" className="login">
+         <div id="signup" className="signup">
             <div className="logo">
-               <img src={logo} alt="logo" />
-               <h2>HouseKeeper</h2>
+               <div className="simple-text logo-mini">
+                  <div className="logo-img">
+                     <img src={logo} alt="logo_image" />
+                  </div>
+               </div>
+               <h2 className="simple-text logo-normal">HouseKeeper</h2>
             </div>
             <div className="content">
                <Container fluid>
                   <Row>
-                     <Col md={{ span: 5, offset: 4 }}>
+                     <Col md={{ span: 5, offset: 3 }}>
                         <Card
                            title="Login"
                            lineBreak
@@ -57,6 +68,8 @@ export default class Login extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'text',
+                                          value: this.state.username,
+                                          onChange: this.handleUsernameChange,
                                        },
                                     ]}
                                  />
@@ -71,10 +84,17 @@ export default class Login extends Component {
                                           required: true,
                                           size: 'sm',
                                           type: 'password',
+                                          value: this.state.password,
+                                          onChange: this.handlePasswordChange,
                                        },
                                     ]}
                                  />
-                                 <Link to="/home">
+                                 <Link
+                                    to={{
+                                       pathname: '/home',
+                                       household: this.state,
+                                    }}
+                                 >
                                     <Button
                                        block
                                        size="sm"
@@ -92,8 +112,6 @@ export default class Login extends Component {
                            preText="New to HouseKeeper? "
                            link="signup"
                            linkText="Create an Account"
-                           // path="/app/home"
-                           // name="Create an Account"
                         />
                      </Col>
                   </Row>

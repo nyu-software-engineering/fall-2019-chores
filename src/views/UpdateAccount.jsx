@@ -17,6 +17,8 @@ import UserCard from '../components/UserCard';
 
 export default class UpdateAccount extends Component {
    render() {
+      const household = this.props.location.household;
+
       return (
          <div className="content">
             <Container fluid>

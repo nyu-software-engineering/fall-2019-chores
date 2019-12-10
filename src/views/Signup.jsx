@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 
 import { states } from '../helpers';
 import person from '../person';
+import logo from '../assets/img/logo.png';
 
 import Button from '../components/CustomButton';
 import Card from '../components/Card';
@@ -23,108 +24,126 @@ class Signup extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			confirmPass: '',
 			firstName: '',
 			lastName: '',
-			phoneNum: '',
 			password: '',
+			personID: {},
+			phoneNum: '',
 			title: '',
-			formErrors: {Name: 'A', Phone: 'B', Password: 'C', Title: 'D'},
+			username: '',
+
 			fnameValid: false,
 			lnameValid: false,
 			numValid: false,
 			passwordValid: false,
+			confirmpwValid: false,
 			titleValid: false,
+			usernameValid: false,
 			formValid: false,
+			formErrors: {Name: '', Phone: '', Password: '', Confirm_Password: '', Title: '', Username: ''},
 		};
 
-		// this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-		this.sendData = this.sendData.bind(this);
+		this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+		this.handleLastNameChange = this.handleLastNameChange.bind(this);
+		this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this);
+		this.handlePasswordChange = this.handlePasswordChange.bind(this);
+		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+		this.handleUsernameChange = this.handleUsernameChange.bind(this);
+		this.createUser = this.createUser.bind(this);
+	}
+	
+	handleFirstNameChange(event) {
+		this.setState({ firstName: event.target.value });
+		this.validateField('fname', event.target.value);
+	}
+	handleLastNameChange(event) {
+		this.setState({ lastName: event.target.value });
+		this.validateField('lname', event.target.value);
+	}
+	handlePhoneNumChange(event) {
+		this.setState({ phoneNum: event.target.value });
+		this.validateField('number', event.target.value);
+	}
+	handlePasswordChange(event) {
+		this.setState({ password: event.target.value });
+		this.validateField('password', event.target.value);
+	}
+	handleConfirmPasswordChange(event) {
+		this.setState({ confirmPass: event.target.value });
+		this.validateField('confirmpw', event.target.value);
+	}
+	handleUsernameChange(event) {
+		this.setState({ username: event.target.value });
+		this.validateField('username', event.target.value);
 	}
 
-	// handleFirstNameChange(event) {
-	//    this.setState({ firstName: event.target.value });
-	// }
-
-	async sendData() {
-		fetch('/api/household/', {
+	createUser() {
+		fetch('http://localhost:3001/api/person', {
 			method: 'post',
-			body: JSON.stringify({
-				title: this.title,
-			}),
+			body: JSON.stringify([
+				{
+					phoneNum: this.state.phoneNum,
+					firstName: this.state.firstName,
+					lastName: this.state.lastName,
+				},
+			]),
 			headers: {
 				'Content-Type': 'application/json',
+				Origin: 'http://localhost:3001',
 			},
 		})
 			.then(res => res.json())
 			.then(status => {
 				if (status.success === false) {
-					//show failure page
+					console.log('MISSION FAILED');
+					console.log(status.error);
 				} else {
-					fetch('/api/person', {
-						method: 'post',
-						body: JSON.stringify([
-							{
-								phoneNum: this.phoneNum,
-								firstName: this.firstName,
-								lastName: this.lastName,
-							},
-							{
-								id: status.id,
-							},
-						]),
-						headers: {
-							'Content-Type': 'application/json',
-						},
-					})
-						.then(res => res.json())
-						.then(status => {
-							if (status.success === false) {
-								//show failure page
-							} else {
-								//show success page
-							}
-						});
+					console.log('MISSION SUCCESS');
+
+					this.setState({ personID: status.id });
 				}
 			});
-	}
-
-	handleUserInput = (e) => {
-		console.log("handling user input here");
-		const name = e.target.name;
-		const value = e.target.value;
-		this.setState({[name]: value},
-					  () => { this.validateField(name, value) });
 	}
 	
 	validateField(fieldName, value) {
 		let fieldValidationErrors = this.state.formErrors;
 		let titleValid = this.state.titleValid;
 		let passwordValid = this.state.passwordValid;
+		let confirmpwValid = this.state.confirmpwValid;
 		let numValid = this.state.numValid;
 		let fnameValid = this.state.fnameValid;
 		let lnameValid = this.state.lnameValid;
-	
+		let usernameValid = this.state.usernameValid;
+
 		switch(fieldName) {
 		  	case 'title':
 				titleValid = value.length >= 8;
-				fieldValidationErrors.Title = titleValid ? '' : ' is invalid';
+				fieldValidationErrors.Title = titleValid ? '' : ' Title is too short';
 				break;
 		  	case 'password':
 				passwordValid = value.length >= 6;
-				fieldValidationErrors.Password = passwordValid ? '': ' is too short';
+				fieldValidationErrors.Password = passwordValid ? '': ' Password is too short';
 				break;
 		  	case 'number':
-				numValid = value.length == 10 && value.charAt(0) != '0' && value.match(/^[2-9]\d{2}-\d{3}-\d{4}$/);
-				fieldValidationErrors.Phone = numValid ? '': ' is invalid';
+				numValid = value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
+				fieldValidationErrors.Phone = numValid ? '': ' Phone number is invalid';
 				break;
 		  	case 'fname':
-				fnameValid = value.length >= 3;
-				fieldValidationErrors.Name = fnameValid ? '': ' is too short';
+				fnameValid = value.length >= 4;
+				fieldValidationErrors.Name = fnameValid ? '': ' First name is too short';
 				break;
 			case 'lname':
 				lnameValid = value.length >= 3;
-				fieldValidationErrors.Name = lnameValid ? '': ' is too short';
+				fieldValidationErrors.Name = lnameValid ? '': ' Last name is too short';
 				break;
+			case 'confirmpw':
+				confirmpwValid = value == this.state.password;
+				fieldValidationErrors.Confirm_Password = confirmpwValid ? '': ' Confirm password does not match your password';
+				break;
+			case 'username':
+				usernameValid = value.length >= 8;
+				fieldValidationErrors.Username = usernameValid ? '': ' Username is too short';
 		  	default:
 				break;
 		}
@@ -133,12 +152,17 @@ class Signup extends Component {
 						passwordValid: passwordValid,
 						fnameValid: fnameValid,
 						lnameValid: lnameValid,
-						titleValid: titleValid
+						titleValid: titleValid,
+						confirmpwValid: confirmpwValid,
+						usernameValid: usernameValid
 					  }, this.validateForm);
 	}
 	
 	validateForm() {
-		this.setState({formValid: this.state.numValid && this.state.passwordValid && this.state.nameValid && this.state.titleValid});
+		this.setState({formValid: this.state.numValid && this.state.passwordValid 
+			&& this.state.nameValid && this.state.titleValid &&
+			this.state.confirmpwValid && this.state.usernameValid
+		});
 	}
 	
 	errorClass(error) {
@@ -152,8 +176,13 @@ class Signup extends Component {
 	render() {
 		return (
 			<div id="signup" className="signup">
-				<div className="header">
-					<h4>HouseKeeper</h4>
+				<div className="logo">
+					<div className="simple-text logo-mini">
+						<div className="logo-img">
+							<img src={logo} alt="logo_image" />
+						</div>
+					</div>
+					<h2 className="simple-text logo-normal">HouseKeeper</h2>
 				</div>
 				<div className="content">
 					<Container fluid>
@@ -167,7 +196,7 @@ class Signup extends Component {
 											{Object.keys(this.state.formErrors).map((fieldName, i) => {
 											if(this.state.formErrors[fieldName].length > 0){
 												return (
-												<p style={{fontSize:'sm'}, {color:'red'}} key={i}>{fieldName}: {this.state.formErrors[fieldName]}</p>
+												<p style={{fontSize:'sm'}, {color:'red'}} key={i}>{this.state.formErrors[fieldName]}</p>
 												)        
 											} else {
 												return '';
@@ -194,8 +223,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'text',
-														//value: '{ this.state.firstName }',
-														onChange: <this.handleUserInput/>,
+														value: this.state.firstName,
+														onChange: this.handleFirstNameChange,
 													},
 													{
 														as: 'input',
@@ -205,8 +234,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'text',
-														//value: {state.lastName },
-														onChange: <this.handleUserInput/>,
+														value: this.state.lastName,
+														onChange: this.handleLastNameChange,
 													},
 												]}
 											/>
@@ -221,6 +250,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'username',
+														value: this.state.username,
+														onChange: this.handleUsernameChange,
 													},
 													{
 														as: 'input',
@@ -230,6 +261,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'phoneNum',
+														value: this.state.phoneNum,
+														onChange: this.handlePhoneNumChange,
 													},
 												]}
 											/>
@@ -244,6 +277,8 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'password',
+														value: this.state.password,
+														onChange: this.handlePasswordChange,
 													},
 													{
 														as: 'input',
@@ -253,25 +288,52 @@ class Signup extends Component {
 														required: true,
 														size: 'sm',
 														type: 'password',
+														value: this.state.confirmPass,
+														onChange: this
+															.handleConfirmPasswordChange,
 													},
 												]}
 											/>
-											<Link to="/home">
+
+											<Link
+												to={{
+													pathname: '/newHousehold',
+													household: this.state,
+												}}
+											>
 												<Button
 													block
 													size="md"
 													type="submit"
-													disabled={!this.state.formValid}
-													//disabled={!this.validateForm()}
 													variant="success"
+													//disabled={!this.state.formValid}
+													onClick={this.createUser}
 												>
-													Sign Up
+													Create New Household
+												</Button>
+											</Link>
+											<div className="clearfix">
+												<div className="btw_buttons"> or </div>
+											</div>
+											<Link
+												to={{
+													pathname: '/join',
+													household: this.state,
+												}}
+											>
+												<Button
+													block
+													size="md"
+													type="submit"
+													variant="success"
+													//disabled={!this.state.formValid}
+												>
+													Join Existing Household
 												</Button>
 											</Link>
 											<div className="clearfix" />
 										</form>
 									}
-									//ADD ADMIN BUTTON
 								/>
 							</Col>
 						</Row>

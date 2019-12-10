@@ -138,10 +138,12 @@ router.delete('/chore/:id', (req, res) => {
 	});
 });
 
-/* new person
+/* new person & join household 
    req should include object containing necessary person info
+   req should (optionally) include a household id if joining a household
    res should return whether it was added successfully */
 router.post('/person', (req, res) => {
+	console.log(req.body);
 	const newPerson = new Person(req.body[0]);
 	newPerson.save((err, person) => {
 		if (err) {
@@ -150,13 +152,25 @@ router.post('/person', (req, res) => {
 				error: err,
 			});
 		} else {
-			person.addHousehold(req.body[1].id);
+			if (req.body[1]) {
+				person.addHousehold(req.body[1].id);
+			}
 			res.json({
 				success: true,
 				id: person._id,
 			});
 		}
 	});
+});
+
+/* join person with household
+   req should include object containing necessary person info
+   res should return whether it was added successfully */
+router.put('/person', (req, res) => {
+	const person = Person.findById(req.body[0].id);
+	const household = Household.findById(req.body[1].id);
+
+	person.addHousehold(household);
 });
 
 /* update person
