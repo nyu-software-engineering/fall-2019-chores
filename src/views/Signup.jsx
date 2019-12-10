@@ -41,18 +41,27 @@ class Signup extends Component {
 			titleValid: false,
 			usernameValid: false,
 			formValid: false,
-			formErrors: {Name: '', Phone: '', Password: '', Confirm_Password: '', Title: '', Username: ''},
+			formErrors: {
+				Name: '',
+				Phone: '',
+				Password: '',
+				Confirm_Password: '',
+				Title: '',
+				Username: '',
+			},
 		};
 
 		this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
 		this.handleLastNameChange = this.handleLastNameChange.bind(this);
 		this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
-		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(
+			this
+		);
 		this.handleUsernameChange = this.handleUsernameChange.bind(this);
 		this.createUser = this.createUser.bind(this);
 	}
-	
+
 	handleFirstNameChange(event) {
 		this.setState({ firstName: event.target.value });
 		this.validateField('fname', event.target.value);
@@ -105,7 +114,7 @@ class Signup extends Component {
 				}
 			});
 	}
-	
+
 	validateField(fieldName, value) {
 		let fieldValidationErrors = this.state.formErrors;
 		let titleValid = this.state.titleValid;
@@ -116,62 +125,83 @@ class Signup extends Component {
 		let lnameValid = this.state.lnameValid;
 		let usernameValid = this.state.usernameValid;
 
-		switch(fieldName) {
-		  	case 'title':
+		switch (fieldName) {
+			case 'title':
 				titleValid = value.length >= 8;
-				fieldValidationErrors.Title = titleValid ? '' : ' Title is too short';
+				fieldValidationErrors.Title = titleValid
+					? ''
+					: ' Title is too short';
 				break;
-		  	case 'password':
+			case 'password':
 				passwordValid = value.length >= 6;
-				fieldValidationErrors.Password = passwordValid ? '': ' Password is too short';
+				fieldValidationErrors.Password = passwordValid
+					? ''
+					: ' Password is too short';
 				break;
-		  	case 'number':
-				numValid = value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
-				fieldValidationErrors.Phone = numValid ? '': ' Phone number is invalid';
+			case 'number':
+				numValid = value.match(
+					/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+				);
+				fieldValidationErrors.Phone = numValid
+					? ''
+					: ' Phone number is invalid';
 				break;
-		  	case 'fname':
+			case 'fname':
 				fnameValid = value.length >= 4;
-				fieldValidationErrors.Name = fnameValid ? '': ' First name is too short';
+				fieldValidationErrors.Name = fnameValid
+					? ''
+					: ' First name is too short';
 				break;
 			case 'lname':
 				lnameValid = value.length >= 3;
-				fieldValidationErrors.Name = lnameValid ? '': ' Last name is too short';
+				fieldValidationErrors.Name = lnameValid
+					? ''
+					: ' Last name is too short';
 				break;
 			case 'confirmpw':
 				confirmpwValid = value == this.state.password;
-				fieldValidationErrors.Confirm_Password = confirmpwValid ? '': ' Confirm password does not match your password';
+				fieldValidationErrors.Confirm_Password = confirmpwValid
+					? ''
+					: ' Confirm password does not match your password';
 				break;
 			case 'username':
 				usernameValid = value.length >= 8;
-				fieldValidationErrors.Username = usernameValid ? '': ' Username is too short';
-		  	default:
+				fieldValidationErrors.Username = usernameValid
+					? ''
+					: ' Username is too short';
+			default:
 				break;
 		}
-		this.setState({formErrors: fieldValidationErrors,
-						numValid: numValid,
-						passwordValid: passwordValid,
-						fnameValid: fnameValid,
-						lnameValid: lnameValid,
-						titleValid: titleValid,
-						confirmpwValid: confirmpwValid,
-						usernameValid: usernameValid
-					  }, this.validateForm);
-	}
-	
-	validateForm() {
-		this.setState({formValid: this.state.numValid && this.state.passwordValid 
-			&& this.state.nameValid && this.state.titleValid &&
-			this.state.confirmpwValid && this.state.usernameValid
-		});
-	}
-	
-	errorClass(error) {
-		return(error.length === 0 ? '' : 'has-error');
+		this.setState(
+			{
+				formErrors: fieldValidationErrors,
+				numValid: numValid,
+				passwordValid: passwordValid,
+				fnameValid: fnameValid,
+				lnameValid: lnameValid,
+				titleValid: titleValid,
+				confirmpwValid: confirmpwValid,
+				usernameValid: usernameValid,
+			},
+			this.validateForm
+		);
 	}
 
-	//validateForm() {
-	//	return this.state.email.length > 0 && this.state.password.length > 0;
-	//}
+	validateForm() {
+		this.setState({
+			formValid:
+				this.state.numValid &&
+				this.state.passwordValid &&
+				this.state.nameValid &&
+				this.state.titleValid &&
+				this.state.confirmpwValid &&
+				this.state.usernameValid,
+		});
+	}
+
+	errorClass(error) {
+		return error.length === 0 ? '' : 'has-error';
+	}
 
 	render() {
 		return (
@@ -187,26 +217,35 @@ class Signup extends Component {
 				<div className="content">
 					<Container fluid>
 						<Row>
-						<Col md={{ span: 5, offset: 3 }}>
-								<Card
-									title=""
-									lineBreak
-									content={
-										<div className='formErrors'>
-											{Object.keys(this.state.formErrors).map((fieldName, i) => {
-											if(this.state.formErrors[fieldName].length > 0){
-												return (
-												<p style={{fontSize:'sm'}, {color:'red'}} key={i}>{this.state.formErrors[fieldName]}</p>
-												)        
-											} else {
-												return '';
-											}
-											})}
-										</div>
-									}
-								/>
-							</Col>
 							<Col md={{ span: 5, offset: 3 }}>
+								{this.state.formValid !== false ? (
+									<Card
+										title="Errors"
+										lineBreak
+										content={
+											<div className="formErrors">
+												{Object.keys(this.state.formErrors).map(
+													(fieldName, i) => {
+														if (
+															this.state.formErrors[fieldName]
+																.length > 0
+														) {
+															return (
+																<p key={i}>
+																	{
+																		this.state.formErrors[
+																			fieldName
+																		]
+																	}
+																</p>
+															);
+														}
+													}
+												)}
+											</div>
+										}
+									/>
+								) : null}
 								<Card
 									title="Sign Up"
 									lineBreak

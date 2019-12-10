@@ -16,13 +16,13 @@ class Login extends Component {
          username: '',
          password: '',
          numValid: false,
-			formValid: false,
-			formErrors: {Phone: ''},
+         formValid: false,
+         formErrors: { Phone: '' },
       };
 
       this.handleSubmit = this.handleSubmit.bind(this);
       this.handlePasswordChange = this.handlePasswordChange.bind(this);
-		this.handleUsernameChange = this.handleUsernameChange.bind(this);
+      this.handleUsernameChange = this.handleUsernameChange.bind(this);
       // this.sendData = this.sendData.bind(this);
    }
 
@@ -45,26 +45,30 @@ class Login extends Component {
    }
 
    validateField(fieldName, value) {
-		let fieldValidationErrors = this.state.formErrors;
-		let numValid = this.state.numValid;
+      let fieldValidationErrors = this.state.formErrors;
+      let numValid = this.state.numValid;
 
-		switch(fieldName) {
-		  	case 'number':
-				numValid = value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/);
-				fieldValidationErrors.Phone = numValid ? '': ' Phone number is invalid';
-				break;
-		  	default:
-				break;
-		}
-		this.setState({formErrors: fieldValidationErrors,
-						numValid: numValid,
-					  }, this.validateForm);
-	}
-	
-	validateForm() {
-		this.setState({formValid: this.state.numValid
-		});
-	}
+      switch (fieldName) {
+         case 'number':
+            numValid = value.match(
+               /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+            );
+            fieldValidationErrors.Phone = numValid
+               ? ''
+               : 'Phone number is invalid';
+            break;
+         default:
+            break;
+      }
+      this.setState(
+         { formErrors: fieldValidationErrors, numValid: numValid },
+         this.validateForm
+      );
+   }
+
+   validateForm() {
+      this.setState({ formValid: this.state.numValid });
+   }
 
    render() {
       return (
@@ -81,23 +85,34 @@ class Login extends Component {
                <Container fluid>
                   <Row>
                      <Col md={{ span: 5, offset: 3 }}>
-                     <Card
-									title=""
-									lineBreak
-									content={
-										<div className='formErrors'>
-											{Object.keys(this.state.formErrors).map((fieldName, i) => {
-											if(this.state.formErrors[fieldName].length > 0){
-												return (
-												<p style={{fontSize:'sm'}, {color:'red'}} key={i}>{this.state.formErrors[fieldName]}</p>
-												)        
-											} else {
-												return '';
-											}
-											})}
-										</div>
-									}
-								/>
+                        {this.state.formValid !== false ? (
+                           <Card
+                              title="Errors"
+                              lineBreak
+                              content={
+                                 <div className="formErrors">
+                                    {Object.keys(this.state.formErrors).map(
+                                       (fieldName, i) => {
+                                          if (
+                                             this.state.formErrors[fieldName]
+                                                .length > 0
+                                          ) {
+                                             return (
+                                                <p key={i}>
+                                                   {
+                                                      this.state.formErrors[
+                                                         fieldName
+                                                      ]
+                                                   }
+                                                </p>
+                                             );
+                                          }
+                                       }
+                                    )}
+                                 </div>
+                              }
+                           />
+                        ) : null}
                         <Card
                            title="Login"
                            lineBreak
