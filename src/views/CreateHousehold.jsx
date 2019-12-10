@@ -87,13 +87,17 @@ class CreateHousehold extends Component {
 	}
 
 	render() {
-		console.log('person ID:', this.props.location.personID);
+		const household = { ...this.props.location.household, ...this.state };
 
 		return (
 			<div id="signup" className="signup">
 				<div className="logo">
-					<img src={logo} alt="logo" />
-					<h2>HouseKeeper</h2>
+					<div className="simple-text logo-mini">
+						<div className="logo-img">
+							<img src={logo} alt="logo_image" />
+						</div>
+					</div>
+					<div className="simple-text logo-normal">HouseKeeper</div>
 				</div>
 				<div className="content">
 					<Container fluid>

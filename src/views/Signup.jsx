@@ -64,9 +64,8 @@ class Signup extends Component {
 		this.setState({ username: event.target.value });
 	}
 
-	async createUser() {
-		console.log('RUNNNNNNNNNNNNNN');
-		await fetch('http://localhost:3001/api/person', {
+	createUser() {
+		fetch('http://localhost:3001/api/person', {
 			method: 'post',
 			body: JSON.stringify([
 				{
@@ -215,7 +214,9 @@ class Signup extends Component {
 													Create New Household
 												</Button>
 											</Link>
-											<div className="clearfix"> or </div>
+											<div className="clearfix">
+												<div className="btw_buttons"> or </div>
+											</div>
 											<Link
 												to={{
 													pathname: '/join',
