@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 import logo from '../assets/img/logo.png';
 
-import Button from '../components/CustomButton';
+import LinkedButton from '../components/LinkedButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
 
@@ -89,22 +88,12 @@ export default class Login extends Component {
                                        },
                                     ]}
                                  />
-                                 <Link
-                                    to={{
-                                       pathname: '/home',
-                                       household: this.state,
-                                    }}
-                                 >
-                                    <Button
-                                       block
-                                       size="sm"
-                                       type="submit"
-                                       to="/home"
-                                       variant="success"
-                                    >
-                                       Login
-                                    </Button>
-                                 </Link>
+                                 <LinkedButton
+                                    pathname="/home"
+                                    household={this.state}
+                                    buttonText="Login"
+                                    block
+                                 />
                                  <div className="clearfix" />
                               </form>
                            }
