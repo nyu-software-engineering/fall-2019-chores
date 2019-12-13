@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import homeRoutes from '../routes';
-import households from '../household';
 
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
@@ -103,7 +102,7 @@ export default class App extends Component {
       parseInt(idTodelete);
       let objIdToDelete = null;
       this.state.data.forEach(dat => {
-         if (dat.id == idTodelete) {
+         if (dat.id === idTodelete) {
             objIdToDelete = dat._id;
          }
       });
@@ -122,7 +121,7 @@ export default class App extends Component {
       let objIdToUpdate = null;
       parseInt(idToUpdate);
       this.state.data.forEach(dat => {
-         if (dat.id == idToUpdate) {
+         if (dat.id === idToUpdate) {
             objIdToUpdate = dat._id;
          }
       });

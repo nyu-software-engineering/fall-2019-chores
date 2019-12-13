@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as sessionData from '../actions/sessionData';
 
 import logo from '../assets/img/logo.png';
 
 import Button from '../components/CustomButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
-import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
    constructor(props) {
@@ -21,20 +24,16 @@ class Login extends Component {
          formErrors: { Phone: '' },
       };
 
-      this.handleSubmit = this.handleSubmit.bind(this);
       this.handlePasswordChange = this.handlePasswordChange.bind(this);
       this.handleUsernameChange = this.handleUsernameChange.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
       // this.sendData = this.sendData.bind(this);
    }
 
-   handleSubmit(event) {
-      event.preventDefault();
-      const data = new FormData(event.target);
-
-      fetch('/api/household', {
-         method: 'POST',
-         body: JSON.stringify(),
-      });
+   onSubmit() {
+      const { username } = this.state.username;
+      const { login } = this.props.actions;
+      login(username);
    }
 
    handlePasswordChange(event) {
@@ -52,11 +51,16 @@ class Login extends Component {
 
       switch (fieldName) {
          case 'number':
-            if (value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)) {
-					numValid = true;
-				}
-				else {numValid = false;}
-				fieldValidationErrors.Phone = numValid ? '' : ' Phone number is invalid';
+            if (
+               value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)
+            ) {
+               numValid = true;
+            } else {
+               numValid = false;
+            }
+            fieldValidationErrors.Phone = numValid
+               ? ''
+               : ' Phone number is invalid';
             break;
          default:
             break;
@@ -69,7 +73,12 @@ class Login extends Component {
 
    validateForm() {
       this.setState({ formValid: this.state.numValid });
-      this.setState({ buttonValid: this.state.numValid && this.state.username.length > 0 && this.state.password.length > 0});
+      this.setState({
+         buttonValid:
+            this.state.numValid &&
+            this.state.username.length > 0 &&
+            this.state.password.length > 0,
+      });
    }
 
    render() {
@@ -87,7 +96,7 @@ class Login extends Component {
                <Container fluid>
                   <Row>
                      <Col md={{ span: 5, offset: 3 }}>
-                        {this.state.formValid == false ? (
+                        {this.state.formValid === false ? (
                            <Card
                               title="Errors"
                               lineBreak
@@ -186,4 +195,4 @@ class Login extends Component {
    }
 }
 
-export default withRouter(Login);
+export default Login;

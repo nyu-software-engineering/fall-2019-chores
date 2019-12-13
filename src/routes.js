@@ -2,7 +2,6 @@ import ChoresList from './views/ChoresList';
 import HomePage from './views/HomePage';
 import HousesList from './views/HousesList';
 import Login from './views/Login';
-import Signup from './views/Signup';
 import UpdateAccount from './views/UpdateAccount';
 
 const homeRoutes = [

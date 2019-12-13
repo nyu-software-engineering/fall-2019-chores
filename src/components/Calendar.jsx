@@ -8,32 +8,34 @@ class Calendar extends Component {
       super(props);
       this.state = {
          allmonths: moment.months(),
-         dateObject: moment(),
+         date: moment(),
          selectedDay: null,
          showCalendarTable: true,
          showMonthTable: false,
          showYearNav: false,
       };
    }
+
    weekdayshort = moment.weekdaysShort();
 
    currentDay = () => {
-      return this.state.dateObject.format('D');
+      return this.state.date.format('D');
    };
 
    month = () => {
-      return this.state.dateObject.format('MMMM');
+      return this.state.date.format('MMMM');
    };
 
    daysInMonth = () => {
-      return this.state.dateObject.daysInMonth();
+      return this.state.date.daysInMonth();
    };
 
    firstDayOfMonth = () => {
-      let dateObject = this.state.dateObject;
-      let firstDay = moment(dateObject)
+      let date = this.state.date;
+      let firstDay = moment(date)
          .startOf('month')
          .format('d'); // Day of week 0...1..5...6
+
       return firstDay;
    };
 
@@ -46,10 +48,10 @@ class Calendar extends Component {
 
    setMonth = month => {
       let monthNo = this.state.allmonths.indexOf(month);
-      let dateObject = Object.assign({}, this.state.dateObject);
-      dateObject = moment(dateObject).set('month', monthNo);
+      let date = Object.assign({}, this.state.date);
+      date = moment(date).set('month', monthNo);
       this.setState({
-         dateObject: dateObject,
+         date: date,
          showMonthTable: !this.state.showMonthTable,
          showCalendarTable: !this.state.showCalendarTable,
       });
@@ -101,34 +103,34 @@ class Calendar extends Component {
 
    onPrev = () => {
       let curr = '';
-      if (this.state.showMonthTable == true) {
+      if (this.state.showMonthTable === true) {
          curr = 'year';
       } else {
          curr = 'month';
       }
       this.setState({
-         dateObject: this.state.dateObject.subtract(1, curr),
+         date: this.state.date.subtract(1, curr),
       });
    };
 
    onNext = () => {
       let curr = '';
-      if (this.state.showMonthTable == true) {
+      if (this.state.showMonthTable === true) {
          curr = 'year';
       } else {
          curr = 'month';
       }
       this.setState({
-         dateObject: this.state.dateObject.add(1, curr),
+         date: this.state.date.add(1, curr),
       });
    };
 
    setYear = year => {
       // alert(year)
-      let dateObject = Object.assign({}, this.state.dateObject);
-      dateObject = moment(dateObject).set('year', year);
+      let date = Object.assign({}, this.state.date);
+      date = moment(date).set('year', year);
       this.setState({
-         dateObject: dateObject,
+         date: date,
          showMonthTable: !this.state.showMonthTable,
          showYearNav: !this.state.showYearNav,
          showMonthTable: !this.state.showMonthTable,
@@ -147,7 +149,7 @@ class Calendar extends Component {
    };
 
    year = () => {
-      return this.state.dateObject.format('Y');
+      return this.state.date.format('Y');
    };
 
    YearTable = props => {
@@ -157,9 +159,7 @@ class Calendar extends Component {
          .add('year', 12)
          .format('Y');
 
-      let tenyear = this.getDates(props, nextten);
-
-      tenyear.map(data => {
+      this.getDates(props, nextten).map(data => {
          months.push(
             <td
                key={data}
@@ -201,17 +201,6 @@ class Calendar extends Component {
       );
    };
 
-   onDayClick = (e, d) => {
-      this.setState(
-         {
-            selectedDay: d,
-         },
-         () => {
-            console.log('SELECTED DAY: ', this.state.selectedDay);
-         }
-      );
-   };
-
    getDates(startDate, stopDate) {
       var dateArray = [];
       var currentDate = moment(startDate);
@@ -224,13 +213,11 @@ class Calendar extends Component {
    }
 
    render() {
-      let weekdayshortname = this.weekdayshort.map(day => {
-         return <th key={day}>{day}</th>;
-      });
       let blanks = [];
       for (let i = 0; i < this.firstDayOfMonth(); i++) {
          blanks.push(<td className="calendar-day empty">{''}</td>);
       }
+
       let daysInMonth = [];
       for (let d = 1; d <= this.daysInMonth(); d++) {
          let currentDay = d == this.currentDay() ? 'today' : '';
@@ -239,7 +226,9 @@ class Calendar extends Component {
             <td key={d} className={`calendar-day ${currentDay}`}>
                <span
                   onClick={e => {
-                     this.onDayClick(e, d);
+                     this.onDayClick(e => {
+                        this.setState({ selectedDay: d });
+                     });
                   }}
                >
                   {d}
@@ -247,6 +236,7 @@ class Calendar extends Component {
             </td>
          );
       }
+
       var totalSlots = [...blanks, ...daysInMonth];
       let rows = [];
       let cells = [];
@@ -263,10 +253,6 @@ class Calendar extends Component {
             // let insertRow = cells.slice();
             rows.push(cells);
          }
-      });
-
-      let daysinmonth = rows.map((d, i) => {
-         return <tr>{d}</tr>;
       });
 
       return (
@@ -317,9 +303,17 @@ class Calendar extends Component {
                <div className="calendar-date">
                   <table className="calendar-day">
                      <thead>
-                        <tr>{weekdayshortname}</tr>
+                        <tr>
+                           {this.weekdayshort.map(day => {
+                              return <th key={day}>{day}</th>;
+                           })}
+                        </tr>
                      </thead>
-                     <tbody>{daysinmonth}</tbody>
+                     <tbody>
+                        {rows.map((d, i) => {
+                           return <tr>{d}</tr>;
+                        })}
+                     </tbody>
                   </table>
                </div>
             )}

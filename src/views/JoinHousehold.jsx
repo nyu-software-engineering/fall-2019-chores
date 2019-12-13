@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
-import {
-   Col,
-   Container,
-   FormControl,
-   FormGroup,
-   FormLabel,
-   Row,
-} from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { states } from '../helpers';
-import person from '../person';
 import logo from '../assets/img/logo.png';
 
 import Button from '../components/CustomButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
-import HomePage from '../views/HomePage';
-import UserCard from '../components/UserCard';
 
 class JoinHousehold extends Component {
    constructor(props) {
@@ -146,4 +134,4 @@ class JoinHousehold extends Component {
    }
 }
 
-export default withRouter(JoinHousehold);
+export default JoinHousehold;

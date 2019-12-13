@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import household from '../household';
-
+import * as sessionData from '../actions/sessionData';
 import Calendar from '../components/Calendar';
 import Card from '../components/Card';
 import Chores from '../components/Chores';
@@ -18,6 +19,8 @@ export default class HomePage extends Component {
 
    render() {
       const household = this.props.location.household;
+      const { date } = this.state;
+
       console.log('homepage props:', this.props);
       return (
          <div className="content">
@@ -80,7 +83,8 @@ export default class HomePage extends Component {
                                  defaultDate={new Date()}
                                  defaultView="month"
                                  onChange={date => this.setState({ date })}
-                                 value={this.state.date}
+                                 value={date}
+                                 showWeekNumbers
                               />
                            </div>
                         }
