@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as sessionData from '../actions/sessionData';
+import * as sessions from '../actions/sessions';
 
 import logo from '../assets/img/logo.png';
 

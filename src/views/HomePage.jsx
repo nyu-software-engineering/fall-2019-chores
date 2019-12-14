@@ -3,7 +3,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as sessionData from '../actions/sessionData';
+import * as session from '../session';
+
 import Calendar from '../components/Calendar';
 import Card from '../components/Card';
 import Chores from '../components/Chores';

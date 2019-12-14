@@ -1,5 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
+import { Router, browserHistory } from 'react-router';
+import { sessionService, sessionReducer } from 'redux-react-session';
+import thunkMiddleware from 'redux-thunk';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -16,7 +21,7 @@ ReactDOM.render(
    <BrowserRouter>
       <Switch>
          <Route path="/home" render={props => <App {...props} />} />
-         <Route path="/login" render={props => <Login {...props} />} />{' '}
+         <Route path="/login" render={props => <Login {...props} />} />
          <Route path="/signup" render={props => <Signup {...props} />} />
          <Route
             path="/newhousehold"
