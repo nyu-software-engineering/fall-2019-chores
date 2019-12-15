@@ -31,7 +31,7 @@ class Login extends Component {
       event.preventDefault();
       const data = new FormData(event.target);
 
-      fetch('/api/household', {
+      fetch('/api/member', {
          method: 'POST',
          body: JSON.stringify(),
       });
@@ -155,7 +155,7 @@ class Login extends Component {
                                  <Link
                                     to={{
                                        pathname: '/home',
-                                       household: this.state,
+                                       user: this.state,
                                     }}
                                  >
                                     <Button

@@ -81,7 +81,8 @@ class CreateHousehold extends Component {
 	}
 
 	render() {
-		const household = { ...this.props.location.household, ...this.state };
+		const household = { ...this.state };
+		const user = { ...this.props.location.user };
 
 		return (
 			<div id="signup" className="signup">
@@ -122,6 +123,7 @@ class CreateHousehold extends Component {
 												to={{
 													pathname: '/home',
 													household: household,
+													user: user,
 												}}
 											>
 												<Button
