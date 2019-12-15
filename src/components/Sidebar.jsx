@@ -25,9 +25,6 @@ export default class Sidebar extends Component {
    }
 
    render() {
-      const household = this.props.household;
-      const user = this.props.user;
-      console.log('sidebar props:', this.props);
       return (
          <div id="sidebar" className="sidebar">
             <div className="logo">
@@ -49,11 +46,7 @@ export default class Sidebar extends Component {
                               key={key}
                            >
                               <NavLink
-                                 to={{
-                                    path: prop.path,
-                                    household: household,
-                                    user: user,
-                                 }}
+                                 to={prop.path}
                                  className="nav-link"
                                  activeClassName="active"
                               >

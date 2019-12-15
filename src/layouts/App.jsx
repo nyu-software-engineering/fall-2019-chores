@@ -68,10 +68,10 @@ export default class App extends Component {
 
    componentDidMount() {
       this.getDataFromDB();
-      if (!this.state.intervalIsSet) {
-         let interval = setInterval(this.getDataFromDB, 1000);
-         this.setState({ intervalIsSet: interval });
-      }
+      // if (!this.state.intervalIsSet) {
+      //    let interval = setInterval(this.getDataFromDB, 1000);
+      //    this.setState({ intervalIsSet: interval });
+      // }
    }
 
    componentWillUnmount() {
