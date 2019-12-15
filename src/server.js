@@ -57,7 +57,10 @@ router.get('/household/:id', (req, res) => {
 			],
 		})
 		.then(household => res.json({ household }))
-		.catch(error => res.json({ error: error.message }));
+		.catch(error => {
+			console.log('GET FAIL');
+			res.json({ error: error.message });
+		});
 });
 
 /* new household
@@ -67,6 +70,7 @@ router.post('/household', (req, res) => {
 	const newHousehold = new Household(req.body);
 	newHousehold.save((err, household) => {
 		if (err) {
+			console.log('SAVE FAIL');
 			res.json({
 				success: false,
 				error: err,
@@ -87,6 +91,7 @@ router.post('/chore', (req, res) => {
 	const newChore = new Chore(req.body);
 	newChore.save((err, chore) => {
 		if (err) {
+			console.log('POST FAIL');
 			res.json({
 				success: false,
 				error: err,
@@ -108,6 +113,7 @@ router.post('/chore/:id', (req, res) => {
 
 	Chore.findByIdAndReplace(req.params.id, chore, err => {
 		if (err) {
+			console.log('POST FAIL');
 			res.json({
 				success: false,
 				error: err,
@@ -126,6 +132,7 @@ router.post('/chore/:id', (req, res) => {
 router.delete('/chore/:id', (req, res) => {
 	Chore.findByIdAndRemove(req.params.id, err => {
 		if (err) {
+			console.log('DELETE FAIL');
 			res.json({
 				success: false,
 				error: err,
@@ -133,6 +140,30 @@ router.delete('/chore/:id', (req, res) => {
 		} else {
 			res.json({
 				success: true,
+			});
+		}
+	});
+});
+
+/* login person 
+   req should include user phone number and password
+   res should return whether password is correct and person id if correct */
+router.post('/login', (req, res) => {
+	console.log(req.body);
+
+	//TODO password validation awaiting passport integration
+	Person.findOne({ phoneNum: req.body.phoneNum }, (err, user) => {
+		if (err) {
+			console.log('POST FAIL');
+			res.json({
+				success: false,
+				error: err,
+			});
+		} else {
+			res.json({
+				success: true,
+				personID: user._id,
+				householdID: user.households[0]._id,
 			});
 		}
 	});
@@ -147,6 +178,7 @@ router.post('/person', (req, res) => {
 	const newPerson = new Person(req.body[0]);
 	newPerson.save((err, person) => {
 		if (err) {
+			console.log('POST FAIL');
 			res.json({
 				success: false,
 				error: err,
@@ -190,8 +222,12 @@ router.post('/person/:id', (req, res) => {
    res should return whether removal was successful */
 router.delete('/person/:id', (req, res) => {
 	Person.findByIdAndRemove(req.params.id, err => {
-		if (err) return res.json({ success: false, error: err });
-		res.json({ success: true });
+		if (err) {
+			console.log('DELETE FAIL');
+			res.json({ success: false, error: err });
+		} else {
+			res.json({ success: true });
+		}
 	});
 });
 

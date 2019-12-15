@@ -79,12 +79,14 @@ export default class App extends Component {
 
 	getDataFromDB = () => {
 		fetch(
-			'http://localhost:3001/api/household' + this.props.location.householdID
+			'http://localhost:3001/api/household/' +
+				this.props.location.householdID
 		)
 			.then(res => res.json())
 			.then(household => this.setState({ household: household }));
 	};
 
+	/*
 	// onChange={e => this.setState({ message: e.target.value })}
 	// onClick={() => this.putDataToDB(this.state.message)}
 	putDataToDB = message => {
@@ -134,7 +136,7 @@ export default class App extends Component {
 			update: { message: updateToApply },
 		});
 	};
-
+	*/
 	render() {
 		this.props = {
 			props: this.props,
