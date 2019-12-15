@@ -82,10 +82,6 @@ class CreateHousehold extends Component {
 			});
 	}
 
-	validateForm() {
-		return this.state.email.length > 0 && this.state.password.length > 0;
-	}
-
 	render() {
 		const household = { ...this.props.location.household, ...this.state };
 
