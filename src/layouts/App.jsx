@@ -134,13 +134,32 @@ export default class App extends Component {
    };
 
    render() {
-      this.props = {
+      const props = {
          props: this.props,
-         household: this.props.location.household,
+         // household: this.props.location.household,
+         household: {
+            buttonValid: true,
+            confirmPass: 'pizzaman123',
+            confirmpwValid: true,
+            firstName: 'Rena',
+            fnameValid: true,
+            formValid: true,
+            householdID: {},
+            lastName: 'Auerbach',
+            lnameValid: true,
+            numValid: true,
+            password: 'pizzaman123',
+            passwordValid: true,
+            personID: {},
+            phoneNum: '8479177991',
+            title: 'pizza',
+            username: 'rma12345',
+            usernameValid: true,
+         },
       };
       return (
          <div className="wrapper">
-            <Sidebar {...this.props} routes={homeRoutes} />
+            <Sidebar {...props} routes={homeRoutes} />
             <div id="main-panel" className="main-panel" ref="mainPanel">
                <Switch>{this.getRoutes(homeRoutes)}</Switch>
                <Footer />

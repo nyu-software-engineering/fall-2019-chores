@@ -37,7 +37,7 @@ const homeRoutes = [
 		layout: '/app',
 	},
 	{
-		path: '/login',
+		path: '/',
 		name: 'Logout',
 		component: Login,
 		layout: '/app',

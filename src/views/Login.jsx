@@ -69,7 +69,7 @@ export default class Login extends Component {
                                           size: 'sm',
                                           type: 'text',
                                           value: this.state.username,
-                                          onChange: this.handleUsernameChange,
+                                          // onChange: this.handleUsernameChange,
                                        },
                                     ]}
                                  />
@@ -85,7 +85,7 @@ export default class Login extends Component {
                                           size: 'sm',
                                           type: 'password',
                                           value: this.state.password,
-                                          onChange: this.handlePasswordChange,
+                                          // onChange: this.handlePasswordChange,
                                        },
                                     ]}
                                  />

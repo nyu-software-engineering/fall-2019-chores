@@ -16,7 +16,7 @@ ReactDOM.render(
    <BrowserRouter>
       <Switch>
          <Route path="/home" render={props => <App {...props} />} />
-         <Route path="/login" render={props => <Login {...props} />} />{' '}
+         <Route path="/" render={props => <Login {...props} />} />
          <Route path="/signup" render={props => <Signup {...props} />} />
          <Route
             path="/newhousehold"
