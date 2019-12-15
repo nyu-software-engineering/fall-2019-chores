@@ -30,38 +30,57 @@ class Signup extends Component {
 			password: '',
 			personID: {},
 			phoneNum: '',
-			title: '',
 			username: '',
+
+			fnameValid: true,
+			lnameValid: true,
+			numValid: true,
+			passwordValid: true,
+			confirmpwValid: true,
+			usernameValid: true,
+			formValid: true,
+			buttonValid: false,
+			formErrors: {
+				Name: '',
+				Phone: '',
+				Password: '',
+				Confirm_Password: '',
+				Username: '',
+			},
 		};
 
 		this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
 		this.handleLastNameChange = this.handleLastNameChange.bind(this);
 		this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
-		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(
-			this
-		);
+		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
 		this.handleUsernameChange = this.handleUsernameChange.bind(this);
 		this.createUser = this.createUser.bind(this);
-	}
 
+	}
 	handleFirstNameChange(event) {
 		this.setState({ firstName: event.target.value });
+		this.validateField('fname', event.target.value);
 	}
 	handleLastNameChange(event) {
 		this.setState({ lastName: event.target.value });
+		this.validateField('lname', event.target.value);
 	}
 	handlePhoneNumChange(event) {
 		this.setState({ phoneNum: event.target.value });
+		this.validateField('number', event.target.value);
 	}
 	handlePasswordChange(event) {
 		this.setState({ password: event.target.value });
+		this.validateField('password', event.target.value);
 	}
 	handleConfirmPasswordChange(event) {
 		this.setState({ confirmPass: event.target.value });
+		this.validateField('confirmpw', event.target.value);
 	}
 	handleUsernameChange(event) {
 		this.setState({ username: event.target.value });
+		this.validateField('username', event.target.value);
 	}
 
 	createUser() {
@@ -92,8 +111,83 @@ class Signup extends Component {
 			});
 	}
 
+	validateField(fieldName, value) {
+		let fieldValidationErrors = this.state.formErrors;
+		let passwordValid = this.state.passwordValid;
+		let confirmpwValid = this.state.confirmpwValid;
+		let numValid = this.state.numValid;
+		let fnameValid = this.state.fnameValid;
+		let lnameValid = this.state.lnameValid;
+		let usernameValid = this.state.usernameValid;
+
+		switch (fieldName) {
+			case 'fname':
+				fnameValid = value.length >= 4;
+				fieldValidationErrors.Name = fnameValid ? '' : ' First name is too short';
+				break;
+			case 'lname':
+				lnameValid = value.length >= 3;
+				fieldValidationErrors.Name = lnameValid ? '' : ' Last name is too short';
+				break;
+			case 'username':
+				usernameValid = value.length >= 8;
+				fieldValidationErrors.Username = usernameValid ? '': ' Username is too short';
+				break;
+			case 'number':
+				if (value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)) {
+					numValid = true;
+				}
+				else {numValid = false;}
+				fieldValidationErrors.Phone = numValid ? '' : ' Phone number is invalid';
+				break;
+			case 'password':
+				passwordValid = value.length >= 6;
+				fieldValidationErrors.Password = passwordValid ? '' : ' Password is too short';
+				break;	
+			case 'confirmpw':
+				confirmpwValid = value == this.state.password;
+				fieldValidationErrors.Confirm_Password = confirmpwValid ? '' : ' Confirm password does not match your password';
+				break;
+			default:
+				break;
+		}
+		this.setState(
+			{
+				formErrors: fieldValidationErrors,
+				numValid: numValid,
+				passwordValid: passwordValid,
+				fnameValid: fnameValid,
+				lnameValid: lnameValid,
+				confirmpwValid: confirmpwValid,
+				usernameValid: usernameValid,
+			},
+			this.validateForm
+		);
+	}
+
 	validateForm() {
-		return this.state.email.length > 0 && this.state.password.length > 0;
+		this.setState({
+			formValid:
+				this.state.numValid &&
+				this.state.passwordValid &&
+				this.state.fnameValid &&
+				this.state.lnameValid &&
+				this.state.confirmpwValid &&
+				this.state.usernameValid
+		});
+		this.setState({
+			buttonValid:
+				this.state.numValid && this.state.phoneNum.length > 0 && 
+				this.state.passwordValid && this.state.password.length > 0 && 
+				this.state.fnameValid && this.state.firstName.length > 0 && 
+				this.state.lnameValid && this.state.lastName.length > 0 && 
+				this.state.confirmpwValid && this.state.confirmPass.length > 0 && 
+				this.state.usernameValid && this.state.username.length > 0
+		});
+	}
+
+	errorClass(error) {
+		return error.length === 0 ? '' : 'has-error';
 	}
 
 	render() {
@@ -111,6 +205,34 @@ class Signup extends Component {
 					<Container fluid>
 						<Row>
 							<Col md={{ span: 5, offset: 3 }}>
+								{this.state.formValid == false ? ( 
+									<Card
+										title="Errors"
+										lineBreak
+										content={
+											<div className="formErrors">
+												{Object.keys(this.state.formErrors).map(
+													(fieldName, i) => {
+														if (
+															this.state.formErrors[fieldName]
+																.length > 0
+														) {
+															return (
+																<p key={i}>
+																	{
+																		this.state.formErrors[
+																			fieldName
+																		]
+																	}
+																</p>
+															);
+														}
+													}
+												)}
+											</div>
+										}
+									/>
+								) : null } 
 								<Card
 									title="Sign Up"
 									lineBreak
@@ -161,7 +283,7 @@ class Signup extends Component {
 														as: 'input',
 														bsPrefix: 'form-control',
 														label: 'Phone Number',
-														placeholder: '(XXX) XXX-XXX',
+														placeholder: 'XXX-XXX-XXX',
 														required: true,
 														size: 'sm',
 														type: 'phoneNum',
@@ -193,8 +315,7 @@ class Signup extends Component {
 														size: 'sm',
 														type: 'password',
 														value: this.state.confirmPass,
-														onChange: this
-															.handleConfirmPasswordChange,
+														onChange: this.handleConfirmPasswordChange,
 													},
 												]}
 											/>
@@ -210,6 +331,7 @@ class Signup extends Component {
 													size="md"
 													type="submit"
 													variant="success"
+													disabled={!this.state.buttonValid}
 													onClick={this.createUser}
 												>
 													Create New Household
@@ -229,6 +351,7 @@ class Signup extends Component {
 													size="md"
 													type="submit"
 													variant="success"
+													disabled={!this.state.buttonValid}
 												>
 													Join Existing Household
 												</Button>
