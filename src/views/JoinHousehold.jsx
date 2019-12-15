@@ -85,7 +85,8 @@ class JoinHousehold extends Component {
    }
 
    render() {
-      const household = { ...this.props.location.household, ...this.state };
+      const household = { ...this.state };
+      const user = { ...this.props.location.user };
 
       return (
          <div id="signup" className="signup">
@@ -125,7 +126,8 @@ class JoinHousehold extends Component {
                                  <Link
                                     to={{
                                        pathname: '/home',
-                                       household: this.state,
+                                       household: household,
+                                       user: user,
                                     }}
                                  >
                                     <Button

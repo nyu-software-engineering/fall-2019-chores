@@ -17,6 +17,9 @@ export default class Login extends Component {
       };
 
       this.handleSubmit = this.handleSubmit.bind(this);
+      this.handlePasswordChange = this.handlePasswordChange.bind(this);
+      this.handleUsernameChange = this.handleUsernameChange.bind(this);
+
       // this.sendData = this.sendData.bind(this);
    }
 
@@ -24,7 +27,7 @@ export default class Login extends Component {
       event.preventDefault();
       const data = new FormData(event.target);
 
-      fetch('/api/household', {
+      fetch('/api/member', {
          method: 'POST',
          body: JSON.stringify(),
       });
@@ -69,7 +72,7 @@ export default class Login extends Component {
                                           size: 'sm',
                                           type: 'text',
                                           value: this.state.username,
-                                          // onChange: this.handleUsernameChange,
+                                          onChange: this.handleUsernameChange,
                                        },
                                     ]}
                                  />
@@ -85,14 +88,14 @@ export default class Login extends Component {
                                           size: 'sm',
                                           type: 'password',
                                           value: this.state.password,
-                                          // onChange: this.handlePasswordChange,
+                                          onChange: this.handlePasswordChange,
                                        },
                                     ]}
                                  />
                                  <Link
                                     to={{
                                        pathname: '/home',
-                                       household: this.state,
+                                       user: this.state,
                                     }}
                                  >
                                     <Button

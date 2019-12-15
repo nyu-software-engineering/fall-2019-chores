@@ -202,7 +202,7 @@ class Signup extends Component {
 											<Link
 												to={{
 													pathname: '/newHousehold',
-													household: this.state,
+													user: this.state,
 												}}
 											>
 												<Button
@@ -221,7 +221,7 @@ class Signup extends Component {
 											<Link
 												to={{
 													pathname: '/join',
-													household: this.state,
+													user: this.state,
 												}}
 											>
 												<Button
