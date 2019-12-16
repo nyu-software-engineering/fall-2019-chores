@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
 import {
-	Col,
-	Container,
-	FormControl,
-	FormGroup,
-	FormLabel,
-	Row,
+   Col,
+   Container,
+   FormControl,
+   FormGroup,
+   FormLabel,
+   Row,
 } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import { states } from '../helpers';
 import person from '../person';
 import logo from '../assets/img/logo.png';
 
-import Button from '../components/CustomButton';
+import LinkedButton from '../components/LinkedButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
 import HomePage from '../views/HomePage';
@@ -105,11 +103,10 @@ class Signup extends Component {
 					console.log(status.error);
 				} else {
 					console.log('MISSION SUCCESS');
-
-					this.setState({ personID: status.id });
-				}
-			});
-	}
+               this.setState({ personID: status.id });
+            }
+         });
+   }
 
 	validateField(fieldName, value) {
 		let fieldValidationErrors = this.state.formErrors;
@@ -143,7 +140,7 @@ class Signup extends Component {
 			case 'password':
 				passwordValid = value.length >= 6;
 				fieldValidationErrors.Password = passwordValid ? '' : ' Password is too short';
-				break;	
+				break;
 			case 'confirmpw':
 				confirmpwValid = value == this.state.password;
 				fieldValidationErrors.Confirm_Password = confirmpwValid ? '' : ' Confirm password does not match your password';
@@ -177,11 +174,11 @@ class Signup extends Component {
 		});
 		this.setState({
 			buttonValid:
-				this.state.numValid && this.state.phoneNum.length > 0 && 
-				this.state.passwordValid && this.state.password.length > 0 && 
-				this.state.fnameValid && this.state.firstName.length > 0 && 
-				this.state.lnameValid && this.state.lastName.length > 0 && 
-				this.state.confirmpwValid && this.state.confirmPass.length > 0 && 
+				this.state.numValid && this.state.phoneNum.length > 0 &&
+				this.state.passwordValid && this.state.password.length > 0 &&
+				this.state.fnameValid && this.state.firstName.length > 0 &&
+				this.state.lnameValid && this.state.lastName.length > 0 &&
+				this.state.confirmpwValid && this.state.confirmPass.length > 0 &&
 				this.state.usernameValid && this.state.username.length > 0
 		});
 	}
@@ -205,7 +202,7 @@ class Signup extends Component {
 					<Container fluid>
 						<Row>
 							<Col md={{ span: 5, offset: 3 }}>
-								{this.state.formValid == false ? ( 
+								{this.state.formValid == false ? (
 									<Card
 										title="Errors"
 										lineBreak
@@ -232,7 +229,7 @@ class Signup extends Component {
 											</div>
 										}
 									/>
-								) : null } 
+								) : null }
 								<Card
 									title="Sign Up"
 									lineBreak
@@ -318,44 +315,23 @@ class Signup extends Component {
 														onChange: this.handleConfirmPasswordChange,
 													},
 												]}
+											/>		
+											<LinkedButton
+												pathname="/newHousehold"
+												household={this.state}
+												onClick={this.createUser}
+												buttonText="Create New Household"
+												block
+											/>
+											<div className="clearfix"> or </div>
+											<LinkedButton
+												pathname="/join"
+												household={this.state}
+												onClick={this.createUser}
+												buttonText="Join Existing Household"
+												block
 											/>
 
-											<Link
-												to={{
-													pathname: '/newHousehold',
-													user: this.state,
-												}}
-											>
-												<Button
-													block
-													size="md"
-													type="submit"
-													variant="success"
-													disabled={!this.state.buttonValid}
-													onClick={this.createUser}
-												>
-													Create New Household
-												</Button>
-											</Link>
-											<div className="clearfix">
-												<div className="btw_buttons"> or </div>
-											</div>
-											<Link
-												to={{
-													pathname: '/join',
-													user: this.state,
-												}}
-											>
-												<Button
-													block
-													size="md"
-													type="submit"
-													variant="success"
-													disabled={!this.state.buttonValid}
-												>
-													Join Existing Household
-												</Button>
-											</Link>
 											<div className="clearfix" />
 										</form>
 									}
@@ -369,4 +345,4 @@ class Signup extends Component {
 	}
 }
 
-export default withRouter(Signup);
+export default Signup;

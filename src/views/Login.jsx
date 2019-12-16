@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 import logo from '../assets/img/logo.png';
 
-import Button from '../components/CustomButton';
+import LinkedButton from '../components/LinkedButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
 import { withRouter } from 'react-router-dom';
@@ -52,11 +51,16 @@ class Login extends Component {
 
       switch (fieldName) {
          case 'number':
-            if (value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)) {
-					numValid = true;
-				}
-				else {numValid = false;}
-				fieldValidationErrors.Phone = numValid ? '' : ' Phone number is invalid';
+            if (
+               value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)
+            ) {
+               numValid = true;
+            } else {
+               numValid = false;
+            }
+            fieldValidationErrors.Phone = numValid
+               ? ''
+               : ' Phone number is invalid';
             break;
          default:
             break;
@@ -69,7 +73,12 @@ class Login extends Component {
 
    validateForm() {
       this.setState({ formValid: this.state.numValid });
-      this.setState({ buttonValid: this.state.numValid && this.state.username.length > 0 && this.state.password.length > 0});
+      this.setState({
+         buttonValid:
+            this.state.numValid &&
+            this.state.username.length > 0 &&
+            this.state.password.length > 0,
+      });
    }
 
    render() {
@@ -152,23 +161,12 @@ class Login extends Component {
                                        },
                                     ]}
                                  />
-                                 <Link
-                                    to={{
-                                       pathname: '/home',
-                                       user: this.state,
-                                    }}
-                                 >
-                                    <Button
-                                       block
-                                       size="sm"
-                                       type="submit"
-                                       to="/home"
-                                       variant="success"
-                                       disabled={!this.state.buttonValid}
-                                    >
-                                       Login
-                                    </Button>
-                                 </Link>
+                                 <LinkedButton
+                                    pathname="/home"
+                                    user={this.state}
+                                    buttonText="Login"
+                                    block
+                                 />
                                  <div className="clearfix" />
                               </form>
                            }
