@@ -17,10 +17,11 @@ const choreSchema = new mongoose.Schema({
 	},
 	due: {
 		type: Date,
-		required: false,
+		required: true,
 	},
 	late: {
 		type: Boolean,
+		default: Date.now > this.due ? true : false,
 		required: false,
 	},
 	//0: unassigned

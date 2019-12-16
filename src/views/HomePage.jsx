@@ -18,11 +18,11 @@ export default class HomePage extends Component {
 
    render() {
       const household = this.props.household;
-      console.log('homepage props:', this.props);
+      console.log('homepage methods:', this.props.methods);
       return (
          <div className="content">
             <Container fluid>
-               {/* {this.props.household.map((prop, key) => { */}
+               {/* {household.map((prop, key) => { */}
                {/* return ( */}
                <Row>
                   <Col>
@@ -93,7 +93,7 @@ export default class HomePage extends Component {
                         content={
                            <div className="table-full-width">
                               <table className="table">
-                                 {/* <Chores {...this.props} /> */}
+                                 <Chores {...this.props} />
                               </table>
                            </div>
                         }

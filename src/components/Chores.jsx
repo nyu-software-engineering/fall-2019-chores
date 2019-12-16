@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+
+import ActionButton from './ActionButton';
 import Checkbox from './CustomCheckbox';
-import Button from './CustomButton';
+import App from '../layouts/App';
 
 export class Chores extends Component {
    constructor(props) {
@@ -24,10 +25,7 @@ export class Chores extends Component {
    };
 
    render() {
-      const household = this.props.location.household;
-
-      const edit = <Tooltip id="edit_tooltip">Edit Chore</Tooltip>;
-      const remove = <Tooltip id="remove_tooltip">Remove</Tooltip>;
+      const household = this.props.household;
       var chores = [];
 
       {
@@ -42,33 +40,21 @@ export class Chores extends Component {
                   </td>
                   <td>{prop.title}</td>
                   <td className="td-actions text-right">
-                     <OverlayTrigger placement="top" overlay={edit}>
-                        <Button
-                           variant="info"
-                           simple
-                           type="button"
-                           onClick={() =>
-                              this.updateDB(
-                                 this.state.idToUpdate,
-                                 this.state.updateToApply
-                              )
-                           }
-                        >
-                           <i className="fa fa-edit" />
-                        </Button>
-                     </OverlayTrigger>
-                     <OverlayTrigger placement="top" overlay={remove}>
-                        <Button
-                           variant="danger"
-                           simple
-                           type="button"
-                           onClick={() =>
-                              this.deleteFromDB(this.state.idToDelete)
-                           }
-                        >
-                           <i className="fa fa-times" />
-                        </Button>
-                     </OverlayTrigger>
+                     <ActionButton
+                        icon="fa fa-edit"
+                        placement="top"
+                        tool="edit_tooltip"
+                        tooltext="Edit Chore"
+                        variant="info"
+                     />
+                     <ActionButton
+                        icon="fa fa-times"
+                        placement="top"
+                        remove
+                        tool="remove_tooltip"
+                        tooltext="Remove Chore"
+                        variant="danger"
+                     />
                   </td>
                </tr>
             );

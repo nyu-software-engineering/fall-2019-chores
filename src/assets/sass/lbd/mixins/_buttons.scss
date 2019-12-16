@@ -9,7 +9,7 @@
   &.active,
   .open > &.dropdown-toggle {
     background-color: $transparent-bg;
-    color: #80c81e;
+    color: #495057;
     border-color: #495057;
   }
   
@@ -25,6 +25,7 @@
     &.active {
       background-color: $transparent-bg;
           border-color: #495057;
+          color: #495057;
     }
   }
   
