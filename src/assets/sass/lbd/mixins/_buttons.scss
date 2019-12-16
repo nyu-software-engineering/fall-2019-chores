@@ -9,8 +9,8 @@
   &.active,
   .open > &.dropdown-toggle {
     background-color: $transparent-bg;
-    color: #495057;
-    border-color: #495057;
+    color: $btn-states-color;
+    // border-color: #495057;
   }
   
   &.disabled,

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import ActionButton from './ActionButton';
 import Checkbox from './CustomCheckbox';
-import App from '../layouts/App';
 
 export class Chores extends Component {
    constructor(props) {
