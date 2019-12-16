@@ -23,6 +23,7 @@ class JoinHousehold extends Component {
       super(props);
       this.state = {
          householdID: {},
+         personID: {},
          title: '',
       };
 
@@ -77,11 +78,10 @@ class JoinHousehold extends Component {
          });
    }
 
-   validateForm() {
-      return this.state.email.length > 0 && this.state.password.length > 0;
-   }
-
    render() {
+      const household = { ...this.state };
+      const user = { ...this.props.location.user };
+
       return (
          <div id="signup" className="signup">
             <div className="logo">
@@ -119,7 +119,8 @@ class JoinHousehold extends Component {
                                  />
                                  <LinkedButton
                                     pathname="/home"
-                                    household={this.state}
+                                    household={household}
+                                    user={user}
                                     buttonText="Join Household"
                                     block
                                  />

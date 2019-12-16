@@ -14,7 +14,7 @@ export default class LinkedButton extends Component {
          <Link
             to={{
                pathname: this.props.pathname,
-               household: this.props.household,
+               {...this.props}
             }}
          >
             <Button

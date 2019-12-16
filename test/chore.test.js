@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const assert = require('chai').assert;
 const URLSlugs = require('mongoose-url-slugs');
-const Person = require('../src/backend/person');
-const Chore = require('../src/backend/chore');
-const Household = require('../src/backend/household');
+const Person = require('../src/person');
+const Chore = require('../src/chore');
+const Household = require('../src/household');
 
 const chore = {
 	title: 'Dishes',
@@ -104,7 +104,7 @@ describe('Chore Tests', () => {
 
 	// 8
 	it('test chore lateness check', function(done) {
-		validChore.setDueDate(new Date('December 5, 2019 20:30:00'));
+		validChore.setDueDate(new Date('December 5, 2030 20:30:00'));
 		validChore.markComplete();
 		assert.equal(validChore.checkLate(), false);
 

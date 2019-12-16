@@ -78,18 +78,18 @@ class CreateHousehold extends Component {
          });
    }
 
-   validateForm() {
-      return this.state.email.length > 0 && this.state.password.length > 0;
-   }
-
    render() {
-      console.log('create house:', this.props.location.household);
-
+      const household = { ...this.state };
+      const user = { ...this.props.location.user };
       return (
          <div id="signup" className="signup">
             <div className="logo">
-               <img src={logo} alt="logo" />
-               <h2>HouseKeeper</h2>
+               <div className="simple-text logo-mini">
+                  <div className="logo-img">
+                     <img src={logo} alt="logo_image" />
+                  </div>
+               </div>
+               <div className="simple-text logo-normal">HouseKeeper</div>
             </div>
             <div className="content">
                <Container fluid>
@@ -118,7 +118,8 @@ class CreateHousehold extends Component {
                                  />
                                  <LinkedButton
                                     pathname="/home"
-                                    household={this.state}
+                                    user={user}
+                                    household={household}
                                     buttonText="Create Household"
                                     block
                                  />
