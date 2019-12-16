@@ -31,12 +31,30 @@ class Login extends Component {
 
 	handleSubmit() {
 		fetch('http://localhost:3001/api/login', {
-			method: 'POST',
-			body: JSON.stringify({
-				phoneNum: this.state.phoneNum,
-				password: this.state.password,
-			}),
-		});
+			method: 'post',
+			body: JSON.stringify([
+				{
+					phoneNum: this.state.phoneNum,
+					password: this.state.password,
+				},
+			]),
+			headers: {
+				'Content-Type': 'application/json',
+				Origin: 'http://localhost:3001',
+			},
+		})
+			.then(res => res.json())
+			.then(status => {
+				if (status.success === false) {
+					console.log(status.error);
+				} else {
+					console.log('LOGIN SUCCESS');
+					this.setState({
+						personID: status.personID,
+						householdID: status.householdID,
+					});
+				}
+			});
 	}
 
 	handlePasswordChange(event) {
@@ -169,7 +187,8 @@ class Login extends Component {
 											<Link
 												to={{
 													pathname: '/home',
-													household: this.state,
+													householdID: this.state.householdID,
+													personID: this.state.personID,
 												}}
 											>
 												<Button

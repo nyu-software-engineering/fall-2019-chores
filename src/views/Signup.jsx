@@ -53,10 +53,11 @@ class Signup extends Component {
 		this.handleLastNameChange = this.handleLastNameChange.bind(this);
 		this.handlePhoneNumChange = this.handlePhoneNumChange.bind(this);
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
-		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+		this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(
+			this
+		);
 		this.handleUsernameChange = this.handleUsernameChange.bind(this);
 		this.createUser = this.createUser.bind(this);
-
 	}
 	handleFirstNameChange(event) {
 		this.setState({ firstName: event.target.value });
@@ -101,10 +102,9 @@ class Signup extends Component {
 			.then(res => res.json())
 			.then(status => {
 				if (status.success === false) {
-					console.log('MISSION FAILED');
 					console.log(status.error);
 				} else {
-					console.log('MISSION SUCCESS');
+					console.log('PERSON SIGNUP SUCCESS');
 					this.state.personID = status.id;
 				}
 			});
@@ -122,30 +122,45 @@ class Signup extends Component {
 		switch (fieldName) {
 			case 'fname':
 				fnameValid = value.length >= 4;
-				fieldValidationErrors.Name = fnameValid ? '' : ' First name is too short';
+				fieldValidationErrors.Name = fnameValid
+					? ''
+					: ' First name is too short';
 				break;
 			case 'lname':
 				lnameValid = value.length >= 3;
-				fieldValidationErrors.Name = lnameValid ? '' : ' Last name is too short';
+				fieldValidationErrors.Name = lnameValid
+					? ''
+					: ' Last name is too short';
 				break;
 			case 'username':
 				usernameValid = value.length >= 8;
-				fieldValidationErrors.Username = usernameValid ? '': ' Username is too short';
+				fieldValidationErrors.Username = usernameValid
+					? ''
+					: ' Username is too short';
 				break;
 			case 'number':
-				if (value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)) {
+				if (
+					value.match(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/)
+				) {
 					numValid = true;
+				} else {
+					numValid = false;
 				}
-				else {numValid = false;}
-				fieldValidationErrors.Phone = numValid ? '' : ' Phone number is invalid';
+				fieldValidationErrors.Phone = numValid
+					? ''
+					: ' Phone number is invalid';
 				break;
 			case 'password':
 				passwordValid = value.length >= 6;
-				fieldValidationErrors.Password = passwordValid ? '' : ' Password is too short';
-				break;	
+				fieldValidationErrors.Password = passwordValid
+					? ''
+					: ' Password is too short';
+				break;
 			case 'confirmpw':
 				confirmpwValid = value == this.state.password;
-				fieldValidationErrors.Confirm_Password = confirmpwValid ? '' : ' Confirm password does not match your password';
+				fieldValidationErrors.Confirm_Password = confirmpwValid
+					? ''
+					: ' Confirm password does not match your password';
 				break;
 			default:
 				break;
@@ -172,16 +187,22 @@ class Signup extends Component {
 				this.state.fnameValid &&
 				this.state.lnameValid &&
 				this.state.confirmpwValid &&
-				this.state.usernameValid
+				this.state.usernameValid,
 		});
 		this.setState({
 			buttonValid:
-				this.state.numValid && this.state.phoneNum.length > 0 && 
-				this.state.passwordValid && this.state.password.length > 0 && 
-				this.state.fnameValid && this.state.firstName.length > 0 && 
-				this.state.lnameValid && this.state.lastName.length > 0 && 
-				this.state.confirmpwValid && this.state.confirmPass.length > 0 && 
-				this.state.usernameValid && this.state.username.length > 0
+				this.state.numValid &&
+				this.state.phoneNum.length > 0 &&
+				this.state.passwordValid &&
+				this.state.password.length > 0 &&
+				this.state.fnameValid &&
+				this.state.firstName.length > 0 &&
+				this.state.lnameValid &&
+				this.state.lastName.length > 0 &&
+				this.state.confirmpwValid &&
+				this.state.confirmPass.length > 0 &&
+				this.state.usernameValid &&
+				this.state.username.length > 0,
 		});
 	}
 
@@ -204,7 +225,7 @@ class Signup extends Component {
 					<Container fluid>
 						<Row>
 							<Col md={{ span: 5, offset: 3 }}>
-								{this.state.formValid == false ? ( 
+								{this.state.formValid == false ? (
 									<Card
 										title="Errors"
 										lineBreak
@@ -231,7 +252,7 @@ class Signup extends Component {
 											</div>
 										}
 									/>
-								) : null } 
+								) : null}
 								<Card
 									title="Sign Up"
 									lineBreak
@@ -314,7 +335,8 @@ class Signup extends Component {
 														size: 'sm',
 														type: 'password',
 														value: this.state.confirmPass,
-														onChange: this.handleConfirmPasswordChange,
+														onChange: this
+															.handleConfirmPasswordChange,
 													},
 												]}
 											/>

@@ -51,8 +51,10 @@ class CreateHousehold extends Component {
 			.then(res => res.json())
 			.then(status => {
 				if (status.success === false) {
-					//show failure page
+					console.log(status.error);
 				} else {
+					console.log('HOUSEHOLD SIGNUP SUCCESS');
+					this.setState({ householdID: status.id });
 					this.state.householdID = status.id;
 					fetch('/api/person', {
 						method: 'put',
@@ -71,11 +73,10 @@ class CreateHousehold extends Component {
 						.then(res => res.json())
 						.then(status => {
 							if (status.success === false) {
-								console.log('MISSION FAILED');
 								console.log(status.error);
 							} else {
-								console.log('MISSION SUCCESS');
-								this.state.personID = status.id;
+								console.log('SIGNUP COMPLETE');
+								this.setState({ personID: status.id });
 							}
 						});
 				}

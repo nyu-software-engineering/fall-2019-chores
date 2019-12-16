@@ -161,11 +161,20 @@ router.post('/login', (req, res) => {
 			});
 		} else {
 			console.log('LOGIN SUCCESS');
-			res.json({
-				success: true,
-				personID: user._id,
-				householdID: user.households[0]._id,
-			});
+
+			if (user.households[0]) {
+				res.json({
+					success: true,
+					personID: user._id,
+					householdID: user.households[0]._id,
+				});
+			} else {
+				console.log('USER HAS NO HOUSEHOLD');
+				res.json({
+					success: true,
+					personID: user._id,
+				});
+			}
 		}
 	});
 });
