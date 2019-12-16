@@ -5,7 +5,7 @@ import Login from './views/Login';
 import Signup from './views/Signup';
 import UpdateAccount from './views/UpdateAccount';
 
-const homeRoutes = [
+const routes = [
 	{
 		path: '/home',
 		name: 'Home',
@@ -44,4 +44,4 @@ const homeRoutes = [
 	},
 ];
 
-export default homeRoutes;
+export default routes;

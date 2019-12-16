@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import PluginPopup from './PluginPopup';
@@ -8,23 +9,13 @@ class ActionButton extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         fixedClasses: 'dropdown show-dropdown open',
          showPlugin: false,
          remove: false,
       };
 
-      // this.handleFixedClick = this.handleFixedClick.bind(this);
       this.handleButtonClick = this.handleButtonClick.bind(this);
       this.handleRemove = this.handleRemove.bind(this);
    }
-
-   // handleFixedClick = () => {
-   //    if (this.state.fixedClasses === 'dropdown') {
-   //       this.setState({ fixedClasses: 'dropdown show-dropdown open' });
-   //    } else {
-   //       this.setState({ fixedClasses: 'dropdown' });
-   //    }
-   // };
 
    handleButtonClick = () => {
       this.setState({ showPlugin: true });
@@ -51,7 +42,6 @@ class ActionButton extends Component {
             >
                {this.state.showPlugin ? (
                   <PluginPopup
-                     handleFixedClick={this.handleFixedClick}
                      fixedClasses={this.state.fixedClasses}
                      mini={this.state['mini']}
                      header={this.props.tooltext}
@@ -63,5 +53,10 @@ class ActionButton extends Component {
       );
    }
 }
+
+ActionButton.propTypes = {
+   remove: PropTypes.bool,
+   showPlugin: PropTypes.bool,
+};
 
 export default ActionButton;

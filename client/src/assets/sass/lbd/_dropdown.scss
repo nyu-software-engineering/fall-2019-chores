@@ -3,11 +3,11 @@
     margin: 0;
     padding: 0;
     border-radius: $border-radius-extreme;
-    display: block;
+    display: inline-block;
     z-index: 9000;
     position: absolute;
     
-    @include opacity(0); 
+    // @include opacity(0); 
     @include box-shadow($dropdown-shadow);
         
     .open &{

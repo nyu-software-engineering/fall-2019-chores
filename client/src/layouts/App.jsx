@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
-import homeRoutes from '../routes';
+import routes from '../routes';
 
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
@@ -164,9 +164,9 @@ export default class App extends Component {
    render() {
       return (
          <div className="wrapper">
-            <Sidebar routes={homeRoutes} />
+            <Sidebar routes={routes} />
             <div id="main-panel" className="main-panel" ref="mainPanel">
-               <Switch>{this.getRoutes(homeRoutes)}</Switch>
+               <Switch>{this.getRoutes(routes)}</Switch>
                <Footer />
             </div>
          </div>
