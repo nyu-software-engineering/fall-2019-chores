@@ -28,12 +28,23 @@ export default class App extends Component {
          // household: this.props.location.household,
          // user: this.props.location.user,
          household: {
-            householdID: {},
+            householdID: { id: 1 },
             title: 'pizza',
+            members: [],
+            chores: [
+               {
+                  completed: Date,
+                  created: Date,
+                  criteria: 'All garbages are emptied',
+                  due: Date,
+                  late: false,
+                  title: 'Garbage',
+               },
+            ],
          },
          user: {
             password: 'pizzaman123',
-            personID: {},
+            personID: { id: 1 },
             phoneNum: '8479177991',
             title: 'pizza',
             username: 'rma12345',
@@ -42,6 +53,7 @@ export default class App extends Component {
             firstName: 'Rena',
          },
       };
+
       return routes.map((prop, key) => {
          if (prop.layout === '/app') {
             return (
@@ -49,20 +61,18 @@ export default class App extends Component {
                   path={prop.path}
                   render={props => <prop.component {...newProps} />}
                   key={key}
+                  methods={{
+                     getDataFromDB: this.getDataFromDB,
+                     putDataToDB: this.putDataToDB,
+                     deleteFromDB: this.deleteFromDB,
+                     updateDB: this.updateDB,
+                  }}
                />
             );
          } else {
             return null;
          }
       });
-   };
-
-   handleFixedClick = () => {
-      if (this.state.fixedClasses === 'dropdown') {
-         this.setState({ fixedClasses: 'dropdown show-dropdown open' });
-      } else {
-         this.setState({ fixedClasses: 'dropdown' });
-      }
    };
 
    componentDidMount() {

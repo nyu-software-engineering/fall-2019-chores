@@ -23,7 +23,7 @@ ReactDOM.render(
             render={props => <CreateHousehold {...props} />}
          />
          <Route path="/join" render={props => <JoinHousehold {...props} />} />
-         <Redirect from="/" to="/login" />
+         {/* <Redirect from="/" to="/login" /> */}
       </Switch>
    </BrowserRouter>,
    document.getElementById('base')
