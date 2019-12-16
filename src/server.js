@@ -153,13 +153,14 @@ router.post('/login', (req, res) => {
 
 	//TODO password validation awaiting passport integration
 	Person.findOne({ phoneNum: req.body.phoneNum }, (err, user) => {
-		if (err) {
-			console.log('POST FAIL');
+		if (err || user === null) {
+			console.log('LOGIN FAIL');
 			res.json({
 				success: false,
 				error: err,
 			});
 		} else {
+			console.log('LOGIN SUCCESS');
 			res.json({
 				success: true,
 				personID: user._id,

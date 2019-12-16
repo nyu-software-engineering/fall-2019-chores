@@ -29,11 +29,8 @@ class Login extends Component {
 		// this.sendData = this.sendData.bind(this);
 	}
 
-	handleSubmit(event) {
-		event.preventDefault();
-		const data = new FormData(event.target);
-
-		fetch('/api/login', {
+	handleSubmit() {
+		fetch('http://localhost:3001/api/login', {
 			method: 'POST',
 			body: JSON.stringify({
 				phoneNum: this.state.phoneNum,
@@ -64,7 +61,8 @@ class Login extends Component {
 				} else {
 					numValid = false;
 				}
-				fieldValidationErrors.Phone = numValid
+
+				fieldValidationErrors.phone = numValid
 					? ''
 					: ' Phone number is invalid';
 				break;
@@ -181,6 +179,7 @@ class Login extends Component {
 													to="/home"
 													variant="success"
 													disabled={!this.state.buttonValid}
+													onClick={this.handleSubmit}
 												>
 													Login
 												</Button>
