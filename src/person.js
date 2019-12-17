@@ -91,10 +91,16 @@ personSchema.methods = {
 	},
 
 	//assigns Chore in argument to the Person
-	assignChore: function(chore) {
+	assignChore: function(chore, household) {
 		if (chore instanceof Chore) {
 			if (this.assigned.indexOf(chore._id) === -1) {
 				this.assigned.push(chore._id);
+			}
+		}
+
+		if (household instanceof Household) {
+			if (!household.containsChore(chore)) {
+				household.addChore(chore);
 			}
 		}
 	},
@@ -123,6 +129,7 @@ personSchema.methods = {
 		this.phoneNum = number;
 	},
 
+	//returns person's phone number as a string
 	getNumber: function() {
 		return this.phoneNum;
 	},

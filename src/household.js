@@ -53,6 +53,7 @@ householdSchema.methods = {
 	addMember: function(person) {
 		if (!this.members.indexOf(person._id)) {
 			this.members.push(person._id);
+			person.addHousehold(this);
 		}
 	},
 
