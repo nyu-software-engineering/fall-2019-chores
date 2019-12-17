@@ -27,7 +27,7 @@ class PluginPopup extends Component {
    }
 
    handleClick = () => {
-      if (this.state.classes === 'dropdown') {
+      if (this.state.fixedClasses === 'dropdown') {
          this.setState({ classes: 'dropdown show-dropdown open' });
       } else {
          this.setState({ classes: 'dropdown' });
@@ -35,22 +35,23 @@ class PluginPopup extends Component {
    };
 
    render() {
+      const today = new Date().today;
       return (
          <div className="fixed-plugin">
             <div id="fixedPluginClasses" className={this.props.fixedClasses}>
                <ul className="dropdown-menu">
                   <li className="header-title">
-                     {this.props.header}{' '}
-                     <span>
-                        <Button
-                           variant="danger"
-                           simple
-                           type="button"
-                           onClick={this.handleClick}
-                        >
-                           <i className="fa fa-times" />
-                        </Button>
-                     </span>
+                     {this.props.header}
+                     {/* <span> */}
+                     {/*    <Button */}
+                     {/*       variant="danger" */}
+                     {/*       simple */}
+                     {/*       type="button" */}
+                     {/*       onClick={this.handleClick} */}
+                     {/*    > */}
+                     {/*       <i className="fa fa-times" /> */}
+                     {/*    </Button> */}
+                     {/* </span> */}
                   </li>
                   <li className="adjustments-line">
                      <form>
@@ -75,11 +76,38 @@ class PluginPopup extends Component {
                               {
                                  as: 'input',
                                  bsPrefix: 'form-control',
-                                 label: 'title',
-                                 placeholder: 'Enter chore title',
+                                 label: 'Assigned To',
+                                 placeholder:
+                                    'Select member responsible for this chore',
                                  required: true,
                                  size: 'sm',
                                  type: 'text',
+                                 onChange: this.handleChange,
+                              },
+                           ]}
+                        />
+                        <FormInputs
+                           cols={['col-md-6', 'col-md-6']}
+                           properties={[
+                              {
+                                 as: 'input',
+                                 bsPrefix: 'form-control',
+                                 label: 'Date Created',
+                                 placeholder: 'dd/mm/yyyy',
+                                 required: true,
+                                 size: 'sm',
+                                 type: 'date',
+                                 defaultValue: { today },
+                                 onChange: this.handleChange,
+                              },
+                              {
+                                 as: 'input',
+                                 bsPrefix: 'form-control',
+                                 label: 'Date Due',
+                                 placeholder: 'dd/mm/yyyy',
+                                 required: true,
+                                 size: 'sm',
+                                 type: 'date',
                                  onChange: this.handleChange,
                               },
                            ]}
@@ -90,8 +118,9 @@ class PluginPopup extends Component {
                               {
                                  as: 'input',
                                  bsPrefix: 'form-control',
-                                 label: 'title',
-                                 placeholder: 'Enter chore title',
+                                 label: 'Criteria',
+                                 placeholder:
+                                    'Criteria for chore to be completed',
                                  required: true,
                                  size: 'sm',
                                  type: 'text',
