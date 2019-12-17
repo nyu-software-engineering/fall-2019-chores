@@ -24,12 +24,31 @@ export default class App extends Component {
 	}
 
 	getRoutes = routes => {
+		const newProps = {
+			props: this.props,
+			// household: this.props.location.household,
+			// user: this.props.location.user,
+			household: {
+				householdID: {},
+				title: 'pizza',
+			},
+			user: {
+				password: 'pizzaman123',
+				personID: {},
+				phoneNum: '8479177991',
+				title: 'pizza',
+				username: 'rma12345',
+				lastName: 'Auerbach',
+				confirmPass: 'pizzaman123',
+				firstName: 'Rena',
+			},
+		};
 		return routes.map((prop, key) => {
 			if (prop.layout === '/app') {
 				return (
 					<Route
 						path={prop.path}
-						render={props => <prop.component {...props} />}
+						render={props => <prop.component {...newProps} />}
 						key={key}
 					/>
 				);
@@ -50,8 +69,8 @@ export default class App extends Component {
 	componentDidMount() {
 		this.getDataFromDB();
 		// if (!this.state.intervalIsSet) {
-		// 	let interval = setInterval(this.getDataFromDB, 1000);
-		// 	this.setState({ intervalIsSet: interval });
+		//    let interval = setInterval(this.getDataFromDB, 1000);
+		//    this.setState({ intervalIsSet: interval });
 		// }
 	}
 
@@ -135,16 +154,13 @@ export default class App extends Component {
 			id: objIdToUpdate,
 			update: { message: updateToApply },
 		});
-	};
-	*/
+   };
+   */
+
 	render() {
-		this.props = {
-			props: this.props,
-			household: this.props.location.household,
-		};
 		return (
 			<div className="wrapper">
-				<Sidebar {...this.props} routes={homeRoutes} />
+				<Sidebar routes={homeRoutes} />
 				<div id="main-panel" className="main-panel" ref="mainPanel">
 					<Switch>{this.getRoutes(homeRoutes)}</Switch>
 					<Footer />

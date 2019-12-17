@@ -7,14 +7,12 @@ import {
 	FormLabel,
 	Row,
 } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import { states } from '../helpers';
 import person from '../person';
 import logo from '../assets/img/logo.png';
 
-import Button from '../components/CustomButton';
+import LinkedButton from '../components/LinkedButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
 import HomePage from '../views/HomePage';
@@ -105,7 +103,7 @@ class Signup extends Component {
 					console.log(status.error);
 				} else {
 					console.log('PERSON SIGNUP SUCCESS');
-					this.state.personID = status.id;
+					this.setState({ personID: status.id });
 				}
 			});
 	}
@@ -340,43 +338,22 @@ class Signup extends Component {
 													},
 												]}
 											/>
+											<LinkedButton
+												pathname="/newHousehold"
+												personID={this.state.personID}
+												onClick={this.createUser}
+												buttonText="Create New Household"
+												block
+											/>
+											<div className="clearfix"> or </div>
+											<LinkedButton
+												pathname="/join"
+												personID={this.state.personID}
+												onClick={this.createUser}
+												buttonText="Join Existing Household"
+												block
+											/>
 
-											<Link
-												to={{
-													pathname: '/newHousehold',
-													personID: this.state.personID,
-												}}
-											>
-												<Button
-													block
-													size="md"
-													type="submit"
-													variant="success"
-													disabled={!this.state.buttonValid}
-													onClick={this.createUser}
-												>
-													Create New Household
-												</Button>
-											</Link>
-											<div className="clearfix">
-												<div className="btw_buttons"> or </div>
-											</div>
-											<Link
-												to={{
-													pathname: '/join',
-													personID: this.state.personID,
-												}}
-											>
-												<Button
-													block
-													size="md"
-													type="submit"
-													variant="success"
-													disabled={!this.state.buttonValid}
-												>
-													Join Existing Household
-												</Button>
-											</Link>
 											<div className="clearfix" />
 										</form>
 									}
@@ -390,4 +367,4 @@ class Signup extends Component {
 	}
 }
 
-export default withRouter(Signup);
+export default Signup;

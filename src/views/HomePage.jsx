@@ -17,7 +17,7 @@ export default class HomePage extends Component {
 	}
 
 	render() {
-		const household = this.props.location.household;
+		const household = this.props.household;
 		console.log('homepage props:', this.props);
 		return (
 			<div className="content">

@@ -7,14 +7,12 @@ import {
 	FormLabel,
 	Row,
 } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import { states } from '../helpers';
 import person from '../person';
 import logo from '../assets/img/logo.png';
 
-import Button from '../components/CustomButton';
+import LinkedButton from '../components/LinkedButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
 import HomePage from '../views/HomePage';
@@ -84,8 +82,6 @@ class CreateHousehold extends Component {
 	}
 
 	render() {
-		const household = { ...this.props.location.household, ...this.state };
-
 		return (
 			<div id="signup" className="signup">
 				<div className="logo">
@@ -121,23 +117,14 @@ class CreateHousehold extends Component {
 													},
 												]}
 											/>
-											<Link
-												to={{
-													pathname: '/home',
-													householdID: this.state.householdID,
-													personID: this.state.personID,
-												}}
-											>
-												<Button
-													block
-													size="md"
-													type="submit"
-													variant="success"
-													onClick={this.createHousehold}
-												>
-													Create Household
-												</Button>
-											</Link>
+											<LinkedButton
+												pathname="/home"
+												householdID={this.state.householdID}
+												personID={this.state.personID}
+												buttonText="Create Household"
+												onClick={this.createHousehold}
+												block
+											/>
 											<div className="clearfix" />
 										</form>
 									}
@@ -151,4 +138,4 @@ class CreateHousehold extends Component {
 	}
 }
 
-export default withRouter(CreateHousehold);
+export default CreateHousehold;

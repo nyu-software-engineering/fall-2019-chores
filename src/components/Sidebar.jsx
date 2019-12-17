@@ -25,7 +25,6 @@ export default class Sidebar extends Component {
    }
 
    render() {
-      console.log('sidebar props:', this.props);
       return (
          <div id="sidebar" className="sidebar">
             <div className="logo">
