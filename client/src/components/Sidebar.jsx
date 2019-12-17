@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import logo from '../assets/img/logo.png';
 
@@ -46,13 +46,13 @@ export default class Sidebar extends Component {
                               className={prop.pathname}
                               key={key}
                            >
-                              <NavLink
+                              <Link
                                  to={prop.path}
                                  className="nav-link"
                                  activeClassName="active"
                               >
                                  <p>{prop.name}</p>
-                              </NavLink>
+                              </Link>
                            </li>
                         );
                      return null;

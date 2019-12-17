@@ -43,7 +43,8 @@ class Card extends Component {
                className={
                   'content' +
                   (this.props.ctTableFullWidth ? ' table-full-width' : '') +
-                  (this.props.ctTableResponsive ? ' table-responsive' : '')
+                  (this.props.ctTableResponsive ? ' table-responsive' : '') +
+                  (this.props.ctTableUpgrade ? ' table-upgrade' : '')
                }
             >
                {this.props.content}
