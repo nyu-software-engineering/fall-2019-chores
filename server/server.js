@@ -7,6 +7,8 @@ const passport = require('passport');
 const Household = require('../src/household');
 const Person = require('../src/person');
 const Chore = require('../src/chore');
+const jwt = require('jsonwebtoken');
+const secret = process.env.SECRET || 'super secret';
 
 const API_PORT = 3001;
 const app = express();
@@ -212,9 +214,31 @@ router.post('/login', async (req, res) => {
 		return res.status(400).json('Password is incorrect.');
 	}
 
+	  const payload = {
+    id: user._id,
+    username: user.username
+  };
+
+  // return 500 if token is incorrect
+  if (!token) {
+    return res.status(500)
+      .json({
+        error: "Error signing token",
+        raw: err
+      });
+  }
+
+  token = await jwt.sign(payload, secret, { expiresIn: 36000 });
+
 	return res.json({
 		success: true,
 	});
+});
+
+router.get('/me', passport.authenticate('jwt', { session: false }), async function(req, res, next) {
+  const username = req.user.username;
+  const dbPerson = await Person.findOne({ username });
+  res.status(200).json(dbPerson);
 });
 
 // append /api for our http requests
