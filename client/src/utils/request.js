@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const auth = require('./auth');
+import auth from './auth';
 
 axios.interceptors.request.use(
 	config => {
@@ -26,3 +26,8 @@ axios.interceptors.response.use(
 		return Promise.reject(error);
 	}
 );
+
+const handleResponse = ({ data }) => ({ response: data });
+const handleError = async ({ response: { data } }) => ({
+  error: data,
+});
