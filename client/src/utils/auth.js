@@ -1,8 +1,7 @@
+import ls from './localStorage';
 
-import LS from './localStorage';
-
-const getToken = () => LS.get('auth');
-const deleteToken = () => LS.remove('auth');
+const getToken = () => ls.get('auth');
+const deleteToken = () => ls.remove('auth');
 
 export default {
   getToken,
