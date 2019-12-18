@@ -47,7 +47,8 @@
       "react-router-dom": "^5.1.2",
       "react-scripts": "^3.2.0",
       "react-toggle": "^4.1.1",
-      "sass": "^1.23.7"
+      "sass": "^1.23.7",
+      "webpack": "^4.41.3"
    },
    "browserslist": {
       "production": [
