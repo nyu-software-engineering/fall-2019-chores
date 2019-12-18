@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { Auth } from '../utils';
 
 import logo from '../assets/img/logo.png';
 
@@ -11,9 +12,11 @@ export default class Sidebar extends Component {
       };
    }
 
-   activeRoute(routeName) {
-      return this.props.routes.indexOf(routeName) > -1 ? 'active' : '';
-   }
+   logout = event => {
+      event.preventDefault();
+      Auth.deleteToken();
+      window.location.pathname = '/login';
+   };
 
    updateDimensions() {
       this.setState({ width: window.innerWidth });
@@ -41,22 +44,28 @@ export default class Sidebar extends Component {
                   {this.props.routes.map((prop, key) => {
                      if (!prop.redirect)
                         return (
-                           <li
-                              className={this.activeRoute(prop.path)}
-                              className={prop.pathname}
-                              key={key}
-                           >
-                              <Link
+                           <li className={prop.pathname} key={key}>
+                              <NavLink
                                  to={prop.path}
                                  className="nav-link"
                                  activeClassName="active"
                               >
                                  <p>{prop.name}</p>
-                              </Link>
+                              </NavLink>
                            </li>
                         );
                      return null;
                   })}
+                  <li className="Logout">
+                     <NavLink
+                        to="#"
+                        className="nav-link"
+                        activeClassName="active"
+                        onClick={this.logout}
+                     >
+                        <p>Logout</p>
+                     </NavLink>
+                  </li>
                </ul>
             </div>
          </div>

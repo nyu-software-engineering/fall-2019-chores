@@ -1,7 +1,6 @@
 import ChoresList from './views/ChoresList';
 import HomePage from './views/HomePage';
 import HousesList from './views/HousesList';
-import Login from './views/Login';
 import Signup from './views/Signup';
 import UpdateAccount from './views/UpdateAccount';
 
@@ -28,18 +27,6 @@ const routes = [
 		path: '/myaccount',
 		name: 'My Account',
 		component: UpdateAccount,
-		layout: '/app',
-	},
-	{
-		path: '/settings',
-		name: 'Settings',
-		// component: Settings,
-		layout: '/app',
-	},
-	{
-		path: '/login',
-		name: 'Logout',
-		component: Login,
 		layout: '/app',
 	},
 ];

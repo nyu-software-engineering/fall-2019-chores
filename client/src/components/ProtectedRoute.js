@@ -1,21 +1,24 @@
-import React from 'react';  
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-// Utils
 import { Auth } from '../utils';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (  
-  <Route {...rest} render={props => (
-    Auth.getToken() !== null ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{
-        pathname: '/login',
-        state: { from: props.location }
-        }}
-      />
-    )
-  )} />
+const PrivateRoute = ({ component: Component, ...rest }) => (
+   <Route
+      {...rest}
+      render={props =>
+         Auth.getToken() !== null ? (
+            <Component {...props} />
+         ) : (
+            <Redirect
+               to={{
+                  pathname: '/login',
+                  state: { from: props.location },
+               }}
+            />
+         )
+      }
+   />
 );
 
-export default PrivateRoute; 
+export default PrivateRoute;

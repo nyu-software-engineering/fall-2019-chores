@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { FormControl, FormGroup, FormLabel, Row } from 'react-bootstrap';
+import { Form, FormGroup, FormLabel, Row } from 'react-bootstrap';
 
 function FieldGroup({ label, ...props }) {
    return (
       <FormGroup>
          <FormLabel>{label}</FormLabel>
-         <FormControl {...props} />
+         <Form.Control {...props} />
       </FormGroup>
    );
 }
