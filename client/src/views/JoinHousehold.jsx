@@ -7,14 +7,11 @@ import {
    FormLabel,
    Row,
 } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import { states } from '../helpers';
-import person from '../person';
 import logo from '../assets/img/logo.png';
 
-import Button from '../components/CustomButton';
+import LinkedButton from '../components/LinkedButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
 import HomePage from '../views/HomePage';
@@ -25,6 +22,7 @@ class JoinHousehold extends Component {
       super(props);
       this.state = {
          householdID: {},
+         personID: {},
          title: '',
       };
 
@@ -79,11 +77,10 @@ class JoinHousehold extends Component {
          });
    }
 
-   validateForm() {
-      return this.state.email.length > 0 && this.state.password.length > 0;
-   }
-
    render() {
+      const household = { ...this.state };
+      const user = { ...this.props.location.user };
+
       return (
          <div id="signup" className="signup">
             <div className="logo">
@@ -119,21 +116,13 @@ class JoinHousehold extends Component {
                                        },
                                     ]}
                                  />
-                                 <Link
-                                    to={{
-                                       pathname: '/home',
-                                       household: this.state,
-                                    }}
-                                 >
-                                    <Button
-                                       block
-                                       size="md"
-                                       type="submit"
-                                       variant="success"
-                                    >
-                                       Join Household
-                                    </Button>
-                                 </Link>
+                                 <LinkedButton
+                                    pathname="/home"
+                                    household={household}
+                                    user={user}
+                                    buttonText="Join Household"
+                                    block
+                                 />
                                  <div className="clearfix" />
                               </form>
                            }
@@ -147,4 +136,4 @@ class JoinHousehold extends Component {
    }
 }
 
-export default withRouter(JoinHousehold);
+export default JoinHousehold;

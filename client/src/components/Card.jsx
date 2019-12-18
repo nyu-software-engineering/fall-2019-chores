@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { linkStyle } from '../helpers';
 
@@ -37,9 +37,9 @@ export class Card extends Component {
                   <hr />
                   <div className="stats">
                      {this.props.preText}
-                     <NavLink to={this.props.link} style={linkStyle}>
+                     <Link to={this.props.link} style={linkStyle}>
                         {this.props.linkText}
-                     </NavLink>
+                     </Link>
                   </div>
                </div>
             ) : null}

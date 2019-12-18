@@ -16,13 +16,14 @@ ReactDOM.render(
    <BrowserRouter>
       <Switch>
          <Route path="/home" render={props => <App {...props} />} />
-         <Route path="/login" render={props => <Login {...props} />} />{' '}
+         <Route path="/login" render={props => <Login {...props} />} />
          <Route path="/signup" render={props => <Signup {...props} />} />
          <Route
             path="/newhousehold"
             render={props => <CreateHousehold {...props} />}
          />
          <Route path="/join" render={props => <JoinHousehold {...props} />} />
+         <Redirect from="/" to="/login" />
       </Switch>
    </BrowserRouter>,
    document.getElementById('base')

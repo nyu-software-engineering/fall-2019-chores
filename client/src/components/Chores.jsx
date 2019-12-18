@@ -24,12 +24,14 @@ export class Chores extends Component {
    };
 
    render() {
+      const household = this.props.location.household;
+
       const edit = <Tooltip id="edit_tooltip">Edit Chore</Tooltip>;
       const remove = <Tooltip id="remove_tooltip">Remove</Tooltip>;
       var chores = [];
 
       {
-         this.props.households.chores.map((prop, key) => {
+         household.chores.map((prop, key) => {
             return chores.push(
                <tr key={key}>
                   <td>

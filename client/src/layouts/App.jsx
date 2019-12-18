@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import homeRoutes from '../routes';
-import households from '../household';
 
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
@@ -24,12 +23,31 @@ export default class App extends Component {
    }
 
    getRoutes = routes => {
+      const newProps = {
+         props: this.props,
+         // household: this.props.location.household,
+         // user: this.props.location.user,
+         household: {
+            householdID: {},
+            title: 'pizza',
+         },
+         user: {
+            password: 'pizzaman123',
+            personID: {},
+            phoneNum: '8479177991',
+            title: 'pizza',
+            username: 'rma12345',
+            lastName: 'Auerbach',
+            confirmPass: 'pizzaman123',
+            firstName: 'Rena',
+         },
+      };
       return routes.map((prop, key) => {
          if (prop.layout === '/app') {
             return (
                <Route
                   path={prop.path}
-                  render={props => <prop.component {...props} />}
+                  render={props => <prop.component {...newProps} />}
                   key={key}
                />
             );
@@ -49,10 +67,10 @@ export default class App extends Component {
 
    componentDidMount() {
       this.getDataFromDB();
-      if (!this.state.intervalIsSet) {
-         let interval = setInterval(this.getDataFromDB, 1000);
-         this.setState({ intervalIsSet: interval });
-      }
+      // if (!this.state.intervalIsSet) {
+      //    let interval = setInterval(this.getDataFromDB, 1000);
+      //    this.setState({ intervalIsSet: interval });
+      // }
    }
 
    componentWillUnmount() {
@@ -134,13 +152,9 @@ export default class App extends Component {
    };
 
    render() {
-      this.props = {
-         props: this.props,
-         household: this.props.location.household,
-      };
       return (
          <div className="wrapper">
-            <Sidebar {...this.props} routes={homeRoutes} />
+            <Sidebar routes={homeRoutes} />
             <div id="main-panel" className="main-panel" ref="mainPanel">
                <Switch>{this.getRoutes(homeRoutes)}</Switch>
                <Footer />

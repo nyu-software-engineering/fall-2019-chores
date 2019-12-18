@@ -8,8 +8,6 @@ import {
    Row,
 } from 'react-bootstrap';
 
-import { states } from '../helpers';
-
 import Button from '../components/CustomButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
@@ -17,11 +15,66 @@ import UserCard from '../components/UserCard';
 
 export default class UpdateAccount extends Component {
    render() {
+      const household = this.props.location.household;
+
+      const states = [
+         'AL',
+         'AK',
+         'AZ',
+         'AR',
+         'CA',
+         'CO',
+         'CT',
+         'DE',
+         'DC',
+         'FL',
+         'GA',
+         'HI',
+         'ID',
+         'IL',
+         'IN',
+         'IA',
+         'KS',
+         'KY',
+         'LA',
+         'ME',
+         'MD',
+         'MA',
+         'MI',
+         'MN',
+         'MS',
+         'MO',
+         'MT',
+         'NE',
+         'NV',
+         'NH',
+         'NJ',
+         'NM',
+         'NY',
+         'NC',
+         'ND',
+         'OH',
+         'OK',
+         'OR',
+         'PA',
+         'RI',
+         'SC',
+         'SD',
+         'TN',
+         'TX',
+         'UT',
+         'VT',
+         'VA',
+         'WA',
+         'WV',
+         'WI',
+         'WY',
+      ];
       return (
          <div className="content">
             <Container fluid>
                <Row>
-                  <Col md={8}>
+                  <Col md={12}>
                      <Card
                         title="My Account"
                         lineBreak
@@ -36,7 +89,7 @@ export default class UpdateAccount extends Component {
                                        bsPrefix: 'form-control',
                                        placeholder: 'Username',
                                        defaultValue: 'Mert123',
-                                       disabled: true,
+                                       required: true,
                                     },
                                     {
                                        label: 'Email Address',
@@ -144,24 +197,6 @@ export default class UpdateAccount extends Component {
                               <div className="clearfix" />
                            </form>
                         }
-                     />
-                  </Col>
-                  <Col md={4}>
-                     <UserCard
-                        bgImage="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"
-                        // avatar={avatar}
-                        name="Mike Andrew"
-                        userName=""
-                        description={
-                           <span>
-                              "Lamborghini Mercy
-                              <br />
-                              Your chick she so thirsty
-                              <br />
-                              I'm in that two seat Lambo"
-                           </span>
-                        }
-                        rating={<div>{/* <Rating/> */}</div>}
                      />
                   </Col>
                </Row>
