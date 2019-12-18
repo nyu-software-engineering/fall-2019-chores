@@ -4,16 +4,13 @@ var cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const passport = require('passport');
-const Household = require('../src/household');
-const Person = require('../src/person');
-const Chore = require('../src/chore');
-const jwt = require('jsonwebtoken');
-const secret = process.env.SECRET || 'super secret';
 
 const API_PORT = 3001;
 const app = express();
 app.use(cors());
-const router = express.Router();
+
+const api = require('../server/routes/house');
+const auth = require('../server/routes/auth');
 
 const filename = 'cluster_address.txt';
 const mongodb = fs.readFileSync(process.cwd() + '/' + filename).toString();
@@ -36,8 +33,9 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 require('./server/passport')(passport);
 
-// append /api for our http requests
-app.use('/api', router);
+// append /api and /auth for our http requests
+app.use('/api', api);
+app.use('/auth', auth);
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
