@@ -1,37 +1,10 @@
-const mongoose = require('mongoose');
 const express = require('express');
-var cors = require('cors');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const passport = require('passport');
-const Household = require('../src/household');
-const Person = require('../src/person');
-const Chore = require('../src/chore');
-const jwt = require('jsonwebtoken');
-const secret = process.env.SECRET || 'super secret';
 
-const API_PORT = 3001;
-const app = express();
-app.use(cors());
+const Household = require('../household');
+const Person = require('../person');
+const Chore = require('../chore');
+
 const router = express.Router();
-
-const filename = 'cluster_address.txt';
-const mongodb = fs.readFileSync(process.cwd() + '/' + filename).toString();
-
-// connects our back end code with the database
-mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true });
-
-let db = mongoose.connection;
-
-db.once('open', () => console.log('CONNECTED TO CLUSTER'));
-
-// checks if connection with the database is successful
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-// (optional) only made for logging and
-// bodyParser, parses the request body to be a readable json format
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 router.get('/', (req, res) => {
 	res.send(
@@ -59,6 +32,35 @@ router.get('/household/:id', (req, res) => {
 			],
 		})
 		.then(household => res.json({ household }))
+		.catch(error => res.json({ error: error.message }));
+});
+
+/* get all household database data
+   slug should be user id
+   should find and return all household info pertaining to that user as a regular object with objects instead of ids */
+router.get('/households', (req, res) => {
+	Household.find()
+		.populate('chores')
+		.populate({
+			path: 'members',
+			populate: [
+				{
+					path: 'assigned',
+					model: 'Chore',
+				},
+				{
+					path: 'households',
+					model: 'Household',
+				},
+			],
+		})
+		.then(households => res.json(households))
+		.catch(error => res.json({ error: error.message }));
+});
+
+router.get('/chores', (req, res) => {
+	Chore.find()
+		.then(chores => res.json(chores))
 		.catch(error => res.json({ error: error.message }));
 });
 
@@ -140,7 +142,7 @@ router.delete('/chore/:id', (req, res) => {
 	});
 });
 
-/* new person & join household 
+/* new person & join household
    req should include object containing necessary person info
    req should (optionally) include a household id if joining a household
    res should return whether it was added successfully */
@@ -196,59 +198,60 @@ router.delete('/person/:id', (req, res) => {
 		res.status(200).json({ success: true });
 	});
 });
-
-router.post('/login', async (req, res) => {
-	const username = req.body.username;
-	const password = req.body.password;
-
-	const user = await Person.findOne({ username }).select('+password');
-
-	if (!user) {
-		return res.status(400).json('No account found.');
-	}
-
-	isMatch = await bcrypt.compare(password, user.password);
-
-	// return 400 if password does not match
-	if (!isMatch) {
-		return res.status(400).json('Password is incorrect.');
-	}
-
-	const payload = {
-		id: user._id,
-		username: user.username,
-	};
-
-	// return 500 if token is incorrect
-	if (!token) {
-		return res.status(500).json({
-			error: 'Error signing token',
-			raw: err,
-		});
-	}
-
-	token = await jwt.sign(payload, secret, { expiresIn: 36000 });
-
-	return res.json({
-		success: true,
-	});
-});
-
-router.get(
-	'/me',
-	passport.authenticate('jwt', { session: false }),
-	async function(req, res, next) {
-		const username = req.user.username;
-		const dbPerson = await Person.findOne({ username });
-		res.status(200).json(dbPerson);
-	}
-);
-
-app.use(passport.initialize());
-require('./server/passport')(passport);
-
-// append /api for our http requests
-app.use('/api', router);
-
-// launch our backend into a port
-app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+//
+// router.post('/login', async (req, res) => {
+// 	const username = req.body.username;
+// 	const password = req.body.password;
+//
+// 	const user = await Person.findOne({ username }).select('+password');
+//
+// 	if (!user) {
+// 		return res.status(400).json('No account found.');
+// 	}
+//
+// 	isMatch = await bcrypt.compare(password, user.password);
+//
+// 	// return 400 if password does not match
+// 	if (!isMatch) {
+// 		return res.status(400).json('Password is incorrect.');
+// 	}
+//
+// 	const payload = {
+// 		id: user._id,
+// 		username: user.username,
+// 	};
+//
+// 	// return 500 if token is incorrect
+// 	if (!token) {
+// 		return res.status(500).json({
+// 			error: 'Error signing token',
+// 			raw: err,
+// 		});
+// 	}
+//
+// 	token = await jwt.sign(payload, secret, { expiresIn: 36000 });
+//
+// 	return res.json({
+// 		success: true,
+// 	});
+// });
+//
+// router.get(
+// 	'/me',
+// 	passport.authenticate('jwt', { session: false }),
+// 	async function(req, res, next) {
+// 		const username = req.user.username;
+// 		const dbPerson = await Person.findOne({ username });
+// 		res.status(200).json(dbPerson);
+// 	}
+// );
+//
+// app.use(passport.initialize());
+// require('./server/passport')(passport);
+//
+// // append /api for our http requests
+// app.use('/api', router);
+//
+// // launch our backend into a port
+// app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
+module.exports = router;

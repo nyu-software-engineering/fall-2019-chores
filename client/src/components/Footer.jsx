@@ -14,10 +14,7 @@ class Footer extends Component {
                      </li>
 
                      <li>
-                        <Link to="/myaccount">Home</Link>
-                     </li>
-                     <li>
-                        <Link to="/settings">Settings</Link>
+                        <Link to="/myaccount">My Account</Link>
                      </li>
                      <li>
                         <Link to="/login">Logout</Link>
