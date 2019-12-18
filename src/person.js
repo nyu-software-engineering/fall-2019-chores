@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const URLSlugs = require('mongoose-url-slugs');
 
 const Chore = require('../src/chore');
 const Household = require('../src/household');
@@ -21,6 +20,12 @@ const personSchema = new mongoose.Schema({
 		maxlength: 20,
 		trim: true,
 	},
+	password: {
+		type: String,
+		required: true,
+		minlength: 8,
+		select: false,
+	},
 	phoneNum: {
 		type: String,
 		required: true,
@@ -38,6 +43,26 @@ const personSchema = new mongoose.Schema({
 		required: false,
 		min: 1,
 	},
+});
+
+personSchema.pre('save', function(next) {
+	if (this.isModified('password')) {
+		bcrypt
+			.genSalt(12)
+			.then(salt => {
+				return bcrypt.hash(this.password, salt);
+			})
+			.then(hash => {
+				this.password = hash;
+				next();
+			})
+			.catch(err => {
+				console.log(err);
+				next(err);
+			});
+	} else {
+		return next();
+	}
 });
 
 // personSchema.plugin(URLSlugs('firstName'));
@@ -91,10 +116,16 @@ personSchema.methods = {
 	},
 
 	//assigns Chore in argument to the Person
-	assignChore: function(chore) {
+	assignChore: function(chore, household) {
 		if (chore instanceof Chore) {
 			if (this.assigned.indexOf(chore._id) === -1) {
 				this.assigned.push(chore._id);
+			}
+		}
+
+		if (household instanceof Household) {
+			if (!household.containsChore(chore)) {
+				household.addChore(chore);
 			}
 		}
 	},
@@ -123,6 +154,7 @@ personSchema.methods = {
 		this.phoneNum = number;
 	},
 
+	//returns person's phone number as a string
 	getNumber: function() {
 		return this.phoneNum;
 	},

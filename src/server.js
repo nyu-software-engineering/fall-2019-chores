@@ -3,7 +3,7 @@ const express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-
+const passport = require('passport');
 const Household = require('../src/household');
 const Person = require('../src/person');
 const Chore = require('../src/chore');
@@ -192,6 +192,28 @@ router.delete('/person/:id', (req, res) => {
 	Person.findByIdAndRemove(req.params.id, err => {
 		if (err) return res.json({ success: false, error: err });
 		res.json({ success: true });
+	});
+});
+
+router.post('/login', async (req, res) => {
+	const username = req.body.username;
+	const password = req.body.password;
+
+	const user = await Person.findOne({ username }).select('+password');
+
+	if (!user) {
+		return res.status(400).json('No account found.');
+	}
+
+	isMatch = await bcrypt.compare(password, user.password);
+
+	// return 400 if password does not match
+	if (!isMatch) {
+		return res.status(400).json('Password is incorrect.');
+	}
+
+	return res.json({
+		success: true,
 	});
 });
 
