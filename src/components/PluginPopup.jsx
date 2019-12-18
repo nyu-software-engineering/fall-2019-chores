@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row } from 'react-bootstrap';
 
 import Button from './CustomButton';
 import FormInputs from './FormInputs';
@@ -27,7 +28,7 @@ class PluginPopup extends Component {
    }
 
    handleClick = () => {
-      if (this.state.fixedClasses === 'dropdown') {
+      if (this.state.classes === 'dropdown') {
          this.setState({ classes: 'dropdown show-dropdown open' });
       } else {
          this.setState({ classes: 'dropdown' });
@@ -54,6 +55,7 @@ class PluginPopup extends Component {
                      {/* </span> */}
                   </li>
                   <li className="adjustments-line">
+                     {/* <li> */}
                      <form>
                         <FormInputs
                            cols={['col-md-12']}
@@ -116,7 +118,7 @@ class PluginPopup extends Component {
                            cols={['col-md-12']}
                            properties={[
                               {
-                                 as: 'input',
+                                 as: 'textarea',
                                  bsPrefix: 'form-control',
                                  label: 'Criteria',
                                  placeholder:
@@ -128,16 +130,31 @@ class PluginPopup extends Component {
                               },
                            ]}
                         />
-                        <Button
-                           block
-                           size="sm"
-                           type="submit"
-                           // onClick={}
-                           variant="success"
-                           disabled={!this.state.buttonValid}
-                        >
-                           Save
-                        </Button>
+                        <div className="button-container">
+                           <div className="save">
+                              <Button
+                                 block
+                                 size="sm"
+                                 type="submit"
+                                 onClick={this.handleChange}
+                                 variant="success"
+                                 disabled={!this.state.buttonValid}
+                              >
+                                 Save
+                              </Button>
+                           </div>
+                           <div className="cancel">
+                              <Button
+                                 block
+                                 size="sm"
+                                 type="button"
+                                 onClick={{e => () = this.handleClick(e)}}
+                                 variant="info"
+                              >
+                                 Cancel
+                              </Button>
+                           </div>
+                        </div>
                      </form>
                   </li>
                </ul>
