@@ -11,6 +11,9 @@ import Login from './views/Login.jsx';
 import Signup from './views/Signup.jsx';
 import CreateHousehold from './views/CreateHousehold.jsx';
 import JoinHousehold from './views/JoinHousehold.jsx';
+import HousesList from './views/HousesList';
+import ChoresList from './views/ChoresList';
+import UpdateAccount from './views/UpdateAccount';
 
 ReactDOM.render(
    <BrowserRouter>
@@ -23,6 +26,12 @@ ReactDOM.render(
             render={props => <CreateHousehold {...props} />}
          />
          <Route path="/join" render={props => <JoinHousehold {...props} />} />
+         <Route path="/myhouses" render={props => <HousesList {...props} />} />
+         <Route path="/mychores" render={props => <ChoresList {...props} />} />
+         <Route
+            path="/myaccount"
+            render={props => <UpdateAccount {...props} />}
+         />
          <Redirect from="/" to="/login" />
       </Switch>
    </BrowserRouter>,
