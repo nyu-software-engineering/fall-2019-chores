@@ -241,8 +241,13 @@ router.get('/me', passport.authenticate('jwt', { session: false }), async functi
   res.status(200).json(dbPerson);
 });
 
+app.use(passport.initialize());
+require('./server/passport')(passport);
+
 // append /api for our http requests
 app.use('/api', router);
+
+
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
