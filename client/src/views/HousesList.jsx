@@ -39,8 +39,6 @@ export default function HousesList() {
       fetchData();
    }, ['households']);
 
-   const demoData = [''];
-
    return (
       <div className="content">
          <Container fluid>
