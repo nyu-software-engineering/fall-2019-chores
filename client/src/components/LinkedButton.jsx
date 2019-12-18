@@ -14,16 +14,10 @@ export default class LinkedButton extends Component {
          <Link
             to={{
                pathname: this.props.pathname,
-               props: {...this.props}
+               props: { ...this.props },
             }}
          >
-            <Button
-               type="submit"
-               varient="success"
-               onClick={this.props.onClick}
-               size="md"
-               {...this.props}
-            >
+            <Button type="submit" varient="success" size="md" {...this.props}>
                {this.props.buttonText}
             </Button>
          </Link>

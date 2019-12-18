@@ -5,7 +5,7 @@ const get = key => JSON.parse(localStorage.getItem(key));
 const remove = key => localStorage.removeItem(key);
 
 export default {
-	save,
-	get,
-	remove,
+   save,
+   get,
+   remove,
 };
