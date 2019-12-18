@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 // const URLSlugs = require('mongoose-url-slugs');
 
-const Chore = require('../src/chore');
-const Household = require('../src/household');
+const Chore = require('../chore');
+const Household = require('../household');
 
 const personSchema = new mongoose.Schema({
 	assigned: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chore' }],

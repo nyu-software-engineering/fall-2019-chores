@@ -4,9 +4,9 @@ var cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
-const Household = require('../src/household');
-const Person = require('../src/person');
-const Chore = require('../src/chore');
+const Household = require('../household');
+const Person = require('../person');
+const Chore = require('../chore');
 
 const API_PORT = 3001;
 const app = express();

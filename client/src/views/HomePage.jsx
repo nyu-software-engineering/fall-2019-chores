@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import household from '../household';
-
 import Calendar from '../components/Calendar';
 import Card from '../components/Card';
 import Chores from '../components/Chores';

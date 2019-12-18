@@ -9,7 +9,6 @@ import {
 } from 'react-bootstrap';
 
 import { states } from '../helpers';
-import person from '../person';
 import logo from '../assets/img/logo.png';
 
 import LinkedButton from '../components/LinkedButton';
