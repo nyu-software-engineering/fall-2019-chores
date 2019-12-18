@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
-// const URLSlugs = require('mongoose-url-slugs');
 
 const Chore = require('../chore');
 const Household = require('../household');
 
 const personSchema = new mongoose.Schema({
 	assigned: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chore' }],
+	email: {
+		type: String,
+		required: true,
+		minlength: 1,
+		unique: true,
+		trim: true,
+	},
 	firstName: {
 		type: String,
 		required: true,
@@ -20,6 +26,12 @@ const personSchema = new mongoose.Schema({
 		minlength: 1,
 		maxlength: 20,
 		trim: true,
+	},
+	password: {
+		type: String,
+		required: true,
+		minlength: 8,
+		select: false,
 	},
 	phoneNum: {
 		type: String,
@@ -38,6 +50,33 @@ const personSchema = new mongoose.Schema({
 		required: false,
 		min: 1,
 	},
+	username: {
+		type: String,
+		required: true,
+		minlength: 1,
+		unique: true,
+		trim: true,
+	},
+});
+
+personSchema.pre('save', function(next) {
+	if (this.isModified('password')) {
+		bcrypt
+			.genSalt(12)
+			.then(salt => {
+				return bcrypt.hash(this.password, salt);
+			})
+			.then(hash => {
+				this.password = hash;
+				next();
+			})
+			.catch(err => {
+				console.log(err);
+				next(err);
+			});
+	} else {
+		return next();
+	}
 });
 
 // personSchema.plugin(URLSlugs('firstName'));
@@ -61,19 +100,6 @@ personSchema.methods = {
 		this.lastName = lastName;
 	},
 
-	getLastName: function() {
-		return this.lastName;
-	},
-
-	//sets Person name to provided argument
-	setLastName: function(lastName) {
-		this.lastName = lastName;
-	},
-
-	//sets Person name to provided argument
-	setLastName: function(lastName) {
-		this.lastName = lastName;
-	},
 	//returns Person score
 	getScore: function() {
 		if (this.score === undefined) return -1;
@@ -91,10 +117,16 @@ personSchema.methods = {
 	},
 
 	//assigns Chore in argument to the Person
-	assignChore: function(chore) {
+	assignChore: function(chore, household) {
 		if (chore instanceof Chore) {
 			if (this.assigned.indexOf(chore._id) === -1) {
 				this.assigned.push(chore._id);
+			}
+		}
+
+		if (household instanceof Household) {
+			if (!household.containsChore(chore)) {
+				household.addChore(chore);
 			}
 		}
 	},
@@ -123,6 +155,7 @@ personSchema.methods = {
 		this.phoneNum = number;
 	},
 
+	//returns person's phone number as a string
 	getNumber: function() {
 		return this.phoneNum;
 	},

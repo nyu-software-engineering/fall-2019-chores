@@ -3,10 +3,12 @@ const express = require('express');
 var cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-
-const Household = require('../household');
-const Person = require('../person');
-const Chore = require('../chore');
+const passport = require('passport');
+const Household = require('../src/household');
+const Person = require('../src/person');
+const Chore = require('../src/chore');
+const jwt = require('jsonwebtoken');
+const secret = process.env.SECRET || 'super secret';
 
 const API_PORT = 3001;
 const app = express();
@@ -195,8 +197,57 @@ router.delete('/person/:id', (req, res) => {
 	});
 });
 
+router.post('/login', async (req, res) => {
+	const username = req.body.username;
+	const password = req.body.password;
+
+	const user = await Person.findOne({ username }).select('+password');
+
+	if (!user) {
+		return res.status(400).json('No account found.');
+	}
+
+	isMatch = await bcrypt.compare(password, user.password);
+
+	// return 400 if password does not match
+	if (!isMatch) {
+		return res.status(400).json('Password is incorrect.');
+	}
+
+	  const payload = {
+    id: user._id,
+    username: user.username
+  };
+
+  // return 500 if token is incorrect
+  if (!token) {
+    return res.status(500)
+      .json({
+        error: "Error signing token",
+        raw: err
+      });
+  }
+
+  token = await jwt.sign(payload, secret, { expiresIn: 36000 });
+
+	return res.json({
+		success: true,
+	});
+});
+
+router.get('/me', passport.authenticate('jwt', { session: false }), async function(req, res, next) {
+  const username = req.user.username;
+  const dbPerson = await Person.findOne({ username });
+  res.status(200).json(dbPerson);
+});
+
+app.use(passport.initialize());
+require('./server/passport')(passport);
+
 // append /api for our http requests
 app.use('/api', router);
+
+
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
