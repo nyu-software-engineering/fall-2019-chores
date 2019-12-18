@@ -9,8 +9,8 @@ const API_PORT = 3001;
 const app = express();
 app.use(cors());
 
-const api = require('../server/routes/house');
-const auth = require('../server/routes/auth');
+const api = require('../routes/house');
+const auth = require('../routes/auth');
 
 const filename = 'cluster_address.txt';
 const mongodb = fs.readFileSync(process.cwd() + '/' + filename).toString();
