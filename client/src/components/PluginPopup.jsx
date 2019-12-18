@@ -1,8 +1,4 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-=======
-import { Row } from 'react-bootstrap';
->>>>>>> dddf3299108adbeb761f95556b41aad4705832c1
 
 import Button from './CustomButton';
 import FormInputs from './FormInputs';
@@ -31,11 +27,7 @@ class PluginPopup extends Component {
    }
 
    handleClick = () => {
-<<<<<<< HEAD
       if (this.state.fixedClasses === 'dropdown') {
-=======
-      if (this.state.classes === 'dropdown') {
->>>>>>> dddf3299108adbeb761f95556b41aad4705832c1
          this.setState({ classes: 'dropdown show-dropdown open' });
       } else {
          this.setState({ classes: 'dropdown' });
@@ -62,10 +54,6 @@ class PluginPopup extends Component {
                      {/* </span> */}
                   </li>
                   <li className="adjustments-line">
-<<<<<<< HEAD
-=======
-                     {/* <li> */}
->>>>>>> dddf3299108adbeb761f95556b41aad4705832c1
                      <form>
                         <FormInputs
                            cols={['col-md-12']}
@@ -128,11 +116,7 @@ class PluginPopup extends Component {
                            cols={['col-md-12']}
                            properties={[
                               {
-<<<<<<< HEAD
-                                 as: 'input',
-=======
                                  as: 'textarea',
->>>>>>> dddf3299108adbeb761f95556b41aad4705832c1
                                  bsPrefix: 'form-control',
                                  label: 'Criteria',
                                  placeholder:
@@ -144,44 +128,27 @@ class PluginPopup extends Component {
                               },
                            ]}
                         />
-<<<<<<< HEAD
-                        <Button
-                           block
-                           size="sm"
-                           type="submit"
-                           // onClick={}
-                           variant="success"
-                           disabled={!this.state.buttonValid}
-                        >
-                           Save
-                        </Button>
-=======
-                        <div className="button-container">
-                           <div className="save">
-                              <Button
-                                 block
-                                 size="sm"
-                                 type="submit"
-                                 onClick={this.handleChange}
-                                 variant="success"
-                                 disabled={!this.state.buttonValid}
-                              >
-                                 Save
-                              </Button>
-                           </div>
-                           <div className="cancel">
-                              <Button
-                                 block
-                                 size="sm"
-                                 type="button"
-                                 onClick={{e => () = this.handleClick(e)}}
-                                 variant="info"
-                              >
-                                 Cancel
-                              </Button>
-                           </div>
-                        </div>
->>>>>>> dddf3299108adbeb761f95556b41aad4705832c1
+                        <li className="button-container">
+                           <Button
+                              block
+                              size="sm"
+                              type="submit"
+                              onClick={}
+                              variant="success"
+                              disabled={!this.state.buttonValid}
+                           >
+                              Save
+                           </Button>
+                           <Button
+                              block
+                              size="sm"
+                              type="button"
+                              onClick={}
+                              variant="info"
+                           >
+                              Cancel
+                           </Button>
+                        </li>
                      </form>
                   </li>
                </ul>
