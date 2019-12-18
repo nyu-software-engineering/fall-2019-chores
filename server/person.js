@@ -5,6 +5,13 @@ const Household = require('../household');
 
 const personSchema = new mongoose.Schema({
 	assigned: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chore' }],
+	email: {
+		type: String,
+		required: true,
+		minlength: 1,
+		unique: true,
+		trim: true,
+	},
 	firstName: {
 		type: String,
 		required: true,
@@ -42,6 +49,13 @@ const personSchema = new mongoose.Schema({
 		type: Number,
 		required: false,
 		min: 1,
+	},
+	username: {
+		type: String,
+		required: true,
+		minlength: 1,
+		unique: true,
+		trim: true,
 	},
 });
 
@@ -86,19 +100,6 @@ personSchema.methods = {
 		this.lastName = lastName;
 	},
 
-	getLastName: function() {
-		return this.lastName;
-	},
-
-	//sets Person name to provided argument
-	setLastName: function(lastName) {
-		this.lastName = lastName;
-	},
-
-	//sets Person name to provided argument
-	setLastName: function(lastName) {
-		this.lastName = lastName;
-	},
 	//returns Person score
 	getScore: function() {
 		if (this.score === undefined) return -1;
