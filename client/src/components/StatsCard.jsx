@@ -25,7 +25,11 @@ export default class StatsCard extends Component {
                      <hr />
                      <div className="stats">
                         {this.props.preText}
-                        <Link to={this.props.link} style={linkStyle}>
+                        <Link
+                           to={this.props.link}
+                           style={linkStyle}
+                           props={this.props.linkData}
+                        >
                            {this.props.linkText}
                         </Link>
                      </div>

@@ -33,12 +33,12 @@ const personSchema = new mongoose.Schema({
 		minlength: 8,
 		select: false,
 	},
-	phoneNum: {
-		type: String,
-		required: true,
-		minlength: 10,
-		maxlength: 10,
-	},
+	// phoneNum: {
+	// 	type: String,
+	// 	required: true,
+	// 	minlength: 10,
+	// 	maxlength: 10,
+	// },
 	score: {
 		type: Number,
 		required: false,

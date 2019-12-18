@@ -7,12 +7,9 @@ export class Chores extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         id: 0,
-         message: null,
-         intervalIsSet: false,
-         idToDelete: null,
-         idToUpdate: null,
-         objectToUpdate: null,
+         isChecked: false,
+         remove: false,
+         edit: false,
       };
    }
 
@@ -24,11 +21,12 @@ export class Chores extends Component {
    };
 
    render() {
-      const household = this.props.household;
+      const household = this.props[0].chores;
+      console.log('chores', household);
       var chores = [];
 
       {
-         household.chores.map((prop, key) => {
+         household.map((chore, key) => {
             var number = 'checkbox' + key;
             return chores.push(
                <tr key={key}>
@@ -38,8 +36,8 @@ export class Chores extends Component {
                         isChecked={this.handleCheckbox}
                      />
                   </td>
-                  <td>{prop.title}</td>
-                  <span>{prop.due}</span>
+                  <td>{chore.title}</td>
+                  {/* <span>{chore.due}</span> */}
                   <td className="td-actions text-right">
                      <ActionButton
                         icon="fa fa-edit"
@@ -47,14 +45,15 @@ export class Chores extends Component {
                         tool="edit_tooltip"
                         tooltext="Edit Chore"
                         variant="info"
+                        editChore={this.edit}
                      />
                      <ActionButton
                         icon="fa fa-times"
                         placement="top"
-                        remove
                         tool="remove_tooltip"
                         tooltext="Remove Chore"
                         variant="danger"
+                        removeChore={this.remove}
                      />
                   </td>
                </tr>

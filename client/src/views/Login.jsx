@@ -1,6 +1,13 @@
 import React from 'react';
 import useForm from 'react-hook-form';
-import { Col, Container, Row } from 'react-bootstrap';
+import {
+   Col,
+   Container,
+   Row,
+   Form,
+   FormGroup,
+   FormLabel,
+} from 'react-bootstrap';
 
 import { request, LS } from '../utils';
 import logo from '../assets/img/logo.png';
@@ -44,44 +51,32 @@ function Login({ history }) {
                         lineBreak
                         content={
                            <form onSubmit={handleSubmit(onSubmit)}>
-                              <FormInputs
-                                 cols={['col-md-12']}
-                                 properties={[
-                                    {
-                                       as: 'input',
-                                       bsPrefix: 'form-control',
-                                       label: 'Username',
-                                       name: 'username',
-                                       placeholder: 'Enter username',
-                                       ref: { register },
-                                       required: true,
-                                       size: 'sm',
-                                       type: 'text',
-                                    },
-                                 ]}
-                              />
-                              <FormInputs
-                                 cols={['col-md-12']}
-                                 properties={[
-                                    {
-                                       as: 'input',
-                                       bsPrefix: 'form-control',
-                                       label: 'Password',
-                                       name: 'password',
-                                       placeholder: 'Enter password',
-                                       ref: { register },
-                                       required: true,
-                                       size: 'sm',
-                                       type: 'password',
-                                    },
-                                 ]}
-                              />
-                              <LinkedButton
-                                 pathname="/home"
-                                 buttonText="Login"
+                              <FormGroup>
+                                 <FormLabel>Username</FormLabel>
+                                 <Form.Control
+                                    type="text"
+                                    placeholder="Enter username"
+                                    name="username"
+                                    ref={register}
+                                 />
+                              </FormGroup>
+                              <FormGroup>
+                                 <FormLabel>Password</FormLabel>
+                                 <Form.Control
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    ref={register}
+                                 />
+                              </FormGroup>
+                              <Button
                                  block
-                              />
-                              <div className="clearfix" />
+                                 size="sm"
+                                 type="submit"
+                                 variant="success"
+                              >
+                                 Login
+                              </Button>
                            </form>
                         }
                         footer

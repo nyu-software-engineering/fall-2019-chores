@@ -9,6 +9,33 @@ import LinkedButton from '../components/LinkedButton';
 import Card from '../components/Card';
 import FormInputs from '../components/FormInputs';
 
+function createUser() {
+	fetch('http://localhost:3001/api/person', {
+		method: 'post',
+		body: JSON.stringify([
+			{
+				email: this.state.email,
+				firstName: this.state.firstName,
+				lastName: this.state.lastName,
+			},
+		]),
+		headers: {
+			'Content-Type': 'application/json',
+			Origin: 'http://localhost:3001',
+		},
+	})
+		.then(res => res.json())
+		.then(status => {
+			if (status.success === false) {
+				console.log('MISSION FAILED');
+				console.log(status.error);
+			} else {
+				console.log('MISSION SUCCESS');
+				this.setState({ personID: status.id });
+			}
+		});
+}
+
 function Signup({ history }) {
 	const { register, handleSubmit } = useForm();
 	const onSubmit = async data => {
@@ -23,32 +50,6 @@ function Signup({ history }) {
 			history.push('/login');
 		}
 	};
-	// createUser() {
-	// 	fetch('http://localhost:3001/api/person', {
-	// 		method: 'post',
-	// 		body: JSON.stringify([
-	// 			{
-	// 				phoneNum: this.state.phoneNum,
-	// 				firstName: this.state.firstName,
-	// 				lastName: this.state.lastName,
-	// 			},
-	// 		]),
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 			Origin: 'http://localhost:3001',
-	// 		},
-	// 	})
-	// 		.then(res => res.json())
-	// 		.then(status => {
-	// 			if (status.success === false) {
-	// 				console.log('MISSION FAILED');
-	// 				console.log(status.error);
-	// 			} else {
-	// 				console.log('MISSION SUCCESS');
-	// 				this.setState({ personID: status.id });
-	// 			}
-	// 		});
-	// }
 
 	return (
 		<div id="signup" className="signup">
@@ -95,6 +96,21 @@ function Signup({ history }) {
 											]}
 										/>
 										<FormInputs
+											cols={['col-md-12']}
+											properties={[
+												{
+													as: 'input',
+													bsPrefix: 'form-control',
+													label: 'Email',
+													placeholder: 'example@housekeeper.com',
+													required: true,
+													size: 'sm',
+													ref: { register },
+													type: 'email',
+												},
+											]}
+										/>
+										<FormInputs
 											cols={['col-md-6', 'col-md-6']}
 											properties={[
 												{
@@ -110,33 +126,8 @@ function Signup({ history }) {
 												{
 													as: 'input',
 													bsPrefix: 'form-control',
-													label: 'Phone Number',
-													placeholder: 'XXX-XXX-XXX',
-													required: true,
-													size: 'sm',
-													ref: { register },
-													type: 'phoneNum',
-												},
-											]}
-										/>
-										<FormInputs
-											cols={['col-md-6', 'col-md-6']}
-											properties={[
-												{
-													as: 'input',
-													bsPrefix: 'form-control',
 													label: 'Password',
 													placeholder: 'Password',
-													required: true,
-													size: 'sm',
-													type: 'password',
-													ref: { register },
-												},
-												{
-													as: 'input',
-													bsPrefix: 'form-control',
-													label: 'Confirm Password',
-													placeholder: 'Confirm Password',
 													required: true,
 													size: 'sm',
 													type: 'password',
@@ -146,14 +137,14 @@ function Signup({ history }) {
 										/>
 										<LinkedButton
 											pathname="/newHousehold"
-											onClick={this.createUser}
+											// onClick={this.createUser}
 											buttonText="Create New Household"
 											block
 										/>
 										<div className="clearfix"> or </div>
 										<LinkedButton
 											pathname="/join"
-											onClick={this.createUser}
+											// onClick={this.createUser}
 											buttonText="Join Existing Household"
 											block
 										/>

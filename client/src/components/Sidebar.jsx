@@ -28,7 +28,6 @@ export default class Sidebar extends Component {
    }
 
    render() {
-      console.log('routes:', this.props.routes);
       return (
          <div id="sidebar" className="sidebar">
             <div className="logo">
