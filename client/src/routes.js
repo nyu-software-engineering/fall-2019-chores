@@ -5,7 +5,7 @@ import Login from './views/Login';
 import Signup from './views/Signup';
 import UpdateAccount from './views/UpdateAccount';
 
-const homeRoutes = [
+const routes = [
 	{
 		path: '/home',
 		name: 'Home',
@@ -37,11 +37,11 @@ const homeRoutes = [
 		layout: '/app',
 	},
 	{
-		path: '/',
+		path: '/login',
 		name: 'Logout',
 		component: Login,
 		layout: '/app',
 	},
 ];
 
-export default homeRoutes;
+export default routes;

@@ -59,8 +59,10 @@
      &[disabled],
      &.disabled{
         @include opacity(.5);
+        background-color: transparent !important;
     }
 }
+
 .btn-round{
     border-width: $border-thin;
     border-radius: $btn-round-radius !important;

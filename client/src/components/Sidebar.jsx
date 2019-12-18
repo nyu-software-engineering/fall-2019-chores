@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import logo from '../assets/img/logo.png';
 
@@ -11,9 +11,9 @@ export default class Sidebar extends Component {
       };
    }
 
-   // activeRoute(routeName) {
-   //    return this.props.routes.pathname.indexOf(routeName) > -1 ? 'active' : '';
-   // }
+   activeRoute(routeName) {
+      return this.props.routes.indexOf(routeName) > -1 ? 'active' : '';
+   }
 
    updateDimensions() {
       this.setState({ width: window.innerWidth });
@@ -25,6 +25,7 @@ export default class Sidebar extends Component {
    }
 
    render() {
+      console.log('routes:', this.props.routes);
       return (
          <div id="sidebar" className="sidebar">
             <div className="logo">
@@ -41,17 +42,17 @@ export default class Sidebar extends Component {
                      if (!prop.redirect)
                         return (
                            <li
-                              // className={this.activeRoute(prop.path)}
+                              className={this.activeRoute(prop.path)}
                               className={prop.pathname}
                               key={key}
                            >
-                              <NavLink
+                              <Link
                                  to={prop.path}
                                  className="nav-link"
                                  activeClassName="active"
                               >
                                  <p>{prop.name}</p>
-                              </NavLink>
+                              </Link>
                            </li>
                         );
                      return null;

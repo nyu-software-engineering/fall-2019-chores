@@ -6,10 +6,10 @@ export default class CustomCheckbox extends Component {
       this.state = {
          is_checked: props.isChecked ? true : false,
       };
-      this.handleClick = this.handleClick.bind(this);
+      this.handleCheck = this.handleCheck.bind(this);
    }
 
-   handleClick() {
+   handleCheck() {
       this.setState({ is_checked: !this.state.is_checked });
    }
 
@@ -22,7 +22,7 @@ export default class CustomCheckbox extends Component {
             <input
                number={number}
                type="checkbox"
-               onChange={this.handleClick}
+               onChange={this.handleCheck}
                checked={this.state.is_checked}
                {...rest}
             />
