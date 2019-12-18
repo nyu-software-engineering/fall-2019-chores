@@ -22,9 +22,9 @@ ReactDOM.render(
          <ProtectedRoute path="/home" component={App} />
          <Route path="/login" component={Login} />
          <Route path="/signup" component={Signup} />
-         {/* <ProtectedRoute path="/myhouses" component={ListHousehold} /> */}
-         {/* <ProtectedRoute path="/mychores" component={ListChores} /> */}
-         {/* <ProtectedRoute path="/myaccount" component={UserAcount} /> */}
+         <ProtectedRoute path="/myhouses" component={ListHousehold} />
+         <ProtectedRoute path="/mychores" component={ListChores} />
+         <ProtectedRoute path="/myaccount" component={UserAcount} />
          <Route path="/newhousehold" component={CreateHousehold} />
          <Route path="/join" render={props => <JoinHousehold {...props} />} />
       </Switch>
