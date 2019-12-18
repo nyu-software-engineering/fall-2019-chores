@@ -29,15 +29,17 @@ export class Chores extends Component {
 
       {
          household.chores.map((prop, key) => {
+            var number = 'checkbox' + key;
             return chores.push(
                <tr key={key}>
                   <td>
                      <Checkbox
-                        number={key}
-                        isChecked={key === 1 || key === 2 ? true : false}
+                        number={number}
+                        isChecked={this.handleCheckbox}
                      />
                   </td>
                   <td>{prop.title}</td>
+                  <span>{prop.due}</span>
                   <td className="td-actions text-right">
                      <ActionButton
                         icon="fa fa-edit"

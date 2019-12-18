@@ -9,6 +9,7 @@ class ActionButton extends Component {
    constructor(props) {
       super(props);
       this.state = {
+         fixedClasses: 'dropdown show-dropdown open',
          showPlugin: false,
          remove: false,
       };
@@ -19,6 +20,14 @@ class ActionButton extends Component {
 
    handleButtonClick = () => {
       this.setState({ showPlugin: true });
+   };
+
+   handleFixedClick = () => {
+      if (this.state.fixedClasses === 'dropdown') {
+         this.setState({ fixedClasses: 'dropdown show-dropdown open' });
+      } else {
+         this.setState({ fixedClasses: 'dropdown' });
+      }
    };
 
    handleRemove = () => {
@@ -43,6 +52,7 @@ class ActionButton extends Component {
                {this.state.showPlugin ? (
                   <PluginPopup
                      fixedClasses={this.state.fixedClasses}
+                     handleFixedClick={this.handleFixedClick}
                      mini={this.state['mini']}
                      header={this.props.tooltext}
                   />

@@ -7,7 +7,6 @@ class PluginPopup extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         classes: 'dropdown show-dropdown open',
          formData: {
             title: '',
             status: 0,
@@ -24,36 +23,18 @@ class PluginPopup extends Component {
       let formData = Object.assign({}, this.state.formData);
       formData[e.target.title] = e.target.value;
       this.setState({ formData });
+      this.setState({ fixedClasses: 'dropdown' });
    }
 
-   handleClick = () => {
-      if (this.state.fixedClasses === 'dropdown') {
-         this.setState({ classes: 'dropdown show-dropdown open' });
-      } else {
-         this.setState({ classes: 'dropdown' });
-      }
-   };
-
    render() {
-      const today = new Date().today;
+      const today = new Date();
       return (
          <div className="fixed-plugin">
             <div id="fixedPluginClasses" className={this.props.fixedClasses}>
                <ul className="dropdown-menu">
-                  <li className="header-title">
-                     {this.props.header}
-                     {/* <span> */}
-                     {/*    <Button */}
-                     {/*       variant="danger" */}
-                     {/*       simple */}
-                     {/*       type="button" */}
-                     {/*       onClick={this.handleClick} */}
-                     {/*    > */}
-                     {/*       <i className="fa fa-times" /> */}
-                     {/*    </Button> */}
-                     {/* </span> */}
-                  </li>
+                  <li className="header-title">{this.props.header}</li>
                   <li className="adjustments-line">
+                     {/* <li> */}
                      <form>
                         <FormInputs
                            cols={['col-md-12']}
@@ -93,12 +74,12 @@ class PluginPopup extends Component {
                                  as: 'input',
                                  bsPrefix: 'form-control',
                                  label: 'Date Created',
-                                 placeholder: 'dd/mm/yyyy',
                                  required: true,
                                  size: 'sm',
                                  type: 'date',
                                  defaultValue: { today },
                                  onChange: this.handleChange,
+                                 disabled: true,
                               },
                               {
                                  as: 'input',
@@ -128,27 +109,31 @@ class PluginPopup extends Component {
                               },
                            ]}
                         />
-                        <li className="button-container">
-                           <Button
-                              block
-                              size="sm"
-                              type="submit"
-                              onClick={}
-                              variant="success"
-                              disabled={!this.state.buttonValid}
-                           >
-                              Save
-                           </Button>
-                           <Button
-                              block
-                              size="sm"
-                              type="button"
-                              onClick={}
-                              variant="info"
-                           >
-                              Cancel
-                           </Button>
-                        </li>
+                        <div className="button-container">
+                           <div className="save">
+                              <Button
+                                 block
+                                 size="sm"
+                                 type="submit"
+                                 onClick={this.handleChange}
+                                 variant="success"
+                                 disabled={!this.state.buttonValid}
+                              >
+                                 Save
+                              </Button>
+                           </div>
+                           <div className="cancel">
+                              <Button
+                                 block
+                                 size="sm"
+                                 type="button"
+                                 onClick={this.props.handleFixedClick}
+                                 variant="info"
+                              >
+                                 Cancel
+                              </Button>
+                           </div>
+                        </div>
                      </form>
                   </li>
                </ul>
