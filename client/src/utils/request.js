@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import Auth from './auth';
+const auth = require('./auth');
 
 axios.interceptors.request.use(
 	config => {
@@ -19,7 +19,7 @@ axios.interceptors.response.use(
 	response => response,
 	async error => {
 		if (error.response.status === 401) {
-			await Auth.deleteToken();
+			await auth.deleteToken();
 			window.location.pathname = '/login';
 			return Promise.reject(error);
 		}
