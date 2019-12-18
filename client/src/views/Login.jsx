@@ -49,7 +49,7 @@ function Login({ history }) {
                                  properties={[
                                     {
                                        as: 'input',
-                                       bsPrefix: 'form-control',
+                                       // bsPrefix: 'form-control',
                                        label: 'Username',
                                        name: 'username',
                                        placeholder: 'Enter username',
@@ -65,7 +65,7 @@ function Login({ history }) {
                                  properties={[
                                     {
                                        as: 'input',
-                                       bsPrefix: 'form-control',
+                                       // bsPrefix: 'form-control',
                                        label: 'Password',
                                        name: 'password',
                                        placeholder: 'Enter password',
