@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 
-import Household from '../household';
-
 import Button from '../components/CustomButton';
 import Card from '../components/Card';
 import DropdownTable from '../components/DropdownTable';

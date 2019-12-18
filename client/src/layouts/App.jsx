@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 
 import homeRoutes from '../routes';
-import households from '../household';
 
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
