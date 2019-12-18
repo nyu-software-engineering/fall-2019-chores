@@ -6,6 +6,7 @@ import routes from '../routes';
 
 import Footer from '../components/Footer';
 import Sidebar from '../components/Sidebar';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 export default class App extends Component {
    constructor(props) {
@@ -53,21 +54,13 @@ export default class App extends Component {
          },
       };
 
-      console.log('app.js props:', newProps);
-
       return routes.map((prop, key) => {
          if (prop.layout === '/app') {
             return (
-               <Route
+               <ProtectedRoute
                   path={prop.path}
                   render={props => <prop.component {...newProps} />}
                   key={key}
-                  // methods={{
-                  //    getDataFromDB: this.getDataFromDB,
-                  //    putDataToDB: this.putDataToDB,
-                  //    deleteFromDB: this.deleteFromDB,
-                  //    updateDB: this.updateDB,
-                  // }}
                />
             );
          } else {

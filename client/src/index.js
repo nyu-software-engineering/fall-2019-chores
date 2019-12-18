@@ -14,17 +14,16 @@ import ListHousehold from './views/HousesList';
 import ListChores from './views/ChoresList';
 import JoinHousehold from './views/JoinHousehold.jsx';
 import UserAcount from './views/UpdateAccount';
-import ProtectedRoute from './components/ProtectedRoute';
 
 ReactDOM.render(
    <BrowserRouter>
       <Switch>
-         <ProtectedRoute path="/home" component={App} />
+         {/* <ProtectedRoute path="/home" component={App} /> */}
          <Route path="/login" component={Login} />
          <Route path="/signup" component={Signup} />
-         <ProtectedRoute path="/myhouses" component={ListHousehold} />
-         <ProtectedRoute path="/mychores" component={ListChores} />
-         <ProtectedRoute path="/myaccount" component={UserAcount} />
+         {/* <ProtectedRoute path="/myhouses" component={ListHousehold} /> */}
+         {/* <ProtectedRoute path="/mychores" component={ListChores} /> */}
+         {/* <ProtectedRoute path="/myaccount" component={UserAcount} /> */}
          <Route path="/newhousehold" component={CreateHousehold} />
          <Route path="/join" render={props => <JoinHousehold {...props} />} />
       </Switch>

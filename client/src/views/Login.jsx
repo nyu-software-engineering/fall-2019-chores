@@ -76,11 +76,14 @@ function Login({ history }) {
                                     },
                                  ]}
                               />
-                              <LinkedButton
-                                 pathname="/home"
-                                 buttonText="Login"
+                              <Button
                                  block
-                              />
+                                 size="sm"
+                                 type="submit"
+                                 variant="success"
+                              >
+                                 Login
+                              </Button>
                               <div className="clearfix" />
                            </form>
                         }
