@@ -69,7 +69,7 @@ router.post('/household', (req, res) => {
 	const newHousehold = new Household(req.body);
 	newHousehold.save((err, household) => {
 		if (err) {
-			res.json({
+			res.status(400).json({
 				success: false,
 				error: err,
 			});
@@ -89,7 +89,7 @@ router.post('/chore', (req, res) => {
 	const newChore = new Chore(req.body);
 	newChore.save((err, chore) => {
 		if (err) {
-			res.json({
+			res.status(400).json({
 				success: false,
 				error: err,
 			});
@@ -110,7 +110,7 @@ router.post('/chore/:id', (req, res) => {
 
 	Chore.findByIdAndReplace(req.params.id, chore, err => {
 		if (err) {
-			res.json({
+			res.status(400).json({
 				success: false,
 				error: err,
 			});
@@ -128,12 +128,12 @@ router.post('/chore/:id', (req, res) => {
 router.delete('/chore/:id', (req, res) => {
 	Chore.findByIdAndRemove(req.params.id, err => {
 		if (err) {
-			res.json({
+			res.status(400).json({
 				success: false,
 				error: err,
 			});
 		} else {
-			res.json({
+			res.status(200).json({
 				success: true,
 			});
 		}
@@ -144,12 +144,12 @@ router.delete('/chore/:id', (req, res) => {
    req should include object containing necessary person info
    req should (optionally) include a household id if joining a household
    res should return whether it was added successfully */
-router.post('/person', (req, res) => {
+router.post('/signup', (req, res) => {
 	console.log(req.body);
 	const newPerson = new Person(req.body[0]);
 	newPerson.save((err, person) => {
 		if (err) {
-			res.json({
+			res.status(400).json({
 				success: false,
 				error: err,
 			});
@@ -157,7 +157,7 @@ router.post('/person', (req, res) => {
 			if (req.body[1]) {
 				person.addHousehold(req.body[1].id);
 			}
-			res.json({
+			res.status(200).json({
 				success: true,
 				id: person._id,
 			});
@@ -183,7 +183,7 @@ router.post('/person/:id', (req, res) => {
 
 	Person.findByIdAndReplace(req.params.id, person, err => {
 		if (err) return res.json({ success: false, error: err });
-		res.json({ success: true });
+		res.status(200).json({ success: true });
 	});
 });
 
@@ -193,7 +193,7 @@ router.post('/person/:id', (req, res) => {
 router.delete('/person/:id', (req, res) => {
 	Person.findByIdAndRemove(req.params.id, err => {
 		if (err) return res.json({ success: false, error: err });
-		res.json({ success: true });
+		res.status(200).json({ success: true });
 	});
 });
 
@@ -214,40 +214,41 @@ router.post('/login', async (req, res) => {
 		return res.status(400).json('Password is incorrect.');
 	}
 
-	  const payload = {
-    id: user._id,
-    username: user.username
-  };
+	const payload = {
+		id: user._id,
+		username: user.username,
+	};
 
-  // return 500 if token is incorrect
-  if (!token) {
-    return res.status(500)
-      .json({
-        error: "Error signing token",
-        raw: err
-      });
-  }
+	// return 500 if token is incorrect
+	if (!token) {
+		return res.status(500).json({
+			error: 'Error signing token',
+			raw: err,
+		});
+	}
 
-  token = await jwt.sign(payload, secret, { expiresIn: 36000 });
+	token = await jwt.sign(payload, secret, { expiresIn: 36000 });
 
 	return res.json({
 		success: true,
 	});
 });
 
-router.get('/me', passport.authenticate('jwt', { session: false }), async function(req, res, next) {
-  const username = req.user.username;
-  const dbPerson = await Person.findOne({ username });
-  res.status(200).json(dbPerson);
-});
+router.get(
+	'/me',
+	passport.authenticate('jwt', { session: false }),
+	async function(req, res, next) {
+		const username = req.user.username;
+		const dbPerson = await Person.findOne({ username });
+		res.status(200).json(dbPerson);
+	}
+);
 
 app.use(passport.initialize());
 require('./server/passport')(passport);
 
 // append /api for our http requests
 app.use('/api', router);
-
-
 
 // launch our backend into a port
 app.listen(API_PORT, () => console.log(`LISTENING ON PORT ${API_PORT}`));
