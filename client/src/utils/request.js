@@ -1,5 +1,5 @@
 import axios from 'axios';
-import auth from './auth';
+import Auth from './auth';
 
 axios.interceptors.request.use(
    config => {
@@ -18,7 +18,7 @@ axios.interceptors.response.use(
    response => response,
    async error => {
       if (error.response.status === 401) {
-         await auth.deleteToken();
+         await Auth.deleteToken();
          window.location.pathname = '/login';
          return Promise.reject(error);
       }
