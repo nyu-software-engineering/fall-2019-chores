@@ -7,13 +7,9 @@ export class Chores extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         id: 0,
-         message: null,
-         intervalIsSet: false,
-         idToDelete: null,
-         idToUpdate: null,
-         objectToUpdate: null,
          isChecked: false,
+         remove: false,
+         edit: false,
       };
    }
 
@@ -49,14 +45,15 @@ export class Chores extends Component {
                         tool="edit_tooltip"
                         tooltext="Edit Chore"
                         variant="info"
+                        editChore={this.edit}
                      />
                      <ActionButton
                         icon="fa fa-times"
                         placement="top"
-                        remove
                         tool="remove_tooltip"
                         tooltext="Remove Chore"
                         variant="danger"
+                        removeChore={this.remove}
                      />
                   </td>
                </tr>

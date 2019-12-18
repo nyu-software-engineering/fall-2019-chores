@@ -11,7 +11,7 @@ class ActionButton extends Component {
       this.state = {
          fixedClasses: 'dropdown show-dropdown open',
          showPlugin: false,
-         remove: false,
+         remove: true,
       };
 
       this.handleButtonClick = this.handleButtonClick.bind(this);
