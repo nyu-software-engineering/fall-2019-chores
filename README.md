@@ -6,8 +6,9 @@ HouseKeeper is a Progressive Web App designed to help roommates respectfully all
 ---
 
 ## Running our program
-To run our program, navigate to the `/client` folder within the project and run:
-`nom run start`
+To run our program, run the `npm install` command in both the root project folder, and the `/client` sub-folder.  Run `npm run start` while within the `/client` folder. 
+
+Additionally, this project expects a database connection, but we do not include database credentials due to security purposes. Therefore, for best support populate the `cluster_address.txt` file with an address to a MongoDB cluster of your choice.
 
 --- 
 
