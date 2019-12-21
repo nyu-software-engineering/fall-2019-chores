@@ -1,7 +1,7 @@
 const express = require('express');
-const Household = require('../src/household');
-const Person = require('../src/person');
-const Chore = require('../src/chore');
+const Household = require('../household');
+const Person = require('../person');
+const Chore = require('../chore');
 
 const router = express.Router();
 

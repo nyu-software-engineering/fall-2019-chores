@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const Chore = require('../chore');
-const Household = require('../household');
+const Chore = require('./chore');
+const Household = require('./household');
 
 const personSchema = new mongoose.Schema({
 	assigned: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Chore' }],
